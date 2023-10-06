@@ -1,0 +1,8 @@
+[gd_resource type="CanvasTexture" load_steps=3 format=3 uid="uid://bnidu8rk55tyl"]
+
+[ext_resource type="Texture2D" uid="uid://dxt425tsvdc1i" path="res://World/Maps/Tiles/cave_tiles.png" id="1_im7mh"]
+[ext_resource type="Texture2D" uid="uid://bcmyih3j21hsg" path="res://World/Maps/Cave_Tiles/cave_tiles_normal_map.png" id="2_3v2kg"]
+
+[resource]
+diffuse_texture = ExtResource("1_im7mh")
+normal_texture = ExtResource("2_3v2kg")
