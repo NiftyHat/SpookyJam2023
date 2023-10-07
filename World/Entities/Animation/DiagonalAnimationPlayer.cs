@@ -19,25 +19,27 @@ namespace SpookyBotanyGame.World.Entities.Character
             _oneShotAnimationHandler.Animation = Animation;
         }
 
-        public string GetVerticalAnimationDirection(Vector2 inputDirection)
+        public string SetVerticalAnimationDirection(Vector2 inputDirection)
         {
-            string animationDirectionName = _animationDirection;
-            if (inputDirection.Y >= 0)
-            {
-                animationDirectionName = "south";
-            }
+            GD.Print(inputDirection);
             if (inputDirection.Y < 0)
             {
-                animationDirectionName = "north";
+                _animationDirection = "north";
             }
-            return animationDirectionName;
+            if (inputDirection.Y > 0)
+            {
+                _animationDirection = "south";
+            }
+            return _animationDirection;
         }
     
     
         public void Play(Vector2 inputDirection, string animationName)
         {
-            string directionalAnimationName = GetDirectionalAnimationName(inputDirection, animationName);
+            SetVerticalAnimationDirection(inputDirection);
             SetFlipFromDirection(inputDirection);
+            string directionalAnimationName = GetDirectionalAnimationName(animationName);
+            GD.Print(directionalAnimationName);
             Animation.Play(directionalAnimationName);
         }
         
@@ -45,6 +47,11 @@ namespace SpookyBotanyGame.World.Entities.Character
         {
             string directionalAnimationName = GetDirectionalAnimationName(animationName);
             Animation.Play(directionalAnimationName);
+        }
+
+        public void Reset()
+        {
+            Animation.Play("RESET");
         }
 
         private void SetFlipFromDirection(Vector2 inputDirection)
@@ -59,12 +66,10 @@ namespace SpookyBotanyGame.World.Entities.Character
             }
         }
 
-        private string GetDirectionalAnimationName(Vector2 inputDirection, string animationName)
+        private string GetDirectionalAnimationName(string directionName, string animationName)
         {
-            _animationDirection = GetVerticalAnimationDirection(inputDirection);
-            return animationName + "_" + _animationDirection;
+            return animationName + "_" + directionName;
         }
-        
         private string GetDirectionalAnimationName(string animationName)
         {
             return animationName + "_" + _animationDirection;
@@ -74,6 +79,7 @@ namespace SpookyBotanyGame.World.Entities.Character
         {
             string directionalAnimationName = GetDirectionalAnimationName(animationName);
             _oneShotAnimationHandler.Add(directionalAnimationName, callback);
+            Animation.Play(directionalAnimationName);
         }
     }
 }

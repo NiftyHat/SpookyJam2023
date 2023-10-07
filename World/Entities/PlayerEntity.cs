@@ -1,5 +1,6 @@
 using Godot;
 using SpookyBotanyGame.World.Entities.Character;
+using SpookyBotanyGame.World.Entities.Collision;
 using SpookyBotanyGame.World.Entities.Properties;
 using PlayerInputControlled = SpookyBotanyGame.World.Entities.Properties.PlayerInputControlled;
 
@@ -11,6 +12,8 @@ namespace SpookyBotanyGame.World.Entities
         [Export] public Killable Killable { get; set; }
         [Export] public DiagonalAnimationPlayer Animation { get; set; }
         [Export] public PlayerInputControlled InputControlled { get; set; }
+        
+        [Export] public EntityCharacterBody2D Body { get; set; }
 
         private World.SpawnPoint _spawnPoint;
 
@@ -18,6 +21,7 @@ namespace SpookyBotanyGame.World.Entities
         {
             base._Ready();
             Killable.OnKilled += HandleKilled;
+            Killable.OnRespawned += HandleRespawned;
             _properties.Add(Killable);
         }
 
@@ -30,7 +34,7 @@ namespace SpookyBotanyGame.World.Entities
         private void AddSpawnPointToParent()
         {
             _spawnPoint = new World.SpawnPoint();
-            _spawnPoint.Position = this.Position;
+            _spawnPoint.Position = Body.Position;
         }
 
         private void HandleKilled()
@@ -38,16 +42,16 @@ namespace SpookyBotanyGame.World.Entities
             InputControlled.Disable();
             Animation.PlayOneShot("death", HandleDeathAnimationComplete);
         }
+        
+        private void HandleRespawned(SpawnPoint spawnPoint)
+        {
+            InputControlled.Enable();
+        }
 
         private void HandleDeathAnimationComplete(StringName animName)
         {
-            _spawnPoint.Spawn(this, HandleRespawn);
-            Animation.Play("RESET");
-        }
-
-        private void HandleRespawn(SpawnPoint spawnPoint)
-        {
-            Killable.Spawn();
+            _spawnPoint.Spawn(Body, Killable.Spawn);
+            Animation.Reset();
         }
     }
 }

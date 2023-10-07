@@ -8,13 +8,8 @@ namespace SpookyBotanyGame.World.Entities
     /// </summary>
     public class OneShotAnimationHandler
     {
-        private Dictionary<string, List<AnimationPlayer.AnimationFinishedEventHandler>> _items;
-        private bool _isEmpty;
-
-        public OneShotAnimationHandler()
-        {
-            _items = new Dictionary<string, List<AnimationPlayer.AnimationFinishedEventHandler>>();
-        }
+        //TODO dsaunders - make this allocate just in time when you add your first handler.
+        private Dictionary<string, List<AnimationPlayer.AnimationFinishedEventHandler>> _items = new();
 
         private AnimationPlayer _animation;
         public AnimationPlayer Animation
@@ -23,17 +18,19 @@ namespace SpookyBotanyGame.World.Entities
             set => SetAnimationPlayer(value);
         }
 
+        public bool HasActiveHandler  => _items != null && _items.Count < 1;
+
         private void SetAnimationPlayer(AnimationPlayer animation)
         {
             //if there is an existing animation clear out the existing queued events.
             if (_animation != null)
             {
-                if (!_isEmpty)
+                if (_items.Keys.Count > 0)
                 {
                     Animation.AnimationFinished -= HandleAnimationFinished;
+                    _items.Clear();
                 }
-                _items.Clear();
-                _isEmpty = true;
+                
             }
             _animation = animation;
         }
@@ -51,9 +48,8 @@ namespace SpookyBotanyGame.World.Entities
                 GD.PushWarning($"{nameof(OneShotAnimationHandler)} {nameof(Add)}() animation '{animationName}' uses loopmode {animation.LoopMode.ToString()} and will never dispatch");
                 return;
             }
-            if (_isEmpty)
+            if (HasActiveHandler)
             {
-                _isEmpty = false;
                 Animation.AnimationFinished += HandleAnimationFinished;
             }
             if ( _items.TryGetValue(animationName, out var list))
@@ -68,10 +64,9 @@ namespace SpookyBotanyGame.World.Entities
         
         private void Remove(StringName animationName)
         {
-            _items.Remove(animationName);
-            if (_items.Keys.Count == 0)
+             _items.Remove(animationName);
+            if (HasActiveHandler)
             {
-                _isEmpty = true;
                 Animation.AnimationFinished -= HandleAnimationFinished;
             }
         }

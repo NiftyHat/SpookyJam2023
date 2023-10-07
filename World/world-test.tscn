@@ -7,9 +7,10 @@
 [node name="world-test" type="Node2D"]
 
 [node name="test_map" parent="." instance=ExtResource("1_wukwe")]
+position = Vector2(0, 1)
 
 [node name="PlayerEntity" parent="." groups=["EntityProvider"] instance=ExtResource("2_3tyht")]
-position = Vector2(360, 161)
+position = Vector2(360, 162)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0, 0, 0, 1)

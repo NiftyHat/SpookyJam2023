@@ -71,7 +71,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [1]
 }
 
 [sub_resource type="Animation" id="Animation_r64as"]
@@ -83,10 +83,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.1),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [1]
+"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_5js0m"]
@@ -134,11 +134,12 @@ _data = {
 script = ExtResource("1_mqoqk")
 Entity = NodePath("PlayerEntity")
 
-[node name="PlayerEntity" type="Node2D" parent="." node_paths=PackedStringArray("Killable", "Animation", "InputControlled")]
+[node name="PlayerEntity" type="Node2D" parent="." node_paths=PackedStringArray("Killable", "Animation", "InputControlled", "Body")]
 script = ExtResource("1_8x44m")
 Killable = NodePath("Killable")
 Animation = NodePath("DiagonalAnimationPlayer")
 InputControlled = NodePath("PlayerInputControlled")
+Body = NodePath("..")
 
 [node name="Killable" type="Node2D" parent="PlayerEntity"]
 script = ExtResource("4_boswr")

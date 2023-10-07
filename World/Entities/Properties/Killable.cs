@@ -8,10 +8,10 @@ namespace SpookyBotanyGame.World.Entities.Properties
         [Export] public CollisionObject2D HurtBox { get; set; }
         
         public delegate void Killed();
-        public delegate void Spawned();
+        public delegate void Respawned(SpawnPoint spawnPoint);
 
         public event Killed OnKilled;
-        public event Spawned OnSpawned;
+        public event Respawned OnRespawned;
         private bool _isAlive = true;
         
         public void Kill()
@@ -30,8 +30,13 @@ namespace SpookyBotanyGame.World.Entities.Properties
 
         public void Spawn()
         {
-            OnSpawned?.Invoke();
             _isAlive = true;
+        }
+        
+        public void Spawn(SpawnPoint spawnPoint)
+        {
+            _isAlive = true;
+            OnRespawned?.Invoke(spawnPoint);
         }
     }
 }
