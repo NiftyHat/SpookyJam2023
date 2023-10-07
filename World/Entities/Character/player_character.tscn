@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://2e67lne3ri8e"]
+[gd_scene load_steps=15 format=3 uid="uid://2e67lne3ri8e"]
 
 [ext_resource type="Script" path="res://World/Entities/Character/PlayerInputControlled.cs" id="1_x4rdm"]
 [ext_resource type="Texture2D" uid="uid://nmjhg4bxw4cq" path="res://World/Entities/Character/Prototype_Worksheet.png" id="1_yysge"]
+[ext_resource type="Script" path="res://World/Entities/Character/FourDirectionAnimationController.cs" id="3_pd4qt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iuiey"]
 radius = 5.0
@@ -222,7 +223,7 @@ _data = {
 [node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("Animation")]
 script = ExtResource("1_x4rdm")
 Speed = 100.0
-Animation = NodePath("AnimationPlayer")
+Animation = NodePath("FourDirectionAnimationController")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
@@ -236,7 +237,12 @@ vframes = 12
 scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_iuiey")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="FourDirectionAnimationController" type="Node2D" parent="." node_paths=PackedStringArray("Animation")]
+script = ExtResource("3_pd4qt")
+Animation = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="FourDirectionAnimationController"]
+root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_7m80j")
 }

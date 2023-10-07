@@ -62,3 +62,7 @@ move_down={
 [layer_names]
 
 2d_render/layer_2="DrawShadow"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
