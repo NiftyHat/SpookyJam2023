@@ -1,0 +1,52 @@
+[gd_scene load_steps=9 format=3 uid="uid://bhitj5sv3t5vw"]
+
+[ext_resource type="Script" path="res://World/Entities/GameEntity.cs" id="1_o2occ"]
+[ext_resource type="Script" path="res://World/Entities/Properties/Dangerous.cs" id="2_qs1kc"]
+[ext_resource type="Texture2D" uid="uid://vhu73oskk1n1" path="res://World/Entities/Hazards/entity-placeholder-fatal.png" id="3_qlbf7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xsj2n"]
+atlas = ExtResource("3_qlbf7")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1ukx"]
+atlas = ExtResource("3_qlbf7")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lgihh"]
+atlas = ExtResource("3_qlbf7")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7o5aa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xsj2n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d1ukx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lgihh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jm04i"]
+
+[node name="FatalHazard-Test" type="Node2D"]
+script = ExtResource("1_o2occ")
+
+[node name="Dangerous" type="Node2D" parent="." node_paths=PackedStringArray("HitBox")]
+script = ExtResource("2_qs1kc")
+HitBox = NodePath("../Area2D")
+_isEnabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7o5aa")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_jm04i")

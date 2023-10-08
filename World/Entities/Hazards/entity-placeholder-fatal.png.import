@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nmjhg4bxw4cq"
-path="res://.godot/imported/Prototype_Worksheet.png-4289a2dd886b82845c8ad453adcce409.ctex"
+uid="uid://vhu73oskk1n1"
+path="res://.godot/imported/entity-placeholder-fatal.png-4945b968611bb866107fb97653c77257.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://World/Entities/Character/Prototype_Worksheet.png"
-dest_files=["res://.godot/imported/Prototype_Worksheet.png-4289a2dd886b82845c8ad453adcce409.ctex"]
+source_file="res://World/Entities/Hazards/entity-placeholder-fatal.png"
+dest_files=["res://.godot/imported/entity-placeholder-fatal.png-4945b968611bb866107fb97653c77257.ctex"]
 
 [params]
 
