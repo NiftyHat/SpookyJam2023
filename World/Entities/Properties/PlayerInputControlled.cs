@@ -3,11 +3,11 @@ using SpookyBotanyGame.World.Entities.Character;
 
 namespace SpookyBotanyGame.World.Entities.Properties
 {
+    [GlobalClass]
     public partial class PlayerInputControlled : EntityProperty
     {
         [Export] public float Speed { get; set; } = 100;
         [Export] private DiagonalAnimationPlayer Animation { get; set; }
-        
         [Export] private CharacterBody2D Body2D { get; set; }
 
         public void GetInput()

@@ -12,20 +12,25 @@ namespace SpookyBotanyGame.World.Entities
         [Export] public DiagonalAnimationPlayer Animation { get; set; }
         [Export] public PlayerInputControlled InputControlled { get; set; }
 
-        private SpawnPoint _spawnPoint;
+        private World.SpawnPoint _spawnPoint;
 
         public override void _Ready()
         {
             base._Ready();
             Killable.OnKilled += HandleKilled;
+            _properties.Add(Killable);
+        }
+
+        public override void _EnterTree()
+        {
+            base._EnterTree();
             AddSpawnPointToParent();
         }
 
         private void AddSpawnPointToParent()
         {
-            _spawnPoint = new SpawnPoint();
+            _spawnPoint = new World.SpawnPoint();
             _spawnPoint.Position = this.Position;
-            GetParent().AddChild(_spawnPoint);
         }
 
         private void HandleKilled()
@@ -40,7 +45,7 @@ namespace SpookyBotanyGame.World.Entities
             Animation.Play("RESET");
         }
 
-        private void HandleRespawn(SpawnPoint spawnpoint)
+        private void HandleRespawn(SpawnPoint spawnPoint)
         {
             Killable.Spawn();
         }

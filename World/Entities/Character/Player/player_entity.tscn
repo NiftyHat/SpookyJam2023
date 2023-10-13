@@ -1,0 +1,174 @@
+[gd_scene load_steps=17 format=3 uid="uid://n8gglyvki7dw"]
+
+[ext_resource type="Script" path="res://World/Entities/PlayerEntity.cs" id="1_8x44m"]
+[ext_resource type="Script" path="res://World/Entities/Collision/EntityCharacterBody2D.cs" id="1_mqoqk"]
+[ext_resource type="Texture2D" uid="uid://mnmo0d71q130" path="res://Asesprite/player-sheet.png" id="2_7lbcg"]
+[ext_resource type="Script" path="res://World/Entities/Animation/DiagonalAnimationPlayer.cs" id="3_dtimg"]
+[ext_resource type="Script" path="res://World/Entities/Properties/Killable.cs" id="4_boswr"]
+[ext_resource type="PackedScene" uid="uid://cian07p0qso5y" path="res://World/Entities/Lamp/entity_lamp.tscn" id="4_bqwhj"]
+[ext_resource type="Script" path="res://World/Entities/Properties/PlayerInputControlled.cs" id="5_bp7r1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pcdrs"]
+radius = 6.0
+height = 12.0
+
+[sub_resource type="Animation" id="Animation_djsej"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_kt3kl"]
+resource_name = "death_north"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [22, 23, 24, 25, 26, 27, 28]
+}
+
+[sub_resource type="Animation" id="Animation_xyrmi"]
+resource_name = "death_south"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [14, 15, 16, 17, 18, 19, 20]
+}
+
+[sub_resource type="Animation" id="Animation_m4nfu"]
+resource_name = "idle_north"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_r64as"]
+resource_name = "idle_south"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_5js0m"]
+resource_name = "walk_north"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 12, 13]
+}
+
+[sub_resource type="Animation" id="Animation_5qaux"]
+resource_name = "walk_south"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.5, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [2, 3, 4, 5, 6, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n0au4"]
+_data = {
+"RESET": SubResource("Animation_djsej"),
+"death_north": SubResource("Animation_kt3kl"),
+"death_south": SubResource("Animation_xyrmi"),
+"idle_north": SubResource("Animation_m4nfu"),
+"idle_south": SubResource("Animation_r64as"),
+"walk_north": SubResource("Animation_5js0m"),
+"walk_south": SubResource("Animation_5qaux")
+}
+
+[node name="EntityCharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("Entity")]
+script = ExtResource("1_mqoqk")
+Entity = NodePath("PlayerEntity")
+
+[node name="PlayerEntity" type="Node2D" parent="." node_paths=PackedStringArray("Killable", "Animation", "InputControlled")]
+script = ExtResource("1_8x44m")
+Killable = NodePath("Killable")
+Animation = NodePath("DiagonalAnimationPlayer")
+InputControlled = NodePath("PlayerInputControlled")
+
+[node name="Killable" type="Node2D" parent="PlayerEntity"]
+script = ExtResource("4_boswr")
+
+[node name="PlayerInputControlled" type="Node2D" parent="PlayerEntity" node_paths=PackedStringArray("Animation", "Body2D")]
+script = ExtResource("5_bp7r1")
+Animation = NodePath("../DiagonalAnimationPlayer")
+Body2D = NodePath("../..")
+
+[node name="DiagonalAnimationPlayer" type="Node2D" parent="PlayerEntity" node_paths=PackedStringArray("Animation", "Sprite")]
+script = ExtResource("3_dtimg")
+Animation = NodePath("../../AnimationPlayer")
+Sprite = NodePath("../../Sprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3)
+shape = SubResource("CapsuleShape2D_pcdrs")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 2
+y_sort_enabled = true
+position = Vector2(2, -16)
+texture = ExtResource("2_7lbcg")
+hframes = 29
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle_south"
+libraries = {
+"": SubResource("AnimationLibrary_n0au4")
+}
+
+[node name="Lamp" parent="." instance=ExtResource("4_bqwhj")]
+position = Vector2(0, -16)

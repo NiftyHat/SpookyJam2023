@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://bhitj5sv3t5vw"]
+[gd_scene load_steps=8 format=3 uid="uid://bhitj5sv3t5vw"]
 
-[ext_resource type="Script" path="res://World/Entities/GameEntity.cs" id="1_o2occ"]
-[ext_resource type="Script" path="res://World/Entities/Properties/Dangerous.cs" id="2_qs1kc"]
+[ext_resource type="Script" path="res://World/Entities/DeathZone.cs" id="1_5ynux"]
 [ext_resource type="Texture2D" uid="uid://vhu73oskk1n1" path="res://World/Entities/Hazards/entity-placeholder-fatal.png" id="3_qlbf7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xsj2n"]
@@ -35,13 +34,9 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jm04i"]
 
-[node name="FatalHazard-Test" type="Node2D"]
-script = ExtResource("1_o2occ")
-
-[node name="Dangerous" type="Node2D" parent="." node_paths=PackedStringArray("HitBox")]
-script = ExtResource("2_qs1kc")
-HitBox = NodePath("../Area2D")
-_isEnabled = true
+[node name="FatalHazard-Test" type="Node2D" node_paths=PackedStringArray("HitBox")]
+script = ExtResource("1_5ynux")
+HitBox = NodePath("Area2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_7o5aa")

@@ -1,6 +1,6 @@
 using Godot;
 
-namespace SpookyBotanyGame.World.Entities
+namespace SpookyBotanyGame.World
 {
     public partial class SpawnPoint : Node2D
     {

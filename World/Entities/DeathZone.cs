@@ -1,11 +1,12 @@
 using Godot;
+using SpookyBotanyGame.World.Entities.Properties;
 
-namespace SpookyBotanyGame.World.Entities.Properties
+namespace SpookyBotanyGame.World.Entities
 {
-    [GlobalClass]
-    public partial class Dangerous : EntityProperty
+    public partial class DeathZone : Node2D
     {
         [Export] public Area2D HitBox { get; set; }
+        
         public void Kill(Killable entity)
         {
             entity.Kill();
@@ -15,14 +16,19 @@ namespace SpookyBotanyGame.World.Entities.Properties
         {
             base._Ready();
             HitBox.Monitoring = true;
-            HitBox.AreaEntered += HandleAreaEntered;
             HitBox.BodyEntered += HandleBodyEntered;
         }
 
         private void HandleBodyEntered(Node2D body)
         {
-            GD.Print($"Dangerous Entity intersected with {body}");
-            
+            if (body.IsInGroup("EntityProvider") && body.HasMethod("GetEntity"))
+            {
+                GameEntity gameEntity = body.Call("GetEntity").As<GameEntity>();
+                if (gameEntity != null && gameEntity.TryGetProperty(out Killable killable))
+                {
+                    Kill(killable);
+                }
+            }
         }
 
         private void HandleAreaEntered(Area2D area)
