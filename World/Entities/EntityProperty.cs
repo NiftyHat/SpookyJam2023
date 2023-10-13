@@ -2,7 +2,7 @@ using Godot;
 
 namespace SpookyBotanyGame.World.Entities
 {
-    
+    [GlobalClass,Icon("res://World/Entities/icon-entity-property.svg")]
     public partial class EntityProperty : Node2D
     {
         protected GameEntity _entity;
