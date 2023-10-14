@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://duw8dburewvag"]
 
-[ext_resource type="FontFile" uid="uid://dqpagwovs2qbq" path="res://Fonts/antiquity-print.ttf" id="1_0k5gt"]
+[ext_resource type="FontFile" uid="uid://dqpagwovs2qbq" path="res://Fonts/antiquity-print.ttf" id="1_dyatn"]
 
 [node name="UIGameOver" type="Control"]
 layout_mode = 3
@@ -36,14 +36,14 @@ size_flags_vertical = 4
 
 [node name="LabelTitle" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_0k5gt")
+theme_override_fonts/font = ExtResource("1_dyatn")
 theme_override_font_sizes/font_size = 52
 text = "Game Over"
 horizontal_alignment = 1
 
 [node name="LabelSubtitle" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_0k5gt")
+theme_override_fonts/font = ExtResource("1_dyatn")
 theme_override_font_sizes/font_size = 39
 text = "Year 29"
 horizontal_alignment = 1

@@ -1,19 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://b78acft5a5sfy"]
+[gd_scene load_steps=5 format=3 uid="uid://b78acft5a5sfy"]
 
 [ext_resource type="PackedScene" uid="uid://jksnbdthe1y6" path="res://World/Maps/test_map.tscn" id="1_wukwe"]
 [ext_resource type="PackedScene" uid="uid://n8gglyvki7dw" path="res://World/Entities/Character/Player/player_entity.tscn" id="2_3tyht"]
 [ext_resource type="PackedScene" uid="uid://bhitj5sv3t5vw" path="res://World/Entities/Hazards/fatal_hazard_test.tscn" id="3_37lbi"]
+[ext_resource type="PackedScene" uid="uid://c610weevdtphv" path="res://UI/ui_game_hud.tscn" id="4_kp64n"]
 
 [node name="world-test" type="Node2D"]
 
-[node name="test_map" parent="." instance=ExtResource("1_wukwe")]
+[node name="WorldRoot" type="Node2D" parent="."]
+
+[node name="test_map" parent="WorldRoot" instance=ExtResource("1_wukwe")]
 position = Vector2(0, 1)
 
-[node name="PlayerEntity" parent="." groups=["EntityProvider"] instance=ExtResource("2_3tyht")]
-position = Vector2(360, 162)
+[node name="PlayerEntity" parent="WorldRoot" groups=["EntityProvider"] instance=ExtResource("2_3tyht")]
+position = Vector2(379, 162)
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
+[node name="CanvasModulate" type="CanvasModulate" parent="WorldRoot"]
 color = Color(0, 0, 0, 1)
 
-[node name="FatalHazard-Test" parent="." instance=ExtResource("3_37lbi")]
+[node name="FatalHazard-Test" parent="WorldRoot" instance=ExtResource("3_37lbi")]
 position = Vector2(330, 218)
+
+[node name="UIRoot" type="CanvasLayer" parent="."]
+
+[node name="UIGameHUD" parent="UIRoot" instance=ExtResource("4_kp64n")]
