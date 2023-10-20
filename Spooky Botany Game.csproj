@@ -6,5 +6,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="World\Entities\Lamp" />
+    <Folder Include="World\Entities\Properties\Interactions" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 using Godot;
 using SpookyBotanyGame.World.Entities.Character;
+using DiagonalAnimationPlayer = SpookyBotanyGame.World.Entities.Animation.DiagonalAnimationPlayer;
 
 namespace SpookyBotanyGame.World.Entities.Properties
 {

@@ -13,7 +13,14 @@ namespace SpookyBotanyGame.World.Entities.Properties
         public event Killed OnKilled;
         public event Respawned OnRespawned;
         private bool _isAlive = true;
-        
+
+
+        public override void _Ready()
+        {
+            _entity?.AddProperty(this);
+            base._Ready();
+        }
+
         public void Kill()
         {
             if (!_isEnabled)

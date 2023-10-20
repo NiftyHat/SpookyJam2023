@@ -1,6 +1,8 @@
-namespace SpookyBotanyGame.Collectable;
-
-public interface ICollectableType
+namespace SpookyBotanyGame.Collectable
 {
-    public bool SameType(ICollectableType other);
+    public interface ICollectableType
+    {
+        public bool SameType(ICollectableType other);
+    }
 }
+

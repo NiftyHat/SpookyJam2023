@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://n8gglyvki7dw"]
+[gd_scene load_steps=20 format=3 uid="uid://n8gglyvki7dw"]
 
 [ext_resource type="Script" path="res://World/Entities/PlayerEntity.cs" id="1_8x44m"]
 [ext_resource type="Script" path="res://World/Entities/Collision/EntityCharacterBody2D.cs" id="1_mqoqk"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://World/Entities/Properties/Killable.cs" id="4_boswr"]
 [ext_resource type="PackedScene" uid="uid://cian07p0qso5y" path="res://World/Entities/Lamp/entity_lamp.tscn" id="4_bqwhj"]
 [ext_resource type="Script" path="res://World/Entities/Properties/PlayerInputControlled.cs" id="5_bp7r1"]
+[ext_resource type="Script" path="res://World/Entities/Properties/CollectableContainer.cs" id="6_5dcv7"]
+[ext_resource type="Script" path="res://World/Entities/InteractionInputDirectional.cs" id="10_jpd0y"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pcdrs"]
 radius = 6.0
@@ -130,29 +132,33 @@ _data = {
 "walk_south": SubResource("Animation_5qaux")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_jkbia"]
+radius = 13.3417
+
 [node name="EntityCharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("Entity")]
 script = ExtResource("1_mqoqk")
 Entity = NodePath("PlayerEntity")
 
-[node name="PlayerEntity" type="Node2D" parent="." node_paths=PackedStringArray("Killable", "Animation", "InputControlled", "Body")]
+[node name="PlayerEntity" type="Node2D" parent="." node_paths=PackedStringArray("Killable", "Animation", "InputControlled", "Body", "Interact")]
 script = ExtResource("1_8x44m")
 Killable = NodePath("Killable")
-Animation = NodePath("DiagonalAnimationPlayer")
+Animation = NodePath("../DiagonalAnimationPlayer")
 InputControlled = NodePath("PlayerInputControlled")
 Body = NodePath("..")
+Interact = NodePath("../InteractionInputDirectional")
 
 [node name="Killable" type="Node2D" parent="PlayerEntity"]
 script = ExtResource("4_boswr")
 
 [node name="PlayerInputControlled" type="Node2D" parent="PlayerEntity" node_paths=PackedStringArray("Animation", "Body2D")]
 script = ExtResource("5_bp7r1")
-Animation = NodePath("../DiagonalAnimationPlayer")
+Animation = NodePath("../../DiagonalAnimationPlayer")
 Body2D = NodePath("../..")
 
-[node name="DiagonalAnimationPlayer" type="Node2D" parent="PlayerEntity" node_paths=PackedStringArray("Animation", "Sprite")]
-script = ExtResource("3_dtimg")
-Animation = NodePath("../../AnimationPlayer")
-Sprite = NodePath("../../Sprite2D")
+[node name="CollectableContainer" type="Node2D" parent="PlayerEntity"]
+position = Vector2(1, 0)
+script = ExtResource("6_5dcv7")
+_collectable = Array[Object]([])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -3)
@@ -171,5 +177,21 @@ libraries = {
 "": SubResource("AnimationLibrary_n0au4")
 }
 
-[node name="Lamp" parent="." instance=ExtResource("4_bqwhj")]
-position = Vector2(0, -16)
+[node name="InteractionInputDirectional" type="Node2D" parent="." node_paths=PackedStringArray("HitBox")]
+script = ExtResource("10_jpd0y")
+HitBox = NodePath("Area2D")
+Distance = 10.0
+
+[node name="Area2D" type="Area2D" parent="InteractionInputDirectional"]
+position = Vector2(-17, 0)
+
+[node name="Lamp" parent="InteractionInputDirectional/Area2D" instance=ExtResource("4_bqwhj")]
+position = Vector2(17, -16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionInputDirectional/Area2D"]
+shape = SubResource("CircleShape2D_jkbia")
+
+[node name="DiagonalAnimationPlayer" type="Node2D" parent="." node_paths=PackedStringArray("Animation", "Sprite")]
+script = ExtResource("3_dtimg")
+Animation = NodePath("../AnimationPlayer")
+Sprite = NodePath("../Sprite2D")

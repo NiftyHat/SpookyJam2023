@@ -1,13 +1,15 @@
 using Godot;
 
-namespace SpookyBotanyGame.World.Entities.Character;
-
-public partial class FourDirectionAnimationController : Node2D
+namespace SpookyBotanyGame.World.Entities.Character
 {
-    public override void _Ready()
+    public partial class FourDirectionAnimationController : Node2D
     {
-        GD.Print(this.Name);
-        GD.Print(this.GetParent().Name);
-        base._Ready();
+        public override void _Ready()
+        {
+            GD.Print(this.Name);
+            GD.Print(this.GetParent().Name);
+            base._Ready();
+        }
     }
 }
+

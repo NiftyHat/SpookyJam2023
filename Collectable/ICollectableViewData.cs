@@ -1,10 +1,12 @@
 using Godot;
 
-namespace SpookyBotanyGame.Collectable;
-
-public interface ICollectableViewData
+namespace SpookyBotanyGame.Collectable
 {
-    string FriendlyName { get; }
-    char IconGlyph { get;  }
-    Texture2D IconTexture { get;}
+    public interface ICollectableViewData
+    {
+        string FriendlyName { get; }
+        char IconGlyph { get;  }
+        Texture2D IconTexture { get;}
+    }
 }
+
