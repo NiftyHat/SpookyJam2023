@@ -36,8 +36,6 @@ namespace SpookyBotanyGame.Core
         public bool TryGet<TType>(out TType item) where TType : TBaseType
         {
             System.Type key = typeof(TType);
-            GD.Print($"TryGet {key.Name}");
-            GD.Print($"Keys {string.Join(",",_map.Keys)}");
             if (_map.TryGetValue(key, out TBaseType storedItem))
             {
                 item = (TType)storedItem;

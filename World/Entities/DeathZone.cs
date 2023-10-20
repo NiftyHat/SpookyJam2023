@@ -30,10 +30,5 @@ namespace SpookyBotanyGame.World.Entities
                 }
             }
         }
-
-        private void HandleAreaEntered(Area2D area)
-        {
-            GD.Print($"Dangerous Entity intersected with {area.GetParent().Name}");
-        }
     }
 }

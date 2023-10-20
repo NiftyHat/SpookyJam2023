@@ -1,7 +1,6 @@
 using Godot;
-using System.Collections.Generic;
 
-namespace SpookyBotanyGame.World.Entities.Character
+namespace SpookyBotanyGame.World.Entities.Animation
 {
     [GlobalClass]
     public partial class DiagonalAnimationPlayer : Node2D
@@ -20,8 +19,7 @@ namespace SpookyBotanyGame.World.Entities.Character
         }
 
         public string SetVerticalAnimationDirection(Vector2 inputDirection)
-        {
-            GD.Print(inputDirection);
+        { 
             if (inputDirection.Y < 0)
             {
                 _animationDirection = "north";
@@ -39,7 +37,6 @@ namespace SpookyBotanyGame.World.Entities.Character
             SetVerticalAnimationDirection(inputDirection);
             SetFlipFromDirection(inputDirection);
             string directionalAnimationName = GetDirectionalAnimationName(animationName);
-            GD.Print(directionalAnimationName);
             Animation.Play(directionalAnimationName);
         }
         

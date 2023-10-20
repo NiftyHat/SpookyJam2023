@@ -9,10 +9,11 @@ position = Vector2(9, 22)
 blend_mode = 2
 range_item_cull_mask = 3
 texture = ExtResource("1_vbo2w")
-texture_scale = 0.2
+texture_scale = 0.5
 
 [node name="ShadowLight" type="PointLight2D" parent="."]
 blend_mode = 2
 range_layer_max = 3
 shadow_enabled = true
 texture = ExtResource("1_vbo2w")
+texture_scale = 0.5
