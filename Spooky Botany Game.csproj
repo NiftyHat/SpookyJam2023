@@ -8,4 +8,8 @@
     <Folder Include="World\Entities\Lamp" />
     <Folder Include="World\Entities\Properties\Interactions" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="input_xbox_controller" />
+    <Content Include="input_xbox_controller.tres" />
+  </ItemGroup>
 </Project>
