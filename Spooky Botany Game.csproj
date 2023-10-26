@@ -9,7 +9,13 @@
     <Folder Include="World\Entities\Properties\Interactions" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="input_xbox_controller" />
-    <Content Include="input_xbox_controller.tres" />
+    <Compile Remove="UI\Widgets\ImageSequenceAnimation\**" />
+    <Compile Remove="UI\Widgets\InputUIAnimation\**" />
+    <Compile Remove="UI\Widgets\UIInputAnimation\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="UI\Widgets\ImageSequenceAnimation\**" />
+    <EmbeddedResource Remove="UI\Widgets\InputUIAnimation\**" />
+    <EmbeddedResource Remove="UI\Widgets\UIInputAnimation\**" />
   </ItemGroup>
 </Project>

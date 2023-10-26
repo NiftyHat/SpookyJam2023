@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="InputUIKeyboardViewData" load_steps=6 format=3 uid="uid://dq6bk01m4ch7a"]
+
+[ext_resource type="Script" path="res://UI/Widgets/InputUI/Layouts/InputUIKeyboardViewData.cs" id="1_n7dt3"]
+[ext_resource type="FontFile" uid="uid://c75gtcrbp2mjd" path="res://Fonts/m5x7.ttf" id="1_yqncc"]
+[ext_resource type="Resource" uid="uid://nnjf3byqsvvd" path="res://UI/Input/Keyboard/Data/input_keyboard_space.tres" id="2_gsxtw"]
+[ext_resource type="Resource" uid="uid://bvdt845x1vm35" path="res://UI/Input/Keyboard/Data/input_keyboard_key_standard.tres" id="2_qeqsg"]
+[ext_resource type="Resource" uid="uid://fkf148k7xc5b" path="res://UI/Input/Keyboard/Data/input_keyboard_key_wide.tres" id="4_lnlrc"]
+
+[resource]
+script = ExtResource("1_n7dt3")
+Standard = ExtResource("2_qeqsg")
+Wide = ExtResource("4_lnlrc")
+Space = ExtResource("2_gsxtw")
+KeyLabelFont = ExtResource("1_yqncc")

@@ -15,5 +15,6 @@ texture_scale = 0.5
 blend_mode = 2
 range_layer_max = 3
 shadow_enabled = true
+shadow_filter = 1
 texture = ExtResource("1_vbo2w")
 texture_scale = 0.5
