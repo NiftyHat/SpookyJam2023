@@ -38,6 +38,7 @@ namespace SpookyBotanyGame.World.Entities.Animation
             SetFlipFromDirection(inputDirection);
             string directionalAnimationName = GetDirectionalAnimationName(animationName);
             Animation.Play(directionalAnimationName);
+            Animation.Advance(0);
         }
         
         public void Play(string animationName)

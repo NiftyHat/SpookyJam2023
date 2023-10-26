@@ -1,19 +1,22 @@
-[gd_scene load_steps=14 format=3 uid="uid://b78acft5a5sfy"]
+[gd_scene load_steps=16 format=3 uid="uid://b78acft5a5sfy"]
 
 [ext_resource type="PackedScene" uid="uid://jksnbdthe1y6" path="res://World/Maps/test_map.tscn" id="1_wukwe"]
 [ext_resource type="PackedScene" uid="uid://n8gglyvki7dw" path="res://World/Entities/Character/Player/player_entity.tscn" id="2_3tyht"]
 [ext_resource type="PackedScene" uid="uid://bhitj5sv3t5vw" path="res://World/Entities/Hazards/fatal_hazard_test.tscn" id="3_37lbi"]
+[ext_resource type="PackedScene" uid="uid://djavq7x3k3fm0" path="res://World/Entities/Storage/storage_entity.tscn" id="4_3l7xu"]
 [ext_resource type="PackedScene" uid="uid://c610weevdtphv" path="res://UI/ui_game_hud.tscn" id="4_kp64n"]
 [ext_resource type="Script" path="res://World/Entities/GameEntity.cs" id="4_lr4tl"]
-[ext_resource type="Script" path="res://World/Entities/Properties/CollectableContainer.cs" id="5_he2ul"]
-[ext_resource type="Texture2D" uid="uid://skp448hj7efx" path="res://Asesprite/Entities/entity-interactable-placeholder.png" id="6_2qgvr"]
 [ext_resource type="Shader" path="res://Shaders/Sprite Shaders/2d_outline.gdshader" id="6_is4cx"]
 [ext_resource type="Script" path="res://World/Entities/Area2DEntityReference.cs" id="6_u5nph"]
+[ext_resource type="Texture2D" uid="uid://bld2qqqsfd40i" path="res://UI/Input/Keyboard/keyboard_blank_key_1.png" id="7_hfiev"]
 [ext_resource type="Script" path="res://World/Entities/InteractionHandler.cs" id="8_aiqyl"]
 [ext_resource type="Script" path="res://World/Entities/Properties/Interactable.cs" id="9_ufl5l"]
+[ext_resource type="PackedScene" uid="uid://bb1sfvq8h1ymh" path="res://World/Entities/Plants/LightPlant/plant_light_flower.tscn" id="11_dh45g"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_nemjj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hlvoq"]
-size = Vector2(30, 30)
+size = Vector2(25, 24)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dnptv"]
 resource_local_to_scene = true
@@ -26,6 +29,11 @@ shader_parameter/add_margins = true
 
 [node name="world-test" type="Node2D"]
 
+[node name="WorldBackground" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+scale = Vector2(1e+08, 1e+08)
+texture = SubResource("CanvasTexture_nemjj")
+
 [node name="WorldRoot" type="Node2D" parent="."]
 
 [node name="test_map" parent="WorldRoot" instance=ExtResource("1_wukwe")]
@@ -36,17 +44,11 @@ position = Vector2(404, 153)
 
 [node name="Camera2D" type="Camera2D" parent="WorldRoot/PlayerEntity"]
 position = Vector2(-1, -1)
-limit_left = 0
-limit_top = 0
 
 [node name="FatalHazard-Test" parent="WorldRoot" instance=ExtResource("3_37lbi")]
 position = Vector2(330, 218)
 
-[node name="Storage-Test" type="Node2D" parent="WorldRoot"]
-script = ExtResource("4_lr4tl")
-
-[node name="CollectableContainer" type="Node2D" parent="WorldRoot/Storage-Test"]
-script = ExtResource("5_he2ul")
+[node name="Storage-Test" parent="WorldRoot" instance=ExtResource("4_3l7xu")]
 
 [node name="InteractableTest" type="Node2D" parent="WorldRoot"]
 position = Vector2(542, 105)
@@ -60,7 +62,7 @@ Entity = NodePath("..")
 shape = SubResource("RectangleShape2D_hlvoq")
 
 [node name="Sprite2D" type="Sprite2D" parent="WorldRoot/InteractableTest"]
-texture = ExtResource("6_2qgvr")
+texture = ExtResource("7_hfiev")
 
 [node name="Interactable" type="Node2D" parent="WorldRoot/InteractableTest" node_paths=PackedStringArray("Handler")]
 script = ExtResource("9_ufl5l")
@@ -73,6 +75,8 @@ InteractionMaterial = SubResource("ShaderMaterial_dnptv")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="WorldRoot"]
 color = Color(0, 0, 0, 1)
+
+[node name="Plant-LightFlower" parent="WorldRoot" instance=ExtResource("11_dh45g")]
 
 [node name="UIRoot" type="CanvasLayer" parent="."]
 

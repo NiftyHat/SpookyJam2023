@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="InputUIAnimationViewData" load_steps=7 format=3 uid="uid://lkia35piau2r"]
+
+[ext_resource type="Script" path="res://UI/Widgets/InputUI/InputUIAnimationViewData.cs" id="1_7yo0x"]
+[ext_resource type="Texture2D" uid="uid://biu26j35wqmvo" path="res://UI/Input/XBox/xbox_button_west_1.png" id="1_t1kqt"]
+[ext_resource type="Texture2D" uid="uid://cv1xt06jglwia" path="res://UI/Input/XBox/xbox_button_west_2.png" id="2_74tv1"]
+[ext_resource type="Texture2D" uid="uid://c6kl1e34xeatm" path="res://UI/Input/XBox/xbox_button_west_3.png" id="3_7e4b0"]
+[ext_resource type="Texture2D" uid="uid://dghjbobpg4vjc" path="res://UI/Input/XBox/xbox_button_west_4.png" id="4_jq8sa"]
+[ext_resource type="Texture2D" uid="uid://dywn7fr2hpo40" path="res://UI/Input/XBox/xbox_button_west_5.png" id="5_kwjdq"]
+
+[resource]
+script = ExtResource("1_7yo0x")
+PressedFrames = Array[Texture2D]([ExtResource("1_t1kqt"), ExtResource("2_74tv1"), ExtResource("3_7e4b0"), ExtResource("4_jq8sa"), ExtResource("5_kwjdq")])
+PressedFrameData = null
+IdleTexture = ExtResource("1_t1kqt")

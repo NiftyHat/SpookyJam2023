@@ -11,9 +11,19 @@ namespace SpookyBotanyGame.World.Entities.Properties
         [Export] private DiagonalAnimationPlayer Animation { get; set; }
         [Export] private CharacterBody2D Body2D { get; set; }
 
+
+        public static Vector2 GetMoveStickAxis()
+        {
+            return Input.GetVector("move_east", "move_west", "move_north", "move_south");
+        }
+        
+        public static Vector2 GetLookStickAxis()
+        {
+            return Input.GetVector("look_east", "look_west", "look_north", "look_south");
+        }
         public void GetInput()
         {
-            Vector2 inputDirection = Input.GetVector("move_left", "move_right", "move_up", "move_down");
+            var inputDirection = GetMoveStickAxis();
             Body2D.Velocity = inputDirection * Speed;
         
             if (inputDirection == Vector2.Zero)

@@ -1,5 +1,4 @@
 using Godot;
-using SpookyBotanyGame.World.Entities.Character;
 using SpookyBotanyGame.World.Entities.Collision;
 using SpookyBotanyGame.World.Entities.Properties;
 using DiagonalAnimationPlayer = SpookyBotanyGame.World.Entities.Animation.DiagonalAnimationPlayer;
@@ -25,7 +24,12 @@ namespace SpookyBotanyGame.World.Entities
             Killable.OnRespawned += HandleRespawned;
             _properties.Add(Killable);
             
-            //AddSpawnPointToParent();
+            CallDeferred("AddSpawnPointToParent");
+        }
+
+        private void HandleOwnerReady()
+        {
+            AddSpawnPointToParent();
         }
 
         private void AddSpawnPointToParent()
@@ -33,7 +37,10 @@ namespace SpookyBotanyGame.World.Entities
             _spawnPoint = new SpawnPoint();
             _spawnPoint.Position = Body.Position;
             var parent = Body.GetParent();
-            parent.AddChild(_spawnPoint);
+            if (parent != null)
+            {
+                parent.AddChild(_spawnPoint);
+            }
         }
 
         private void HandleKilled()

@@ -31,7 +31,7 @@ namespace SpookyBotanyGame.World.Entities
             HitBox.BodyExited += HandleBodyExited;
             Distance = (HitBox.Position).Length();
         }
-
+        
         public void TriggerInteract()
         {
             foreach (var kvp in _trackedEntities)
@@ -43,10 +43,8 @@ namespace SpookyBotanyGame.World.Entities
 
         private void HandleAreaEntered(Area2D area)
         {
-            GD.Print(area);
             if (GameEntity.TryGetProperty(area, out Interactable interactable, out GameEntity gameEntity))
             {
-                GD.Print(gameEntity);
                 Add(interactable, gameEntity);
                 interactable.SetTargeted(true);
             }
@@ -54,7 +52,6 @@ namespace SpookyBotanyGame.World.Entities
         
         private void HandleAreaExited(Area2D area)
         {
-            //GD.Print(area);
             if (GameEntity.TryGetProperty(area, out Interactable interactable, out GameEntity gameEntity))
             {
                 interactable.SetTargeted(false);

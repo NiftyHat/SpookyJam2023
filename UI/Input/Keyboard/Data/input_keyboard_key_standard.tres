@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="InputUIAnimationViewData" load_steps=6 format=3 uid="uid://bvdt845x1vm35"]
+
+[ext_resource type="Texture2D" uid="uid://bld2qqqsfd40i" path="res://UI/Input/Keyboard/keyboard_blank_key_1.png" id="1_y2eir"]
+[ext_resource type="Texture2D" uid="uid://cuva1qkb6e23g" path="res://UI/Input/Keyboard/keyboard_blank_key_2.png" id="2_yqd6y"]
+[ext_resource type="Texture2D" uid="uid://cuapgeg4aubb5" path="res://UI/Input/Keyboard/keyboard_blank_key_3.png" id="3_8v546"]
+[ext_resource type="Texture2D" uid="uid://ch6xlufnhncff" path="res://UI/Input/Keyboard/keyboard_blank_key_4.png" id="4_0qtwf"]
+[ext_resource type="Script" path="res://UI/Widgets/InputUI/InputUIAnimationViewData.cs" id="5_httn4"]
+
+[resource]
+script = ExtResource("5_httn4")
+PressedFrames = Array[Texture2D]([ExtResource("1_y2eir"), ExtResource("2_yqd6y"), ExtResource("3_8v546"), ExtResource("4_0qtwf")])
+PressedFrameData = null
+IdleTexture = ExtResource("1_y2eir")
