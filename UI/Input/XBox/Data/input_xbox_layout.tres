@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="InputUIJoypadViewData" load_steps=6 format=3 uid="uid://4fr01r2kcec3"]
+
+[ext_resource type="Resource" uid="uid://qpfb5i0rn0t4" path="res://UI/Input/XBox/Data/input_viewdata_xbox_button_east.tres" id="1_v7hmj"]
+[ext_resource type="Script" path="res://UI/Widgets/InputUI/Layouts/InputUIJoypadViewData.cs" id="1_yq5gs"]
+[ext_resource type="Resource" uid="uid://b5ix7ui568poq" path="res://UI/Input/XBox/Data/input_viewdata_xbox_button_north.tres" id="2_d8o5e"]
+[ext_resource type="Resource" uid="uid://dpy7ql7oyqksb" path="res://UI/Input/XBox/Data/input_viewdata_xbox_button_south.tres" id="3_1n43b"]
+[ext_resource type="Resource" uid="uid://lkia35piau2r" path="res://UI/Input/XBox/Data/input_viewdata_xbox_button_west.tres" id="4_ay5et"]
+
+[resource]
+script = ExtResource("1_yq5gs")
+Button_East = ExtResource("1_v7hmj")
+Button_North = ExtResource("2_d8o5e")
+Button_South = ExtResource("3_1n43b")
+Button_West = ExtResource("4_ay5et")

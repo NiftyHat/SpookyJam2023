@@ -19,7 +19,9 @@ namespace SpookyBotanyGame.World.Entities
         
         public static bool TryGetProperty<TProp>(Node2D node2D, out TProp property, out GameEntity gameEntity) where TProp : EntityProperty
         {
-            if (node2D.IsInGroup("EntityProvider") && node2D.HasMethod("GetEntity"))
+            bool isInGroup = node2D.IsInGroup("EntityProvider");
+            bool hasMethod = node2D.HasMethod("GetEntity");
+            if (isInGroup && hasMethod)
             {
                 gameEntity = node2D.Call("GetEntity").As<GameEntity>();
                 if (gameEntity != null)

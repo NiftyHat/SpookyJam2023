@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="InputUIAnimationViewData" load_steps=5 format=3 uid="uid://80exe6t1nfqb"]
+
+[ext_resource type="Script" path="res://UI/Widgets/InputUI/InputUIAnimationViewData.cs" id="1_0rw6m"]
+[ext_resource type="Texture2D" uid="uid://cncmcm0fw8egu" path="res://UI/Input/XBox/xbox_dpad_west_1.png" id="1_t67sg"]
+[ext_resource type="Texture2D" uid="uid://u5olatogpw4w" path="res://UI/Input/XBox/xbox_dpad_west_2.png" id="2_vnkyq"]
+[ext_resource type="Texture2D" uid="uid://be8dpk7clg5ks" path="res://UI/Input/XBox/xbox_dpad_west_3.png" id="3_kxcjg"]
+
+[resource]
+script = ExtResource("1_0rw6m")
+PressedFrames = Array[Texture2D]([ExtResource("1_t67sg"), ExtResource("2_vnkyq"), ExtResource("3_kxcjg")])
+PressedFrameData = null
+IdleTexture = ExtResource("1_t67sg")

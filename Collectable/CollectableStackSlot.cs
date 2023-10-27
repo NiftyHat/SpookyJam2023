@@ -36,6 +36,8 @@ namespace SpookyBotanyGame.Collectable
         /// </summary>
         public bool IsOverflowing => _isOverflowing;
 
+        public int Space => _max - _amount;
+
         public int Max => _max;
 
         public CollectableStackSlot()

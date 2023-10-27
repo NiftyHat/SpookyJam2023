@@ -1,0 +1,177 @@
+[gd_scene load_steps=20 format=3 uid="uid://bb1sfvq8h1ymh"]
+
+[ext_resource type="Script" path="res://World/Entities/Plants/LightPlant.cs" id="1_7ahoy"]
+[ext_resource type="Resource" uid="uid://kb7irsn4b1tn" path="res://Collectable/Types/collectable_flowers.tres" id="2_3wop4"]
+[ext_resource type="Script" path="res://World/Entities/Area2DEntityReference.cs" id="2_4mo22"]
+[ext_resource type="Texture2D" uid="uid://bbojtkpwt0ego" path="res://World/Entities/Plants/LightPlant/plant-light-flower.png" id="3_jt7fx"]
+[ext_resource type="Script" path="res://World/Entities/Properties/Interactable.cs" id="4_0ev0q"]
+[ext_resource type="Script" path="res://World/Entities/Properties/LightSensor.cs" id="4_hx2iv"]
+[ext_resource type="PackedScene" uid="uid://b6pgafi77v13j" path="res://World/Entities/interaction_handler_glow.tscn" id="5_gb7jn"]
+[ext_resource type="Script" path="res://World/Entities/Properties/SimAdvanceable.cs" id="5_ry1ua"]
+[ext_resource type="Texture2D" uid="uid://bwk72256yuylr" path="res://World/Lights/light.png" id="6_q77r2"]
+[ext_resource type="Script" path="res://Core/StateMachines/StateMachine.cs" id="9_7ysh8"]
+[ext_resource type="Script" path="res://World/Entities/Effects/EffectsLightPlant.cs" id="10_31rgv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hlvoq"]
+size = Vector2(25, 24)
+
+[sub_resource type="Animation" id="Animation_8apnj"]
+resource_name = "grow-1"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_h414n"]
+resource_name = "grow-2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_jlb3i"]
+resource_name = "grow-3"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11, 12, 13, 14]
+}
+
+[sub_resource type="Animation" id="Animation_3b41a"]
+resource_name = "harvest"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [14, 15, 16, 17, 18, 19]
+}
+
+[sub_resource type="Animation" id="Animation_ute2g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_x1w2e"]
+resource_name = "dying"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [21]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o6hjt"]
+_data = {
+"Growing-1": SubResource("Animation_8apnj"),
+"Growing-2": SubResource("Animation_h414n"),
+"Growing-3": SubResource("Animation_jlb3i"),
+"Harvest": SubResource("Animation_3b41a"),
+"RESET": SubResource("Animation_ute2g"),
+"Rotting": SubResource("Animation_x1w2e")
+}
+
+[node name="Plant-LightFlower" type="Node2D" node_paths=PackedStringArray("LightSensor", "Sim", "Animation", "StateMachine", "Light", "Effects", "Interactable")]
+position = Vector2(332, 150)
+script = ExtResource("1_7ahoy")
+LightSensor = NodePath("LightSensor")
+LightRequired = 0.35
+Sim = NodePath("SimAdvanceable")
+Animation = NodePath("AnimationPlayer")
+StateMachine = NodePath("StateMachine")
+Light = NodePath("EffectsLightPlant/SpriteLight")
+Output = ExtResource("2_3wop4")
+OutputAmount = 4
+Effects = NodePath("EffectsLightPlant")
+Interactable = NodePath("Interactable")
+
+[node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("Entity") groups=["EntityProvider"]]
+script = ExtResource("2_4mo22")
+Entity = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-2, 2)
+shape = SubResource("RectangleShape2D_hlvoq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_jt7fx")
+hframes = 22
+
+[node name="LightSensor" type="Node2D" parent="."]
+script = ExtResource("4_hx2iv")
+
+[node name="SimAdvanceable" type="Node" parent="."]
+script = ExtResource("5_ry1ua")
+
+[node name="Interactable" type="Node2D" parent="." node_paths=PackedStringArray("Handler")]
+script = ExtResource("4_0ev0q")
+Handler = NodePath("InteractionHandler-Outline")
+
+[node name="InteractionHandler-Outline" parent="Interactable" node_paths=PackedStringArray("Sprite") instance=ExtResource("5_gb7jn")]
+Sprite = NodePath("../../Sprite2D")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_o6hjt")
+}
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("9_7ysh8")
+
+[node name="EffectsLightPlant" type="Node2D" parent="." node_paths=PackedStringArray("Light")]
+script = ExtResource("10_31rgv")
+Light = NodePath("SpriteLight")
+ScaleMax = 0.15
+EnergyMax = 0.3
+LitBoostPercentage = 0.2
+
+[node name="SpriteLight" type="PointLight2D" parent="EffectsLightPlant"]
+color = Color(0.580392, 0.682353, 0.807843, 1)
+energy = 0.2
+range_item_cull_mask = 3
+texture = ExtResource("6_q77r2")
+texture_scale = 0.3

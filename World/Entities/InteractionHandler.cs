@@ -13,7 +13,10 @@ namespace SpookyBotanyGame.World.Entities
 
         public override void _Ready()
         {
-            _defaultMaterial = Sprite.Material;
+            if (Sprite != null)
+            {
+                _defaultMaterial = Sprite.Material;
+            }
             base._Ready();
         }
 

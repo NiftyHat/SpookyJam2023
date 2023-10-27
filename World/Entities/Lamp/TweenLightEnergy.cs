@@ -14,7 +14,6 @@ public partial class TweenLightEnergy : Sprite2D
         {
             tween.TweenProperty(light, "energy", 0.4f, 0.1f);
             tween.TweenProperty(light, "energy", 0.5f, 1f);
-            
         }
 
         tween.SetLoops();

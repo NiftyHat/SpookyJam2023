@@ -20,6 +20,14 @@ namespace SpookyBotanyGame.World.Entities
 
         public bool HasActiveHandler  => _items != null && _items.Count < 1;
 
+        public OneShotAnimationHandler()
+        {
+        }
+        public OneShotAnimationHandler(AnimationPlayer animationPlayer)
+        {
+            SetAnimationPlayer(animationPlayer);
+        }
+
         private void SetAnimationPlayer(AnimationPlayer animation)
         {
             //if there is an existing animation clear out the existing queued events.

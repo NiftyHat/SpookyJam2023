@@ -4,17 +4,33 @@ namespace SpookyBotanyGame.World.Entities.Properties
     [GlobalClass,Icon("res://World/Entities/icon-entity-property.svg")]
     public partial class Interactable : EntityProperty
     {
+        public delegate bool InteractionTriggered(GameEntity other, GameEntity self);
         [Export] private InteractionHandler Handler { get; set; }
+
+        private bool _isTargeted;
+        public event InteractionTriggered OnInteractionTriggered;
         
         public override void _Ready()
         {
             base._Ready();
             _entity?.AddProperty<Interactable>(this);
+            OnEnabledUpdate += HandleEnabledUpdate;
         }
-        
+
+        private void HandleEnabledUpdate(bool isEnabled)
+        {
+            UpdateTargeted();
+        }
+
         public void SetTargeted(bool isTargeted)
         {
-            if (isTargeted)
+            _isTargeted = isTargeted;
+            UpdateTargeted();
+        }
+
+        private void UpdateTargeted()
+        {
+            if (_isTargeted && IsEnabled)
             {
                 Handler.OutlineShaderShow();
             }
@@ -24,9 +40,18 @@ namespace SpookyBotanyGame.World.Entities.Properties
             }
         }
 
-        public void TriggerInteraction(GameEntity entity)
+        public bool DoInteraction(GameEntity interactingEntity)
         {
-            //throw new System.NotImplementedException();
+            if (!IsEnabled)
+            {
+                return false;
+            }
+            if (OnInteractionTriggered == null)
+            {
+                return false;
+            }
+            bool interactionResult = OnInteractionTriggered.Invoke(interactingEntity, _entity);
+            return interactionResult;
         }
     }
 }
