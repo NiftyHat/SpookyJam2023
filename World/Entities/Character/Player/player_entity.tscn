@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://n8gglyvki7dw"]
+[gd_scene load_steps=27 format=3 uid="uid://n8gglyvki7dw"]
 
 [ext_resource type="Script" path="res://World/Entities/PlayerEntity.cs" id="1_8x44m"]
 [ext_resource type="Script" path="res://World/Entities/Collision/EntityCharacterBody2D.cs" id="1_mqoqk"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" path="res://World/Entities/Properties/CollectableContainer.cs" id="6_5dcv7"]
 [ext_resource type="Resource" uid="uid://kb7irsn4b1tn" path="res://Collectable/Types/collectable_flowers.tres" id="6_t6ve6"]
 [ext_resource type="Script" path="res://World/Entities/Properties/SimController.cs" id="7_i2d21"]
+[ext_resource type="Script" path="res://World/Entities/GameEntity.cs" id="8_4bn5i"]
+[ext_resource type="Texture2D" uid="uid://yrmg77v45n5v" path="res://World/Entities/Lamp/entity-lamp.png" id="9_ah46h"]
 [ext_resource type="Script" path="res://World/Entities/InputDirectionalPointing.cs" id="9_umlae"]
 [ext_resource type="Script" path="res://World/Entities/InteractionInputDirectional.cs" id="10_jpd0y"]
 [ext_resource type="Script" path="res://World/Entities/LightEmissionZone.cs" id="12_akob8"]
@@ -177,6 +179,14 @@ ValidCollectableTypes = Array[Object]([ExtResource("6_t6ve6")])
 
 [node name="SimController" type="Node" parent="PlayerEntity"]
 script = ExtResource("7_i2d21")
+
+[node name="Tool-Lamp" type="Node2D" parent="PlayerEntity"]
+position = Vector2(-16, -14)
+script = ExtResource("8_4bn5i")
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerEntity/Tool-Lamp"]
+texture = ExtResource("9_ah46h")
+hframes = 70
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
