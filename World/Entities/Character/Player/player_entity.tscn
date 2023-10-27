@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://n8gglyvki7dw"]
+[gd_scene load_steps=24 format=3 uid="uid://n8gglyvki7dw"]
 
 [ext_resource type="Script" path="res://World/Entities/PlayerEntity.cs" id="1_8x44m"]
 [ext_resource type="Script" path="res://World/Entities/Collision/EntityCharacterBody2D.cs" id="1_mqoqk"]
@@ -8,8 +8,10 @@
 [ext_resource type="Script" path="res://World/Entities/Properties/PlayerInputControlled.cs" id="5_bp7r1"]
 [ext_resource type="Texture2D" uid="uid://l4e7it147qh0" path="res://World/Entities/Character/player-sheet.png" id="6_3j257"]
 [ext_resource type="Script" path="res://World/Entities/Properties/CollectableContainer.cs" id="6_5dcv7"]
+[ext_resource type="Resource" uid="uid://kb7irsn4b1tn" path="res://Collectable/Types/collectable_flowers.tres" id="6_t6ve6"]
 [ext_resource type="Script" path="res://World/Entities/InputDirectionalPointing.cs" id="9_umlae"]
 [ext_resource type="Script" path="res://World/Entities/InteractionInputDirectional.cs" id="10_jpd0y"]
+[ext_resource type="Script" path="res://World/Entities/LightEmissionZone.cs" id="12_akob8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pcdrs"]
 radius = 5.0
@@ -142,17 +144,21 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_jkbia"]
 radius = 13.3417
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_k2g6f"]
+radius = 38.0132
+
 [node name="EntityCharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("Entity")]
 script = ExtResource("1_mqoqk")
 Entity = NodePath("PlayerEntity")
 
-[node name="PlayerEntity" type="Node2D" parent="." node_paths=PackedStringArray("Killable", "Animation", "InputControlled", "Body", "Interact")]
+[node name="PlayerEntity" type="Node2D" parent="." node_paths=PackedStringArray("Killable", "Animation", "InputControlled", "Body", "Interact", "Inventory")]
 script = ExtResource("1_8x44m")
 Killable = NodePath("Killable")
 Animation = NodePath("../DiagonalAnimationPlayer")
 InputControlled = NodePath("PlayerInputControlled")
 Body = NodePath("..")
 Interact = NodePath("../InteractionInputDirectional")
+Inventory = NodePath("CollectableContainer")
 
 [node name="Killable" type="Node2D" parent="PlayerEntity"]
 script = ExtResource("4_boswr")
@@ -165,7 +171,7 @@ Body2D = NodePath("../..")
 [node name="CollectableContainer" type="Node2D" parent="PlayerEntity"]
 position = Vector2(1, 0)
 script = ExtResource("6_5dcv7")
-_collectable = Array[Object]([])
+ValidCollectableTypes = Array[Object]([ExtResource("6_t6ve6")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
@@ -185,10 +191,11 @@ libraries = {
 "": SubResource("AnimationLibrary_n0au4")
 }
 
-[node name="InteractionInputDirectional" type="Node2D" parent="." node_paths=PackedStringArray("HitBox")]
+[node name="InteractionInputDirectional" type="Node2D" parent="." node_paths=PackedStringArray("HitBox", "Entity")]
 script = ExtResource("10_jpd0y")
 HitBox = NodePath("Area2D")
 Distance = 10.0
+Entity = NodePath("../PlayerEntity")
 
 [node name="Area2D" type="Area2D" parent="InteractionInputDirectional"]
 position = Vector2(-17, 0)
@@ -208,3 +215,13 @@ Controlled = NodePath("Lamp")
 
 [node name="Lamp" parent="InputDirectionalPointing" instance=ExtResource("4_bqwhj")]
 position = Vector2(-31, 0)
+
+[node name="LightEmissionZone" type="Node2D" parent="InputDirectionalPointing/Lamp" node_paths=PackedStringArray("HitBox")]
+script = ExtResource("12_akob8")
+HitBox = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="InputDirectionalPointing/Lamp/LightEmissionZone"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InputDirectionalPointing/Lamp/LightEmissionZone/Area2D"]
+shape = SubResource("CircleShape2D_k2g6f")
+debug_color = Color(0.580392, 0.54902, 0.0666667, 0.419608)

@@ -77,6 +77,13 @@ InteractionMaterial = SubResource("ShaderMaterial_dnptv")
 color = Color(0, 0, 0, 1)
 
 [node name="Plant-LightFlower" parent="WorldRoot" instance=ExtResource("11_dh45g")]
+position = Vector2(333, 120)
+
+[node name="Plant-LightFlower2" parent="WorldRoot" instance=ExtResource("11_dh45g")]
+position = Vector2(404, 247)
+
+[node name="Plant-LightFlower3" parent="WorldRoot" instance=ExtResource("11_dh45g")]
+position = Vector2(512, 126)
 
 [node name="UIRoot" type="CanvasLayer" parent="."]
 

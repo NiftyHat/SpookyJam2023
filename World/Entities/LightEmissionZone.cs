@@ -4,7 +4,8 @@ using SpookyBotanyGame.World.Entities.Properties;
 
 namespace SpookyBotanyGame.World.Entities
 {
-    public partial class LightZone : Node2D
+    [GlobalClass]
+    public partial class LightEmissionZone : Node2D
     {
         [Export] public Area2D HitBox { get; set; }
         
@@ -44,6 +45,7 @@ namespace SpookyBotanyGame.World.Entities
         {
             if (GameEntity.TryGetProperty(area, out LightSensor lightSensor, out GameEntity gameEntity))
             {
+                
                 float lightAmount = GetLightAmount();
                 lightSensor.UnlitBy(this, lightAmount);
                 Remove(gameEntity);

@@ -5,32 +5,33 @@ namespace SpookyBotanyGame.World.Entities.Properties
     [GlobalClass,Icon("res://World/Entities/icon-entity-property.svg")]
     public partial class LightSensor : EntityProperty
     {
-        [Export] public CollisionObject2D LightBox { get; set; }
+        [Export] public CollisionObject2D HitBox { get; set; }
         
-        public delegate void LightHit(LightZone lightZone, float lightPower);
+        public delegate void LightHit(LightEmissionZone lightEmissionZone, float lightPower);
         public event LightHit OnEnter;
         public event LightHit OnExit;
         public event LightHit OnApply;
         
         public override void _Ready()
         {
-            _entity?.AddProperty(this);
+           
             base._Ready();
+            _entity?.AddProperty(this);
         }
 
-        public void LitBy(LightZone lightZone, float lightPower)
+        public void LitBy(LightEmissionZone lightEmissionZone, float lightPower)
         {
-            OnEnter?.Invoke(lightZone, lightPower);
+            OnEnter?.Invoke(lightEmissionZone, lightPower);
         }
 
-        public void UnlitBy(LightZone lightZone, float lightPower)
+        public void UnlitBy(LightEmissionZone lightEmissionZone, float lightPower)
         {
-            OnExit?.Invoke(lightZone, lightPower);
+            OnExit?.Invoke(lightEmissionZone, lightPower);
         }
 
-        public void ApplyLight(LightZone lightZone, float lightAmount)
+        public void ApplyLight(LightEmissionZone lightEmissionZone, float lightAmount)
         {
-            OnApply?.Invoke(lightZone, lightAmount);
+            OnApply?.Invoke(lightEmissionZone, lightAmount);
         }
     }
 }

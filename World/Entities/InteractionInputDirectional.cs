@@ -10,7 +10,6 @@ namespace SpookyBotanyGame.World.Entities
     {
         [Export] public Area2D HitBox { get; set; }
         [Export] public float Distance { get; set; }
-        
         [Export] public GameEntity Entity { get; set; }
 
         [Export(PropertyHint.MultilineText)] 
@@ -32,12 +31,12 @@ namespace SpookyBotanyGame.World.Entities
             Distance = (HitBox.Position).Length();
         }
         
-        public void TriggerInteract()
+        public void DoInteract()
         {
             foreach (var kvp in _trackedEntities)
             {
                 var interactable = kvp.Value;
-                interactable.TriggerInteraction(Entity);
+                interactable.DoInteraction(Entity);
             }
         }
 
@@ -87,7 +86,13 @@ namespace SpookyBotanyGame.World.Entities
             if (!_trackedEntities.ContainsKey(gameEntity))
             {
                 _trackedEntities.Add(gameEntity, interactable);
+                interactable.OnEnabledUpdate += HandleInteractableEnabled;
             }
+        }
+
+        private void HandleInteractableEnabled(bool obj)
+        {
+            
         }
 
         private void Remove(GameEntity gameEntity)

@@ -16,13 +16,19 @@ namespace SpookyBotanyGame.Core.StateMachines
         public void SetState(State state)
         {
             _currentState = state;
-            _currentState.OnExit += HandleUpdatableStateExit;
+            _currentState.OnExit += HandleStateExit;
+            GD.Print("Add Exit Handler ", _currentState);
+            if (state is IUpdatableState updatableState)
+            {
+                _updatableState = updatableState;
+            }
         }
 
-        private void HandleUpdatableStateExit(State state)
+        private void HandleStateExit(State state)
         {
+            GD.Print("Handle state exit", state);
             _currentState = null;
-            if (_currentState != null)
+            if (state != null)
             {
                 SetState(state);
             }

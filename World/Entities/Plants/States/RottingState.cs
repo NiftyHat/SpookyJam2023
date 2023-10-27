@@ -9,7 +9,7 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
         public RottingState(LightPlant plant)
         {
             _plant = plant;
-            _plant.Time.OnDayTick += HandleDayAdvance;
+            _plant.Sim.OnDayTick += HandleDayAdvance;
             _plant.Animation.Play("Rotting");
         }
 

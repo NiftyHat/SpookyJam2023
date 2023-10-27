@@ -23,7 +23,7 @@ namespace SpookyBotanyGame.World.Entities.Properties
 
         public void Kill()
         {
-            if (!_isEnabled)
+            if (!IsEnabled)
             {
                 return;
             }

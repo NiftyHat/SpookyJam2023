@@ -6,12 +6,14 @@
 position = Vector2(9, 22)
 
 [node name="SpriteLight" type="PointLight2D" parent="."]
+energy = 0.5
 blend_mode = 2
 range_item_cull_mask = 3
 texture = ExtResource("1_vbo2w")
 texture_scale = 0.5
 
 [node name="ShadowLight" type="PointLight2D" parent="."]
+energy = 0.5
 blend_mode = 2
 range_layer_max = 3
 shadow_enabled = true

@@ -14,6 +14,10 @@ namespace SpookyBotanyGame.World.Entities
         [Export] public PlayerInputControlled InputControlled { get; set; }
         [Export] public EntityCharacterBody2D Body { get; set; }
         [Export] public InteractionInputDirectional Interact { get; set; }
+        
+        [Export] public SimAdvanceable Sim { get; set; }
+        
+        [Export] public CollectableContainer Inventory { get; set; }
 
         private World.SpawnPoint _spawnPoint;
 
@@ -25,6 +29,15 @@ namespace SpookyBotanyGame.World.Entities
             _properties.Add(Killable);
             
             CallDeferred("AddSpawnPointToParent");
+        }
+
+        public override void _Process(double delta)
+        {
+            if (Input.IsActionJustReleased("interact"))
+            {
+                Interact?.DoInteract();
+            }
+            base._Process(delta);
         }
 
         private void HandleOwnerReady()

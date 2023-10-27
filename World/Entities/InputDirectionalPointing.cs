@@ -59,7 +59,6 @@ public partial class InputDirectionalPointing : Node2D
                 }
                 break;
         }
-
         base._Input(inputEvent);
     }
 }
