@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bb1sfvq8h1ymh"]
+[gd_scene load_steps=21 format=3 uid="uid://bb1sfvq8h1ymh"]
 
 [ext_resource type="Script" path="res://World/Entities/Plants/LightPlant.cs" id="1_7ahoy"]
 [ext_resource type="Resource" uid="uid://kb7irsn4b1tn" path="res://Collectable/Types/collectable_flowers.tres" id="2_3wop4"]
@@ -24,14 +24,15 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3]
+"values": [0, 1, 2, 3, 4, 5]
 }
 
 [sub_resource type="Animation" id="Animation_h414n"]
 resource_name = "grow-2"
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -39,14 +40,15 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [4, 5, 6, 7, 8]
+"values": [5, 6, 7, 8]
 }
 
 [sub_resource type="Animation" id="Animation_jlb3i"]
 resource_name = "grow-3"
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -54,10 +56,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [8, 9, 10, 11, 12, 13, 14]
+"values": [8, 9, 10, 11]
 }
 
 [sub_resource type="Animation" id="Animation_3b41a"]
@@ -105,11 +107,27 @@ tracks/0/keys = {
 "values": [21]
 }
 
+[sub_resource type="Animation" id="Animation_1hsxl"]
+resource_name = "Growing-4"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [11, 12, 13, 14]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o6hjt"]
 _data = {
 "Growing-1": SubResource("Animation_8apnj"),
 "Growing-2": SubResource("Animation_h414n"),
 "Growing-3": SubResource("Animation_jlb3i"),
+"Growing-4": SubResource("Animation_1hsxl"),
 "Harvest": SubResource("Animation_3b41a"),
 "RESET": SubResource("Animation_ute2g"),
 "Rotting": SubResource("Animation_x1w2e")

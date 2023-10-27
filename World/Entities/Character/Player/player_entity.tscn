@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://n8gglyvki7dw"]
+[gd_scene load_steps=25 format=3 uid="uid://n8gglyvki7dw"]
 
 [ext_resource type="Script" path="res://World/Entities/PlayerEntity.cs" id="1_8x44m"]
 [ext_resource type="Script" path="res://World/Entities/Collision/EntityCharacterBody2D.cs" id="1_mqoqk"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://l4e7it147qh0" path="res://World/Entities/Character/player-sheet.png" id="6_3j257"]
 [ext_resource type="Script" path="res://World/Entities/Properties/CollectableContainer.cs" id="6_5dcv7"]
 [ext_resource type="Resource" uid="uid://kb7irsn4b1tn" path="res://Collectable/Types/collectable_flowers.tres" id="6_t6ve6"]
+[ext_resource type="Script" path="res://World/Entities/Properties/SimController.cs" id="7_i2d21"]
 [ext_resource type="Script" path="res://World/Entities/InputDirectionalPointing.cs" id="9_umlae"]
 [ext_resource type="Script" path="res://World/Entities/InteractionInputDirectional.cs" id="10_jpd0y"]
 [ext_resource type="Script" path="res://World/Entities/LightEmissionZone.cs" id="12_akob8"]
@@ -151,13 +152,14 @@ radius = 38.0132
 script = ExtResource("1_mqoqk")
 Entity = NodePath("PlayerEntity")
 
-[node name="PlayerEntity" type="Node2D" parent="." node_paths=PackedStringArray("Killable", "Animation", "InputControlled", "Body", "Interact", "Inventory")]
+[node name="PlayerEntity" type="Node2D" parent="." node_paths=PackedStringArray("Killable", "Animation", "InputControlled", "Body", "Interact", "Sim", "Inventory")]
 script = ExtResource("1_8x44m")
 Killable = NodePath("Killable")
 Animation = NodePath("../DiagonalAnimationPlayer")
 InputControlled = NodePath("PlayerInputControlled")
 Body = NodePath("..")
 Interact = NodePath("../InteractionInputDirectional")
+Sim = NodePath("SimController")
 Inventory = NodePath("CollectableContainer")
 
 [node name="Killable" type="Node2D" parent="PlayerEntity"]
@@ -172,6 +174,9 @@ Body2D = NodePath("../..")
 position = Vector2(1, 0)
 script = ExtResource("6_5dcv7")
 ValidCollectableTypes = Array[Object]([ExtResource("6_t6ve6")])
+
+[node name="SimController" type="Node" parent="PlayerEntity"]
+script = ExtResource("7_i2d21")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708

@@ -34,6 +34,7 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
 
         private void HandleDayAdvance(int amount)
         {
+            GD.Print("HarvestState", "HandleDayAdvance");
             if (_collectableAmount.IsZero)
             {
                 Exit(new GrowingState(_plant, 1));

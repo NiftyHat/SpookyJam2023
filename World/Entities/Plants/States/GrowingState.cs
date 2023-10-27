@@ -19,6 +19,7 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
         private LightPlant _plant;
         
         public const string GrowingAnimationName = "Growing";
+        private bool _hasAnimationHandler;
 
         public GrowingState(LightPlant plant, int progress, float energyRequired = 1.0f)
         {
@@ -35,7 +36,8 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
             _lightSensor.OnEnter += HandleLightEnter;
             _lightSensor.OnExit += HandleLightExit;
             _growthEnergy.OnMax += HandleMaxEnergy;
-            
+            _plant.Animation.AnimationFinished += HandleAnimationFinish;
+            _hasAnimationHandler = true;
             _animationName = GetProgressAnimation(GrowingAnimationName, progress, _animation);
             if (_animationName != null)
             {
@@ -53,7 +55,11 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
             _lightSensor.OnEnter -= HandleLightEnter;
             _lightSensor.OnExit -= HandleLightExit;
             _growthEnergy.OnMax -= HandleMaxEnergy;
-            _plant.Animation.AnimationFinished -= HandleAnimationFinish;
+            if (_hasAnimationHandler)
+            {
+                _plant.Animation.AnimationFinished -= HandleAnimationFinish;
+                _hasAnimationHandler = false;
+            }
             base.Exit(state);
         }
 
@@ -63,17 +69,14 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
             _plant.Animation.Play(_animationName);
             _plant.Animation.Advance(0);
             _plant.Animation.Pause();
-            _plant.Animation.AnimationFinished += HandleAnimationFinish;
+            
         }
 
         private void HandleAnimationFinish(StringName animName)
         {
-           
             if (animName.ToString() == _animationName)
             {
-                string nextGrowingAnimation = GetProgressAnimation("Growing", _progress + 1, _animation);
-                GD.Print(nextGrowingAnimation);
-                if (nextGrowingAnimation == null)
+                if (!TryGetProgressAnimation("Growing", _progress + 1, _animation, out string animationName))
                 {
                     Exit(new HarvestState(_plant, _plant.OutputAmount, _plant.Output));
                 }
@@ -91,12 +94,23 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
             return null;
         }
 
+        public static bool TryGetProgressAnimation(string name, int progress, AnimationPlayer animationPlayer,
+            out string animationName)
+        {
+            animationName = $"{name}-{progress}";
+            if (animationPlayer.HasAnimation(animationName))
+            {
+                return true;
+            }
+            return false;
+        }
+
         private void HandleDayAdvance(int amount)
         {
+            GD.Print("GrowingState", "HandleDayAdvance");
             if (_growthEnergy.IsMax)
             {
-                string nextGrowingAnimation = GetProgressAnimation("Growing", _progress + 1, _animation);
-                if (nextGrowingAnimation != null)
+                if (TryGetProgressAnimation("Growing", _progress + 1, _animation, out string animationName))
                 {
                     Exit(new GrowingState(_plant, _progress + 1));
                 }
@@ -104,6 +118,10 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
                 {
                     Exit(new HarvestState(_plant, _plant.OutputAmount, _plant.Output));
                 }
+            }
+            else
+            {
+                Exit(new RottingState(_plant));
             }
         }
 

@@ -1,16 +1,31 @@
 using Godot;
+using SpookyBotanyGame.World.Systems;
 
 namespace SpookyBotanyGame.World.Entities.Properties;
 
 [GlobalClass,Icon("res://World/Entities/icon-entity-property.svg")]
 public partial class SimAdvanceable : Node
 {
-    public delegate void OnTick(int amount);
+    public event SimSystem.OnDaysTicked OnDayTick;
 
-    public event OnTick OnDayTick;
+    private SimSystem.IReadOnlyTime _time;
+    private int _daysAlive;
 
-    public void AdvanceDay(int i)
+    public override void _Ready()
     {
-        OnDayTick?.Invoke(i);
+        base._Ready();
+        var sim = GetNode<SimSystem>("/root/SimSystem");
+        if (sim == null)
+        {
+            GD.PrintErr($"{nameof(SimAdvanceable)} didn't attach to SimSystem.Time");
+        }
+        _time = sim.Time;
+        _time.OnDayTick += HandleSimDayTick;
+    }
+
+    private void HandleSimDayTick(int dayCount)
+    {
+        _daysAlive += dayCount;
+        OnDayTick?.Invoke(dayCount);
     }
 }

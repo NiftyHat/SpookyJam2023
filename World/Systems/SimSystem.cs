@@ -1,27 +1,26 @@
 using System;
 using Godot;
+using SpookyBotanyGame.World.Entities;
 
 namespace SpookyBotanyGame.World.Systems;
 
-public partial class SimSystem : Resource
+public partial class SimSystem : Node
 {
     public delegate void OnDaysTicked(int dayCount);
-    public class WorldTime : IReadOnlyTime
+    public class SimTime : IReadOnlyTime
     {
-
-        
         public int Day { get; private set; }
 
         public event OnDaysTicked OnDayTick;
 
         public void AdvanceDay(int days)
         {
+            GD.Print($"Advance day {days}");
             if (days <= 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(days),
                     $"Sim.Time.AdvanceDay() param {nameof(days)} cannot zero or less");
             }
-
             Day += days;
             OnDayTick?.Invoke(days);
         }
@@ -32,10 +31,17 @@ public partial class SimSystem : Resource
         public event OnDaysTicked OnDayTick;
     }
 
-    public WorldTime Time { get; set; }
+    private SimTime _time = new SimTime();
+    public IReadOnlyTime Time => _time;
 
-    public SimSystem()
+    public void PlayerSleep(PlayerEntity playerEntity)
     {
-        Time = new WorldTime();
+        _time.AdvanceDay(1);
     }
+    
+    public void PlayerRespawn(PlayerEntity playerEntity)
+    {
+        _time.AdvanceDay(1);
+    }
+    
 }

@@ -11,6 +11,7 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
             _plant = plant;
             _plant.Sim.OnDayTick += HandleDayAdvance;
             _plant.Animation.Play("Rotting");
+            _plant.Effects.SetIsLit(false);
         }
 
         private void HandleDayAdvance(int amount)
