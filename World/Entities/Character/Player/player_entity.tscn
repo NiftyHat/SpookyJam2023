@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://World/Entities/Properties/CollectableContainer.cs" id="6_5dcv7"]
 [ext_resource type="Resource" uid="uid://kb7irsn4b1tn" path="res://Collectable/Types/collectable_flowers.tres" id="6_t6ve6"]
 [ext_resource type="Script" path="res://World/Entities/Properties/SimController.cs" id="7_i2d21"]
-[ext_resource type="Script" path="res://World/Entities/GameEntity.cs" id="8_4bn5i"]
+[ext_resource type="Script" path="res://World/Entities/Tools/LanternTool.cs" id="8_1dq5p"]
 [ext_resource type="Texture2D" uid="uid://yrmg77v45n5v" path="res://World/Entities/Lamp/entity-lamp.png" id="9_ah46h"]
 [ext_resource type="Script" path="res://World/Entities/InputDirectionalPointing.cs" id="9_umlae"]
 [ext_resource type="Script" path="res://World/Entities/InteractionInputDirectional.cs" id="10_jpd0y"]
@@ -25,7 +25,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("PlayerSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -41,7 +41,7 @@ length = 1.20001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("PlayerSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -57,7 +57,7 @@ length = 1.20001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("PlayerSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -72,7 +72,7 @@ resource_name = "idle_north"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("PlayerSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -88,7 +88,7 @@ length = 3.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("PlayerSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -105,7 +105,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("PlayerSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -123,7 +123,7 @@ step = 0.0833333
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("PlayerSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -180,19 +180,27 @@ ValidCollectableTypes = Array[Object]([ExtResource("6_t6ve6")])
 [node name="SimController" type="Node" parent="PlayerEntity"]
 script = ExtResource("7_i2d21")
 
-[node name="Tool-Lamp" type="Node2D" parent="PlayerEntity"]
-position = Vector2(-16, -14)
-script = ExtResource("8_4bn5i")
-
-[node name="Sprite2D" type="Sprite2D" parent="PlayerEntity/Tool-Lamp"]
-texture = ExtResource("9_ah46h")
-hframes = 70
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_pcdrs")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="LanternTool" type="Node2D" parent="." node_paths=PackedStringArray("Animation", "Sprite")]
+z_as_relative = false
+position = Vector2(-12, -6)
+script = ExtResource("8_1dq5p")
+Animation = NodePath("AnimationPlayer")
+Sprite = NodePath("LanternSprite2D")
+
+[node name="LanternSprite2D" type="Sprite2D" parent="LanternTool"]
+z_index = 3
+z_as_relative = false
+texture = ExtResource("9_ah46h")
+hframes = 70
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LanternTool"]
+root_node = NodePath("../LanternSprite2D")
+
+[node name="PlayerSprite2D" type="Sprite2D" parent="."]
 z_index = 2
 y_sort_enabled = true
 position = Vector2(0, -16)
@@ -221,22 +229,22 @@ shape = SubResource("CircleShape2D_jkbia")
 [node name="DiagonalAnimationPlayer" type="Node2D" parent="." node_paths=PackedStringArray("Animation", "Sprite")]
 script = ExtResource("3_dtimg")
 Animation = NodePath("../AnimationPlayer")
-Sprite = NodePath("../Sprite2D")
+Sprite = NodePath("../PlayerSprite2D")
 
 [node name="InputDirectionalPointing" type="Node2D" parent="." node_paths=PackedStringArray("Controlled")]
 script = ExtResource("9_umlae")
 Distance = 10.0
-Controlled = NodePath("Lamp")
+Controlled = NodePath("PointLightLantern")
 
-[node name="Lamp" parent="InputDirectionalPointing" instance=ExtResource("4_bqwhj")]
+[node name="PointLightLantern" parent="InputDirectionalPointing" instance=ExtResource("4_bqwhj")]
 position = Vector2(-31, 0)
 
-[node name="LightEmissionZone" type="Node2D" parent="InputDirectionalPointing/Lamp" node_paths=PackedStringArray("HitBox")]
+[node name="LightEmissionZone" type="Node2D" parent="InputDirectionalPointing/PointLightLantern" node_paths=PackedStringArray("HitBox")]
 script = ExtResource("12_akob8")
 HitBox = NodePath("Area2D")
 
-[node name="Area2D" type="Area2D" parent="InputDirectionalPointing/Lamp/LightEmissionZone"]
+[node name="Area2D" type="Area2D" parent="InputDirectionalPointing/PointLightLantern/LightEmissionZone"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InputDirectionalPointing/Lamp/LightEmissionZone/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InputDirectionalPointing/PointLightLantern/LightEmissionZone/Area2D"]
 shape = SubResource("CircleShape2D_k2g6f")
 debug_color = Color(0.580392, 0.54902, 0.0666667, 0.419608)

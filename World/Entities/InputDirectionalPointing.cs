@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using SpookyBotanyGame.World.Entities.Properties;
 
@@ -8,6 +9,8 @@ public partial class InputDirectionalPointing : Node2D
 {
     [Export] public float Distance { get; set; }
     [Export] public Node2D Controlled { get; set; }
+
+    public event Action<Vector2> OnDirectionChanged;
     
     private Vector2 _offset;
     
@@ -29,8 +32,12 @@ public partial class InputDirectionalPointing : Node2D
         {
             _angle = AngleToMouse();
         }
-        _offset = _angle.Normalized() * Distance;
+
+        var normalized = _angle.Normalized();
+        OnDirectionChanged(normalized);
+        _offset = normalized  * Distance;
         Controlled.Position = _offset;
+        
     }
     
     protected Vector2 AngleToMouse()

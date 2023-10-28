@@ -2,6 +2,7 @@ using Godot;
 using SpookyBotanyGame.Core;
 using SpookyBotanyGame.Core.StateMachines;
 using SpookyBotanyGame.World.Entities.Properties;
+using Range = Godot.Range;
 
 namespace SpookyBotanyGame.World.Entities.Plants.States
 {
@@ -140,28 +141,15 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
                     _growthEnergy.Value += _lightThisFrame * (float)delta;
                     if (_plant.Effects != null)
                     {
-                        _plant.Effects.SetScale(EnergyPercentage(_growthEnergy));
+                        
+                        _plant.Effects.SetScale(Core.Range.Percentage(_growthEnergy));
                         _plant.Effects.SetIsLit(true);
                     }
                     _lightThisFrame = 0;
                 }
             }
         }
-
-        public static float EnergyPercentage(Range<float> range)
-        {
-            if (range.Min == 0 && range.Max == 0)
-            {
-                return 1.0f;
-            }
-            if (range.Min == 0)
-            {
-                return 1.0f / (range.Max - range.Min) * range.Value;
-            }
-
-            return 0;
-        }
-
+        
         private void HandleLightApply(LightEmissionZone lightEmissionZone, float lightPower)
         {
             if (lightPower > _lightThisFrame)

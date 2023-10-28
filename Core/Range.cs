@@ -2,6 +2,35 @@ using System;
 
 namespace SpookyBotanyGame.Core
 {
+
+    public static class Range
+    {
+        public static float Percentage(Range<float> range)
+        {
+            if (range.Min == 0 && range.Max == 0)
+            {
+                return 1.0f;
+            }
+            if (range.Min == 0)
+            {
+                return 1.0f / (range.Max - range.Min) * range.Value;
+            }
+            return 0;
+        }
+        
+        public static double Percentage(Range<double> range)
+        {
+            if (range.Min == 0 && range.Max == 0)
+            {
+                return 1.0f;
+            }
+            if (range.Min == 0)
+            {
+                return 1.0d / (range.Max - range.Min) * range.Value;
+            }
+            return 0;
+        }
+    }
     public class Range<TValue> where TValue : IComparable<TValue>
     {
         public TValue Min { get; private set; }
@@ -77,6 +106,8 @@ namespace SpookyBotanyGame.Core
                 _isMax = false;
             }
         }
+
+
     }
 }
 

@@ -40,7 +40,7 @@ texture = SubResource("CanvasTexture_nemjj")
 position = Vector2(0, 1)
 
 [node name="PlayerEntity" parent="WorldRoot" groups=["EntityProvider"] instance=ExtResource("2_3tyht")]
-position = Vector2(404, 153)
+position = Vector2(413, 181)
 
 [node name="Camera2D" type="Camera2D" parent="WorldRoot/PlayerEntity"]
 position = Vector2(-1, -1)

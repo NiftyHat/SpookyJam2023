@@ -2,6 +2,7 @@ using Godot;
 using SpookyBotanyGame.World.Entities.Animation;
 using SpookyBotanyGame.World.Entities.Collision;
 using SpookyBotanyGame.World.Entities.Properties;
+using SpookyBotanyGame.World.Entities.Tools;
 
 namespace SpookyBotanyGame.World.Entities
 {
@@ -15,6 +16,7 @@ namespace SpookyBotanyGame.World.Entities
         [Export] public InteractionInputDirectional Interact { get; set; }
         [Export] public SimController Sim { get; set; }
         [Export] public CollectableContainer Inventory { get; set; }
+        [Export] public LanternTool LanternTool { get; set; }
 
         
         private SpawnPoint _spawnPoint;
