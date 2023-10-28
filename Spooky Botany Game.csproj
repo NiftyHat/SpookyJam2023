@@ -5,9 +5,6 @@
     <RootNamespace>SpookyBotanyGame</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="World\Entities\Lamp" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Remove="UI\Widgets\ImageSequenceAnimation\**" />
     <Compile Remove="UI\Widgets\InputUIAnimation\**" />
     <Compile Remove="UI\Widgets\UIInputAnimation\**" />
@@ -16,5 +13,8 @@
     <EmbeddedResource Remove="UI\Widgets\ImageSequenceAnimation\**" />
     <EmbeddedResource Remove="UI\Widgets\InputUIAnimation\**" />
     <EmbeddedResource Remove="UI\Widgets\UIInputAnimation\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="World\Entities\Lamp\entity_lamp.tscn" />
   </ItemGroup>
 </Project>

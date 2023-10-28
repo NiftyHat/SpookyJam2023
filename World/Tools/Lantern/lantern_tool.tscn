@@ -1,11 +1,11 @@
 [gd_scene load_steps=18 format=3 uid="uid://cl3cgkfn6rgh3"]
 
-[ext_resource type="Script" path="res://World/Entities/Tools/LanternTool.cs" id="1_f0r4n"]
+[ext_resource type="Script" path="res://World/Tools/Lantern/LanternTool.cs" id="1_f0r4n"]
 [ext_resource type="Script" path="res://World/Entities/Animation/ToolAnimationPlayer.cs" id="2_lw3nr"]
-[ext_resource type="Texture2D" uid="uid://bpgkac7owy7qc" path="res://World/Tools/tool-lantern.png" id="3_iduhq"]
+[ext_resource type="Texture2D" uid="uid://bpgkac7owy7qc" path="res://World/Tools/Lantern/tool-lantern.png" id="3_iduhq"]
 [ext_resource type="Texture2D" uid="uid://bwk72256yuylr" path="res://World/Lights/light.png" id="4_fdu5e"]
 [ext_resource type="Script" path="res://World/Entities/InputDirectionalPointing.cs" id="5_vjwlx"]
-[ext_resource type="PackedScene" uid="uid://b4f2fcnq0kh7w" path="res://World/Entities/Lamp/entity_lamp.tscn" id="6_ko75a"]
+[ext_resource type="PackedScene" uid="uid://b4f2fcnq0kh7w" path="res://World/Tools/Lantern/tool_lantern_light.tscn" id="6_ko75a"]
 [ext_resource type="Script" path="res://World/Entities/LightEmissionZone.cs" id="7_rn2i1"]
 
 [sub_resource type="Animation" id="Animation_roibe"]

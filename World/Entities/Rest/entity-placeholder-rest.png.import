@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brhog1hkt6353"
-path="res://.godot/imported/entity-lantern.png-270461d148b90d4db95250f40427ad78.ctex"
+uid="uid://dfs4ou55i0ri4"
+path="res://.godot/imported/entity-placeholder-rest.png-439baaa392fdc6c766aa370c6d6bfffe.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Asesprite/entity-lantern.png"
-dest_files=["res://.godot/imported/entity-lantern.png-270461d148b90d4db95250f40427ad78.ctex"]
+source_file="res://World/Entities/Rest/entity-placeholder-rest.png"
+dest_files=["res://.godot/imported/entity-placeholder-rest.png-439baaa392fdc6c766aa370c6d6bfffe.ctex"]
 
 [params]
 

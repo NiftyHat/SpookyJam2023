@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b78acft5a5sfy"]
+[gd_scene load_steps=17 format=3 uid="uid://b78acft5a5sfy"]
 
 [ext_resource type="PackedScene" uid="uid://jksnbdthe1y6" path="res://World/Maps/test_map.tscn" id="1_wukwe"]
 [ext_resource type="PackedScene" uid="uid://n8gglyvki7dw" path="res://World/Entities/Character/Player/player_entity.tscn" id="2_3tyht"]
@@ -9,16 +9,17 @@
 [ext_resource type="Shader" path="res://Shaders/Sprite Shaders/2d_outline.gdshader" id="6_is4cx"]
 [ext_resource type="Script" path="res://World/Entities/Area2DEntityReference.cs" id="6_u5nph"]
 [ext_resource type="Texture2D" uid="uid://bld2qqqsfd40i" path="res://UI/Input/Keyboard/keyboard_blank_key_1.png" id="7_hfiev"]
-[ext_resource type="Script" path="res://World/Entities/InteractionHandler.cs" id="8_aiqyl"]
+[ext_resource type="PackedScene" uid="uid://cmcnfywe836lq" path="res://World/Entities/interaction_outline_effect.tscn" id="9_k65bk"]
 [ext_resource type="Script" path="res://World/Entities/Properties/Interactable.cs" id="9_ufl5l"]
 [ext_resource type="PackedScene" uid="uid://bb1sfvq8h1ymh" path="res://World/Entities/Plants/LightPlant/plant_light_flower.tscn" id="11_dh45g"]
+[ext_resource type="PackedScene" uid="uid://ng01afb5x4gj" path="res://World/Entities/Rest/rest_point_entity.tscn" id="13_4nh1i"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_nemjj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hlvoq"]
 size = Vector2(25, 24)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dnptv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gwtlm"]
 resource_local_to_scene = true
 shader = ExtResource("6_is4cx")
 shader_parameter/color = Color(1, 1, 1, 1)
@@ -69,10 +70,9 @@ texture = ExtResource("7_hfiev")
 script = ExtResource("9_ufl5l")
 Handler = NodePath("InteractionHandler")
 
-[node name="InteractionHandler" type="Node2D" parent="WorldRoot/InteractableTest/Interactable" node_paths=PackedStringArray("Sprite")]
-script = ExtResource("8_aiqyl")
+[node name="InteractionHandler" parent="WorldRoot/InteractableTest/Interactable" node_paths=PackedStringArray("Sprite") instance=ExtResource("9_k65bk")]
 Sprite = NodePath("../../Sprite2D")
-InteractionMaterial = SubResource("ShaderMaterial_dnptv")
+InteractionMaterial = SubResource("ShaderMaterial_gwtlm")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="WorldRoot"]
 color = Color(0, 0, 0, 1)
@@ -88,6 +88,8 @@ OutputAmount = 5
 [node name="Plant-LightFlower3" parent="WorldRoot" instance=ExtResource("11_dh45g")]
 position = Vector2(512, 126)
 OutputAmount = 5
+
+[node name="RestPointEntity" parent="WorldRoot" instance=ExtResource("13_4nh1i")]
 
 [node name="UIRoot" type="CanvasLayer" parent="."]
 

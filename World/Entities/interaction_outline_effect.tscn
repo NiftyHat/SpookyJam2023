@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmcnfywe836lq"]
+
+[ext_resource type="Script" path="res://World/Entities/InteractionHandler.cs" id="1_qa2r0"]
+[ext_resource type="Shader" path="res://Shaders/Sprite Shaders/2d_outline.gdshader" id="2_8u3sg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dnptv"]
+resource_local_to_scene = true
+shader = ExtResource("2_8u3sg")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+
+[node name="InteractionHandler" type="Node2D"]
+script = ExtResource("1_qa2r0")
+InteractionMaterial = SubResource("ShaderMaterial_dnptv")
