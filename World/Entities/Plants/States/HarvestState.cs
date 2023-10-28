@@ -35,7 +35,7 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
         private void HandleDayAdvance(int amount)
         {
             GD.Print("HarvestState", "HandleDayAdvance");
-            if (_collectableAmount.IsZero)
+            if (_collectableAmount.IsMin)
             {
                 Exit(new GrowingState(_plant, 1));
             }
@@ -61,7 +61,7 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
                 return false;
             }
 
-            if (_collectableAmount.IsZero)
+            if (_collectableAmount.IsMin)
             {
                 GD.PushError($"Failed ${nameof(HandleInteractionTriggered)} on '{_plant.Name}' as collectable amount was 0");
                 return false;
@@ -69,6 +69,16 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
 
             if (other is PlayerEntity playerEntity)
             {
+                if (playerEntity.LanternTool != null)
+                {
+                    var amountToHarvest = _collectableAmount.Value;
+                    playerEntity.LanternTool.Fuel.Value += amountToHarvest * 3;
+                    _plant.Animation.Play("Harvest");
+                    _plant.Interactable.SetEnabled(false);
+                    _collectableAmount.Value = 0;
+                }
+                //playerEntity.LanternTool
+                /*
                 var slot = playerEntity.Inventory.GetSlot(_resource);
                 var amountToHarvest = _collectableAmount.Value;
                 if (slot.Space < amountToHarvest)
@@ -90,7 +100,7 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
                 else
                 {
                     GD.PushWarning($"Failed ${nameof(HandleInteractionTriggered)} on '{_plant.Name}' because {amountToHarvest} was less or equal to 0");
-                }
+                }*/
             }
             else
             {

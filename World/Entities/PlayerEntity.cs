@@ -17,7 +17,6 @@ namespace SpookyBotanyGame.World.Entities
         [Export] public SimController Sim { get; set; }
         [Export] public CollectableContainer Inventory { get; set; }
         [Export] public LanternTool LanternTool { get; set; }
-
         
         private SpawnPoint _spawnPoint;
 
@@ -28,6 +27,20 @@ namespace SpookyBotanyGame.World.Entities
             Killable.OnRespawned += HandleRespawned;
             _properties.Add(Killable);
             CallDeferred("AddSpawnPointToParent");
+        }
+
+        private void HandleLanternEmptyChanged(bool isEmpty, LanternTool tool)
+        {
+            if (isEmpty)
+            {
+                
+            }
+        }
+
+        private void HandleLanternDirectionChange(Vector2 direction, Vector2 distance)
+        {
+            GD.Print(direction);
+            LanternTool.SetPointing(direction);
         }
 
         public override void _Process(double delta)

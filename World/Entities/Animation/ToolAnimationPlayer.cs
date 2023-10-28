@@ -13,9 +13,7 @@ namespace SpookyBotanyGame.World.Entities.Animation
         [Export] private AnimationPlayer Animation { get; set; }
         [Export] private Sprite2D Sprite { get; set; }
 
-        [Export] private Sprite2D HolderSprite { get; set; }
-
-        public const string CarryAnimationName = "Carry-";
+        public const string CarryAnimationName = "Carry";
 
         public override void _Ready()
         {
@@ -25,14 +23,6 @@ namespace SpookyBotanyGame.World.Entities.Animation
 
         public override void _Process(double delta)
         {
-            if (Sprite.GlobalPosition.Y > HolderSprite.GlobalPosition.Y)
-            {
-                Sprite.ZIndex =  HolderSprite.ZIndex -1;
-            }
-            else
-            {
-                Sprite.ZIndex = HolderSprite.ZIndex;
-            }
             base._Process(delta);
         }
 
@@ -41,10 +31,12 @@ namespace SpookyBotanyGame.World.Entities.Animation
             if (inputDirection.Y < 0)
             {
                 _holdDirection = Direction.North;
+                Sprite.ZIndex = 0;
             }
             if (inputDirection.Y > 0)
             {
                 _holdDirection = Direction.South;
+                Sprite.ZIndex = 3;
             }
             return _holdDirection;
         }
@@ -53,7 +45,8 @@ namespace SpookyBotanyGame.World.Entities.Animation
         {
             SetVerticalAnimationDirection(inputDirection);
             SetFlipFromDirection(inputDirection);
-            string carriedAnimationName = GetCarriedAnimationName(_animationName);
+            _animationName = animationName;
+            string carriedAnimationName = GetCarriedAnimationName(animationName);
             Animation.Play(carriedAnimationName);
             Animation.Advance(0);
         }
@@ -61,6 +54,7 @@ namespace SpookyBotanyGame.World.Entities.Animation
         public void Play(string animationName)
         {
             string carriedAnimationName = GetCarriedAnimationName(animationName);
+            GD.Print(carriedAnimationName);
             Animation.Play(carriedAnimationName);
         }
 
@@ -73,17 +67,19 @@ namespace SpookyBotanyGame.World.Entities.Animation
         {
             if (inputDirection.X > 0)
             {
+                Sprite.Position = Vector2.Right * 5;
                 Sprite.FlipH = true;
             }
             if (inputDirection.X < 0)
             {
+                Sprite.Position = Vector2.Left * 5;
                 Sprite.FlipH = false;
             }
         }
 
         private string GetCarriedAnimationName(string animationName)
         {
-            return CarryAnimationName + "_" + animationName;
+            return CarryAnimationName + "-" + animationName;
         }
 
         public void PlayOneShot(string animationName, AnimationPlayer.AnimationFinishedEventHandler callback)

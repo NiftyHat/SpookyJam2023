@@ -44,6 +44,7 @@ position = Vector2(413, 181)
 
 [node name="Camera2D" type="Camera2D" parent="WorldRoot/PlayerEntity"]
 position = Vector2(-1, -1)
+zoom = Vector2(2, 2)
 
 [node name="FatalHazard-Test" parent="WorldRoot" instance=ExtResource("3_37lbi")]
 position = Vector2(330, 218)
@@ -78,12 +79,15 @@ color = Color(0, 0, 0, 1)
 
 [node name="Plant-LightFlower" parent="WorldRoot" instance=ExtResource("11_dh45g")]
 position = Vector2(333, 120)
+OutputAmount = 5
 
 [node name="Plant-LightFlower2" parent="WorldRoot" instance=ExtResource("11_dh45g")]
 position = Vector2(404, 247)
+OutputAmount = 5
 
 [node name="Plant-LightFlower3" parent="WorldRoot" instance=ExtResource("11_dh45g")]
 position = Vector2(512, 126)
+OutputAmount = 5
 
 [node name="UIRoot" type="CanvasLayer" parent="."]
 
