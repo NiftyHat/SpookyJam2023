@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yrmg77v45n5v"
-path="res://.godot/imported/entity-lamp.png-c5a11a537b06580dcec8cfc39a378c36.ctex"
+uid="uid://bpgkac7owy7qc"
+path="res://.godot/imported/tool-lantern.png-c3c109a4f9940b680832387782f32319.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://World/Entities/Lamp/entity-lamp.png"
-dest_files=["res://.godot/imported/entity-lamp.png-c5a11a537b06580dcec8cfc39a378c36.ctex"]
+source_file="res://World/Tools/tool-lantern.png"
+dest_files=["res://.godot/imported/tool-lantern.png-c3c109a4f9940b680832387782f32319.ctex"]
 
 [params]
 

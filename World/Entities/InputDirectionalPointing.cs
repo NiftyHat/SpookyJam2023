@@ -10,7 +10,7 @@ public partial class InputDirectionalPointing : Node2D
     [Export] public float Distance { get; set; }
     [Export] public Node2D Controlled { get; set; }
 
-    public event Action<Vector2> OnDirectionChanged;
+    public event Action<Vector2, Vector2> OnDirectionChanged;
     
     private Vector2 _offset;
     
@@ -32,12 +32,10 @@ public partial class InputDirectionalPointing : Node2D
         {
             _angle = AngleToMouse();
         }
-
         var normalized = _angle.Normalized();
-        OnDirectionChanged(normalized);
         _offset = normalized  * Distance;
         Controlled.Position = _offset;
-        
+        OnDirectionChanged?.Invoke(normalized, _offset);
     }
     
     protected Vector2 AngleToMouse()

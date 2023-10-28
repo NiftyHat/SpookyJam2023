@@ -11,6 +11,8 @@ namespace SpookyBotanyGame.World.Entities
         
         private Dictionary<Node2D, LightSensor> _trackedEntities = new Dictionary<Node2D, LightSensor>();
 
+        public bool IsEnabled { get; private set; } = true;
+
         public void Light(Killable entity)
         {
             entity.Kill();
@@ -45,7 +47,6 @@ namespace SpookyBotanyGame.World.Entities
         {
             if (GameEntity.TryGetProperty(area, out LightSensor lightSensor, out GameEntity gameEntity))
             {
-                
                 float lightAmount = GetLightAmount();
                 lightSensor.UnlitBy(this, lightAmount);
                 Remove(gameEntity);
@@ -71,6 +72,10 @@ namespace SpookyBotanyGame.World.Entities
         public override void _Process(double delta)
         {
             base._Process(delta);
+            if (!IsEnabled)
+            {
+                return;
+            }
             if (_trackedEntities.Count > 0)
             {
                 foreach (var kvp in _trackedEntities)
@@ -79,6 +84,11 @@ namespace SpookyBotanyGame.World.Entities
                     kvp.Value.ApplyLight(this, lightAmount);
                 }
             }
+        }
+
+        public void SetEnabled(bool isEnabled)
+        {
+            IsEnabled = isEnabled;
         }
     }
 }
