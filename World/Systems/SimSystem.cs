@@ -7,12 +7,14 @@ namespace SpookyBotanyGame.World.Systems;
 public partial class SimSystem : Node
 {
     public delegate void OnDaysTicked(int dayCount);
+
+    public delegate void OnPlayerDied(PlayerEntity player);
+    public delegate void OnPlayerSlept(PlayerEntity player);
     public class SimTime : IReadOnlyTime
     {
         public int Day { get; private set; }
 
         public event OnDaysTicked OnDayTick;
-
         public void AdvanceDay(int days)
         {
             GD.Print($"Advance day {days}");
@@ -34,14 +36,22 @@ public partial class SimSystem : Node
     private SimTime _time = new SimTime();
     public IReadOnlyTime Time => _time;
 
+    public event OnPlayerDied OnPlayerDie;
+    public event OnPlayerSlept OnPlayerSleep;
+
     public void PlayerSleep(PlayerEntity playerEntity)
     {
         _time.AdvanceDay(1);
+        OnPlayerSleep?.Invoke(playerEntity);
+    }
+
+    public void PlayerDied(PlayerEntity playerEntity)
+    {
+        OnPlayerDie?.Invoke(playerEntity);
     }
     
     public void PlayerRespawn(PlayerEntity playerEntity)
     {
         _time.AdvanceDay(1);
     }
-    
 }

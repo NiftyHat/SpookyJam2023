@@ -35,6 +35,7 @@ namespace SpookyBotanyGame.World.Entities
         
         private void HandleEntered(Node2D area)
         {
+            GD.Print(area.Name);
             if (GameEntity.TryGetProperty(area, out LightSensor lightSensor, out GameEntity gameEntity))
             {
                 float lightAmount = GetLightAmount();

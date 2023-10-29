@@ -30,6 +30,7 @@ namespace SpookyBotanyGame.World.Entities
         public override void _Ready()
         {
             _entity = GetParent<GameEntity>();
+            GD.Print(_entity);
             base._Ready();
         }
     }

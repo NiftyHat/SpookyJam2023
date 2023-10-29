@@ -3,9 +3,20 @@ using SpookyBotanyGame.World.Entities.Properties;
 
 namespace SpookyBotanyGame.World.Entities
 {
-    public partial class DeathZone : Node2D
+    [GlobalClass]
+    public partial class DeathZone : Area2D
     {
-        [Export] public Area2D HitBox { get; set; }
+        public bool IsEnabled { get; private set; } = true;
+
+        public void SetEnabled(bool isEnabled)
+        {
+            if (IsEnabled != isEnabled)
+            {
+                IsEnabled = isEnabled;
+            }
+            //TODO - disable monitoring when enabled is false.
+            Monitoring = IsEnabled;
+        }
         
         public void Kill(Killable entity)
         {
@@ -15,12 +26,16 @@ namespace SpookyBotanyGame.World.Entities
         public override void _Ready()
         {
             base._Ready();
-            HitBox.Monitoring = true;
-            HitBox.BodyEntered += HandleBodyEntered;
+            Monitoring = true;
+            BodyEntered += HandleBodyEntered;
         }
 
         private void HandleBodyEntered(Node2D body)
         {
+            if (!IsEnabled)
+            {
+                return;
+            }
             if (body.IsInGroup("EntityProvider") && body.HasMethod("GetEntity"))
             {
                 GameEntity gameEntity = body.Call("GetEntity").As<GameEntity>();

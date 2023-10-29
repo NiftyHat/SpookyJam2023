@@ -54,7 +54,6 @@ namespace SpookyBotanyGame.World.Entities.Animation
         public void Play(string animationName)
         {
             string carriedAnimationName = GetCarriedAnimationName(animationName);
-            GD.Print(carriedAnimationName);
             Animation.Play(carriedAnimationName);
         }
 

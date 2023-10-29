@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b78acft5a5sfy"]
+[gd_scene load_steps=20 format=3 uid="uid://b78acft5a5sfy"]
 
 [ext_resource type="PackedScene" uid="uid://jksnbdthe1y6" path="res://World/Maps/test_map.tscn" id="1_wukwe"]
 [ext_resource type="PackedScene" uid="uid://n8gglyvki7dw" path="res://World/Entities/Character/Player/player_entity.tscn" id="2_3tyht"]
@@ -13,13 +13,16 @@
 [ext_resource type="Script" path="res://World/Entities/Properties/Interactable.cs" id="9_ufl5l"]
 [ext_resource type="PackedScene" uid="uid://bb1sfvq8h1ymh" path="res://World/Entities/Plants/LightPlant/plant_light_flower.tscn" id="11_dh45g"]
 [ext_resource type="PackedScene" uid="uid://ng01afb5x4gj" path="res://World/Entities/Rest/rest_point_entity.tscn" id="13_4nh1i"]
+[ext_resource type="Script" path="res://UI/Effects/EffectSleepFade.cs" id="13_e1v1h"]
+[ext_resource type="PackedScene" uid="uid://cwg841lwpsryh" path="res://World/Entities/Plants/DarkPlant/dark_tentacle_attack.tscn" id="13_tws6j"]
+[ext_resource type="AudioStream" uid="uid://brxj5kgmj6gcs" path="res://Music/sleep_jingle.ogg" id="14_itery"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_nemjj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hlvoq"]
 size = Vector2(25, 24)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gwtlm"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ho6xo"]
 resource_local_to_scene = true
 shader = ExtResource("6_is4cx")
 shader_parameter/color = Color(1, 1, 1, 1)
@@ -72,7 +75,7 @@ Handler = NodePath("InteractionHandler")
 
 [node name="InteractionHandler" parent="WorldRoot/InteractableTest/Interactable" node_paths=PackedStringArray("Sprite") instance=ExtResource("9_k65bk")]
 Sprite = NodePath("../../Sprite2D")
-InteractionMaterial = SubResource("ShaderMaterial_gwtlm")
+InteractionMaterial = SubResource("ShaderMaterial_ho6xo")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="WorldRoot"]
 color = Color(0, 0, 0, 1)
@@ -89,8 +92,36 @@ OutputAmount = 5
 position = Vector2(512, 126)
 OutputAmount = 5
 
+[node name="Plant-LightFlower4" parent="WorldRoot" instance=ExtResource("11_dh45g")]
+position = Vector2(560, 250)
+
 [node name="RestPointEntity" parent="WorldRoot" instance=ExtResource("13_4nh1i")]
+
+[node name="Plant-Dark" type="Node2D" parent="WorldRoot"]
+position = Vector2(678, 137)
+script = ExtResource("4_lr4tl")
+
+[node name="Dark-Tenticle" parent="WorldRoot/Plant-Dark" instance=ExtResource("13_tws6j")]
+
+[node name="FadeWorld" type="CanvasLayer" parent="." node_paths=PackedStringArray("Rect", "SleepJingle")]
+script = ExtResource("13_e1v1h")
+Rect = NodePath("ColorRect")
+SleepJingle = NodePath("SleepJingleMusicPlayer")
+
+[node name="ColorRect" type="ColorRect" parent="FadeWorld"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 1)
+
+[node name="SleepJingleMusicPlayer" type="AudioStreamPlayer" parent="FadeWorld"]
+stream = ExtResource("14_itery")
 
 [node name="UIRoot" type="CanvasLayer" parent="."]
 
 [node name="UIGameHUD" parent="UIRoot" instance=ExtResource("4_kp64n")]
+offset_left = 13.0
+offset_top = -9.0
+offset_right = 13.0
+offset_bottom = -9.0

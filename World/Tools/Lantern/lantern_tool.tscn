@@ -156,13 +156,14 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_14ej4"]
 radius = 38.0132
 
-[node name="LanternTool" type="Node2D" node_paths=PackedStringArray("Animation", "AmbientLight", "PointLight", "Pointing")]
+[node name="LanternTool" type="Node2D" node_paths=PackedStringArray("Animation", "AmbientLight", "PointLight", "Pointing", "LightZone")]
 z_as_relative = false
 script = ExtResource("1_f0r4n")
 Animation = NodePath("LanternToolAnimationPlayer")
 AmbientLight = NodePath("LanternPointLight")
 PointLight = NodePath("InputDirectionalPointing/PointLightLantern")
 Pointing = NodePath("InputDirectionalPointing")
+LightZone = NodePath("InputDirectionalPointing/PointLightLantern/LightEmissionZone")
 
 [node name="LanternToolAnimationPlayer" type="Node2D" parent="." node_paths=PackedStringArray("Animation", "Sprite")]
 script = ExtResource("2_lw3nr")
@@ -177,7 +178,8 @@ hframes = 70
 
 [node name="LanternPointLight" type="PointLight2D" parent="."]
 color = Color(0.376471, 1, 1, 0.756863)
-energy = 0.5
+energy = 0.75
+blend_mode = 2
 range_item_cull_mask = 3
 texture = ExtResource("4_fdu5e")
 texture_scale = 0.15

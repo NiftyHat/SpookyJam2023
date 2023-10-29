@@ -18,18 +18,15 @@ namespace SpookyBotanyGame.World.Entities.Plants
         [Export] public PointLight2D Light { get; set; }
         [Export] public CollectableResource Output { get; set; }
         [Export(PropertyHint.Range, "1,10,1,or_greater")] public int OutputAmount { get; set; }
-        
         [Export] public EffectsLightPlant Effects { get; set; }
-        
         [Export] public Interactable Interactable { get; set; }
 
-        public static int DUMB_COUNTER = 1;
+        public RandomNumberGenerator _rng = new RandomNumberGenerator();
 
         public override void _Ready()
         {
             base._Ready();
-            StateMachine.SetState(new GrowingState(this, DUMB_COUNTER));
-            DUMB_COUNTER++;
+            StateMachine.SetState(new GrowingState(this, _rng.RandiRange(1,3))); ;
         }
         
         public void Destroy()

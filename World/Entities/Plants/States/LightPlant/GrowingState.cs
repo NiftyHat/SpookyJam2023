@@ -2,7 +2,6 @@ using Godot;
 using SpookyBotanyGame.Core;
 using SpookyBotanyGame.Core.StateMachines;
 using SpookyBotanyGame.World.Entities.Properties;
-using Range = Godot.Range;
 
 namespace SpookyBotanyGame.World.Entities.Plants.States
 {
@@ -108,7 +107,6 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
 
         private void HandleDayAdvance(int amount)
         {
-            GD.Print("GrowingState", "HandleDayAdvance");
             if (_growthEnergy.IsMax)
             {
                 if (TryGetProgressAnimation("Growing", _progress + 1, _animation, out string animationName))

@@ -17,7 +17,6 @@ namespace SpookyBotanyGame.Core.StateMachines
         {
             _currentState = state;
             _currentState.OnExit += HandleStateExit;
-            GD.Print("Add Exit Handler ", _currentState);
             if (state is IUpdatableState updatableState)
             {
                 _updatableState = updatableState;
@@ -26,7 +25,6 @@ namespace SpookyBotanyGame.Core.StateMachines
 
         private void HandleStateExit(State state)
         {
-            GD.Print("Handle state exit", state);
             _currentState = null;
             if (state != null)
             {

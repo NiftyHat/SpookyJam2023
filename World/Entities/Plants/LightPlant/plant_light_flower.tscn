@@ -159,8 +159,9 @@ shape = SubResource("RectangleShape2D_hlvoq")
 texture = ExtResource("3_jt7fx")
 hframes = 22
 
-[node name="LightSensor" type="Node2D" parent="."]
+[node name="LightSensor" type="Node2D" parent="." node_paths=PackedStringArray("HitBox")]
 script = ExtResource("4_hx2iv")
+HitBox = NodePath("../Area2D")
 
 [node name="SimAdvanceable" type="Node" parent="."]
 script = ExtResource("5_ry1ua")
