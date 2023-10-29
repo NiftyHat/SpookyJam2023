@@ -576,12 +576,13 @@ size = Vector2(102, 40.75)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oko3s"]
 size = Vector2(78, 18)
 
-[node name="Dark-Tentacle" type="Node2D" node_paths=PackedStringArray("LightSensor", "Sim", "Animation", "StateMachine")]
+[node name="Dark-Tentacle" type="Node2D" node_paths=PackedStringArray("LightSensor", "Sim", "Animation", "StateMachine", "PlantStem")]
 script = ExtResource("1_pfxqv")
 LightSensor = NodePath("LightSensor")
 Sim = NodePath("SimAdvanceable")
 Animation = NodePath("TentacleAnimationPlayer")
 StateMachine = NodePath("StateMachine")
+PlantStem = NodePath("Dark-Stem")
 
 [node name="Dark-Stem" parent="." instance=ExtResource("2_201wo")]
 

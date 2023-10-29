@@ -22,7 +22,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hlvoq"]
 size = Vector2(25, 24)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ho6xo"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aknst"]
 resource_local_to_scene = true
 shader = ExtResource("6_is4cx")
 shader_parameter/color = Color(1, 1, 1, 1)
@@ -75,7 +75,7 @@ Handler = NodePath("InteractionHandler")
 
 [node name="InteractionHandler" parent="WorldRoot/InteractableTest/Interactable" node_paths=PackedStringArray("Sprite") instance=ExtResource("9_k65bk")]
 Sprite = NodePath("../../Sprite2D")
-InteractionMaterial = SubResource("ShaderMaterial_ho6xo")
+InteractionMaterial = SubResource("ShaderMaterial_aknst")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="WorldRoot"]
 color = Color(0, 0, 0, 1)

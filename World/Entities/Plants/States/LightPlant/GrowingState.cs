@@ -120,7 +120,15 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
             }
             else
             {
-                Exit(new RottingState(_plant));
+                if (_progress > 0)
+                {
+                    Exit(new RottingState(_plant));
+                }
+                else
+                {
+                    Exit(new GrowingState(_plant, _progress - 1));
+                }
+                
             }
         }
 

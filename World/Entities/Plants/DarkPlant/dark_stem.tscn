@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://7gfmj7lcvlnf"]
+[gd_scene load_steps=18 format=3 uid="uid://7gfmj7lcvlnf"]
 
 [ext_resource type="Shader" path="res://Shaders/Sprite Shaders/flash.gdshader" id="1_u8s6j"]
 [ext_resource type="Script" path="res://World/Entities/Plants/DarkPlantStem.cs" id="2_dxgwp"]
@@ -11,6 +11,11 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dapyv"]
 shader = ExtResource("1_u8s6j")
 shader_parameter/solid_color = Vector4(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s6nge"]
+resource_local_to_scene = true
+shader = ExtResource("1_u8s6j")
+shader_parameter/solid_color = Vector4(0.74, 0, 0, 0)
 
 [sub_resource type="Animation" id="Animation_ddysv"]
 resource_name = "Destroy"
@@ -78,26 +83,14 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
+tracks/1/path = NodePath("StemSprite2D:material:shader_parameter/solid_color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
+"times": PackedFloat32Array(0.1, 0.2, 0.4, 0.6, 0.7, 0.9),
+"transitions": PackedFloat32Array(1, 1.7411, 1, 1, 1.93187, 1),
 "update": 0,
-"values": []
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:material:shader_parameter/solid_color")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [Vector4(0, 0, 0, 1), Vector4(1, 1, 1, 0), Vector4(0, 0, 0, 1), Vector4(0, 0, 0, 1), Vector4(1, 1, 1, 0), Vector4(0, 0, 0, 1), Vector4(0, 0, 0, 1), Vector4(1, 1, 1, 0), Vector4(0, 0, 0, 1)]
+"values": [Vector4(0.74, 0, 0, 0), Vector4(0.74, 0, 0, 0.5), Vector4(0.74, 0, 0, 0), Vector4(0.74, 0, 0, 0), Vector4(0.74, 0, 0, 0.5), Vector4(0.74, 0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_qs2av"]
@@ -134,26 +127,14 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
+tracks/1/path = NodePath("StemSprite2D:material:shader_parameter/solid_color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:material:shader_parameter/solid_color")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Vector4(0, 0, 0, 1)]
+"values": [Vector4(0.74, 0, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_06o7f"]
@@ -178,6 +159,7 @@ Sim = NodePath("SimAdvanceable")
 StateMachine = NodePath("StateMachine")
 
 [node name="StemSprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_s6nge")
 position = Vector2(6, -1)
 texture = ExtResource("3_l84mp")
 hframes = 65
@@ -192,7 +174,7 @@ libraries = {
 script = ExtResource("4_ka26n")
 HitBox = NodePath("StemLightSensorArea")
 
-[node name="StemLightSensorArea" type="Area2D" parent="LightSensor" node_paths=PackedStringArray("Entity")]
+[node name="StemLightSensorArea" type="Area2D" parent="LightSensor" node_paths=PackedStringArray("Entity") groups=["EntityProvider"]]
 script = ExtResource("5_1px5r")
 Entity = NodePath("../..")
 

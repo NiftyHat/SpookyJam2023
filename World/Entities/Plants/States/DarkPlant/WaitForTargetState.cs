@@ -22,6 +22,10 @@ namespace SpookyBotanyGame.World.Entities.Plants.States.DarkPlant
 
         private void OnLightApply(LightEmissionZone lightEmissionZone, float lightPower)
         {
+            if (!_tentacle.HasAttackFromStem)
+            {
+                return;
+            }
             if (lightPower > _minLightToAttack || _aggroResetTimer > 1.0f)
             {
                 if (AttackSwipeState.CanTarget(_tentacle, lightEmissionZone))

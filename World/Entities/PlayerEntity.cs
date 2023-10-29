@@ -39,7 +39,6 @@ namespace SpookyBotanyGame.World.Entities
 
         private void HandleLanternDirectionChange(Vector2 direction, Vector2 distance)
         {
-            GD.Print(direction);
             LanternTool.SetPointing(direction);
         }
 

@@ -33,7 +33,6 @@ public partial class LanternPointLight : Node2D
     
     public void SetScale(float newScale)
     {
-        GD.Print(newScale);
         ShadowLight.TextureScale = newScale;
         SpriteLight.TextureScale = newScale;
         SpriteLight.QueueRedraw();

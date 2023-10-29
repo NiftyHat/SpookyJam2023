@@ -53,7 +53,6 @@ namespace SpookyBotanyGame.World.Entities.Tools
             {
                 if (!_isEmpty)
                 {
-                    GD.Print("IsEmptied");
                     _isEmpty = true;
                     OnEmptyChange?.Invoke(_isEmpty, this);
                     PointLight.SetEnergy(0.1f);

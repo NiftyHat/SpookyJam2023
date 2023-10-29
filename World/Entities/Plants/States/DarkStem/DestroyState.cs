@@ -14,6 +14,12 @@ public class DestroyState : State
         _stem.CanAttack = false;
     }
 
+    protected override void Exit(State state = null)
+    {
+        _stem.Sim.OnDayTick -= HandleDayTick;
+        base.Exit(state);
+    }
+
     private void HandleDayTick(int dayCount)
     {
         _stem.Destroy();
