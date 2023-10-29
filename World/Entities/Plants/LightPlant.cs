@@ -31,7 +31,7 @@ namespace SpookyBotanyGame.World.Entities.Plants
         
         public void Destroy()
         {
-            this.QueueFree();
+            QueueFree();
         }
     }
 }

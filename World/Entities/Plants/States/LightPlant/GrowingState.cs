@@ -1,19 +1,15 @@
 using Godot;
 using SpookyBotanyGame.Core;
 using SpookyBotanyGame.Core.StateMachines;
-using SpookyBotanyGame.World.Entities.Properties;
 
 namespace SpookyBotanyGame.World.Entities.Plants.States
 {
     public class GrowingState : State, IUpdatableState
     {
         private readonly Range<float> _growthEnergy;
-        private readonly AnimationPlayer _animation;
-        private readonly LightSensor _lightSensor;
         private readonly string _animationName;
         private readonly int _progress = 0;
         
-        private SimAdvanceable _sim;
         private float _lightThisFrame;
 
         private LightPlant _plant;
@@ -24,21 +20,18 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
         public GrowingState(LightPlant plant, int progress, float energyRequired = 1.0f)
         {
             _plant = plant;
-            _animation = plant.Animation;
-            _lightSensor = plant.LightSensor;
-            _sim = plant.Sim;
             _progress = progress;
-            plant.Interactable.SetEnabled(false);
-            plant.Light.Energy = 0;
+            _plant.Interactable.SetEnabled(false);
+            _plant.Light.Energy = 0;
             _growthEnergy = new Range<float>(energyRequired);
-            _sim.OnDayTick += HandleDayAdvance;
-            _lightSensor.OnApply += HandleLightApply;
-            _lightSensor.OnEnter += HandleLightEnter;
-            _lightSensor.OnExit += HandleLightExit;
+            _plant.Sim.OnDayTick += HandleDayAdvance;
+            _plant.LightSensor.OnApply += HandleLightApply;
+            _plant.LightSensor.OnEnter += HandleLightEnter;
+            _plant.LightSensor.OnExit += HandleLightExit;
             _growthEnergy.OnMax += HandleMaxEnergy;
             _plant.Animation.AnimationFinished += HandleAnimationFinish;
             _hasAnimationHandler = true;
-            _animationName = GetProgressAnimation(GrowingAnimationName, progress, _animation);
+            _animationName = GetProgressAnimation(GrowingAnimationName, progress, _plant.Animation);
             if (_animationName != null)
             {
                 PauseOnFirstFrame();
@@ -51,10 +44,11 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
 
         protected override void Exit(State state = null)
         {
-            _lightSensor.OnApply -= HandleLightApply;
-            _lightSensor.OnEnter -= HandleLightEnter;
-            _lightSensor.OnExit -= HandleLightExit;
+            _plant.LightSensor.OnApply -= HandleLightApply;
+            _plant.LightSensor.OnEnter -= HandleLightEnter;
+            _plant.LightSensor.OnExit -= HandleLightExit;
             _growthEnergy.OnMax -= HandleMaxEnergy;
+            _plant.Sim.OnDayTick -= HandleDayAdvance;
             if (_hasAnimationHandler)
             {
                 _plant.Animation.AnimationFinished -= HandleAnimationFinish;
@@ -76,7 +70,7 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
         {
             if (animName.ToString() == _animationName)
             {
-                if (!TryGetProgressAnimation("Growing", _progress + 1, _animation, out string animationName))
+                if (!TryGetProgressAnimation("Growing", _progress + 1, _plant.Animation, out string animationName))
                 {
                     Exit(new HarvestState(_plant, _plant.OutputAmount, _plant.Output));
                 }
@@ -109,7 +103,7 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
         {
             if (_growthEnergy.IsMax)
             {
-                if (TryGetProgressAnimation("Growing", _progress + 1, _animation, out string animationName))
+                if (TryGetProgressAnimation("Growing", _progress + 1, _plant.Animation, out string animationName))
                 {
                     Exit(new GrowingState(_plant, _progress + 1));
                 }
@@ -134,7 +128,7 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
 
         private void HandleMaxEnergy(float value)
         {
-            _animation.Play(_animationName);
+            _plant.Animation.Play(_animationName);
             _plant.Light.Energy = 0.2f;
         }
 
