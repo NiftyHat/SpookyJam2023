@@ -4,7 +4,8 @@ using SpookyBotanyGame.World.Entities.Properties;
 
 namespace SpookyBotanyGame.World.Entities.Farm.Tillable
 {
-    public class TillableSpot : GameEntity
+    [GlobalClass]
+    public partial class TillableSpot : GameEntity
     {
         [Export] public Interactable Interaction;
     
