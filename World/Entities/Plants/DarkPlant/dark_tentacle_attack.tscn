@@ -572,7 +572,9 @@ monitoring = false
 script = ExtResource("4_cfcko")
 
 [node name="CollisionPolygon2D-Frame-1" type="CollisionPolygon2D" parent="SwipeArea2D"]
+visible = false
 polygon = PackedVector2Array(5, -6, -4, -5, -16, 5, -23, 17, -22, 30, -14, 39, -2, 41, 18, 36, 34, 27, 44, 26, 54, 32, 58, 32, 58, 26, 48, 20, 38, 20, 27, 24, 8, 31, -2, 30, -7, 24, -3, 15, 4, 8, 6, 2)
+disabled = true
 
 [node name="CollisionPolygon2D-Frame-2" type="CollisionPolygon2D" parent="SwipeArea2D"]
 visible = false
