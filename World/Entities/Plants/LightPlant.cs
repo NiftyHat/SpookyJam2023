@@ -4,6 +4,7 @@ using SpookyBotanyGame.Core.StateMachines;
 using SpookyBotanyGame.World.Entities.Effects;
 using SpookyBotanyGame.World.Entities.Plants.States;
 using SpookyBotanyGame.World.Entities.Properties;
+using SpookyBotanyGame.World.Systems;
 
 namespace SpookyBotanyGame.World.Entities.Plants
 {
@@ -22,15 +23,23 @@ namespace SpookyBotanyGame.World.Entities.Plants
         [Export] public Interactable Interactable { get; set; }
 
         public RandomNumberGenerator _rng = new RandomNumberGenerator();
+        public event SimSystem.OnDaysTicked OnDayTick;
 
         public override void _Ready()
         {
             base._Ready();
-            StateMachine.SetState(new GrowingState(this, _rng.RandiRange(1,3))); ;
+            StateMachine.SetState(new GrowingState(this, _rng.RandiRange(1,3)));
+            Sim.OnDayTick += HandleDayTick;
         }
-        
+
+        private void HandleDayTick(int daycount)
+        {
+            OnDayTick?.Invoke(daycount);
+        }
+
         public void Destroy()
         {
+            OnDayTick = null;
             QueueFree();
         }
     }

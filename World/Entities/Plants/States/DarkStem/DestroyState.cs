@@ -10,13 +10,13 @@ public class DestroyState : State
     {
         stem.Animation.Play("Destroy");
         _stem = stem;
-        _stem.Sim.OnDayTick += HandleDayTick;
+        _stem.OnDayTick += HandleDayTick;
         _stem.CanAttack = false;
     }
 
     protected override void Exit(State state = null)
     {
-        _stem.Sim.OnDayTick -= HandleDayTick;
+        _stem.OnDayTick -= HandleDayTick;
         base.Exit(state);
     }
 

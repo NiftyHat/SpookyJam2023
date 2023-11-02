@@ -8,8 +8,13 @@ public class Direction
     }
     public readonly string Name;
     
-    public static Direction North = new Direction("North");
-    public static Direction South = new Direction("South");
-    public static Direction East = new Direction("East");
-    public static Direction West = new Direction("West");
+    public static readonly Direction North = new Direction("North");
+    public static readonly Direction South = new Direction("South");
+    public static readonly Direction East = new Direction("East");
+    public static readonly Direction West = new Direction("West");
+    
+    public static readonly Direction NorthEast = new Direction("NorthEast");
+    public static readonly Direction SouthEast = new Direction("SouthEast");
+    public static readonly Direction NorthWest = new Direction("NorthWest");
+    public static readonly Direction SouthWest = new Direction("SouthWest");
 }

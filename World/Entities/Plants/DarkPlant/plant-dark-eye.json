@@ -133,7 +133,127 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 46 },
     "sourceSize": { "w": 51, "h": 46 },
+    "duration": 100
+   },
+   "plant-dark-eye 17.aseprite": {
+    "frame": { "x": 867, "y": 0, "w": 51, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 46 },
+    "sourceSize": { "w": 51, "h": 46 },
+    "duration": 100
+   },
+   "plant-dark-eye 18.aseprite": {
+    "frame": { "x": 918, "y": 0, "w": 51, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 46 },
+    "sourceSize": { "w": 51, "h": 46 },
+    "duration": 100
+   },
+   "plant-dark-eye 19.aseprite": {
+    "frame": { "x": 969, "y": 0, "w": 51, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 46 },
+    "sourceSize": { "w": 51, "h": 46 },
     "duration": 1000
+   },
+   "plant-dark-eye 20.aseprite": {
+    "frame": { "x": 1020, "y": 0, "w": 51, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 46 },
+    "sourceSize": { "w": 51, "h": 46 },
+    "duration": 200
+   },
+   "plant-dark-eye 21.aseprite": {
+    "frame": { "x": 1071, "y": 0, "w": 51, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 46 },
+    "sourceSize": { "w": 51, "h": 46 },
+    "duration": 200
+   },
+   "plant-dark-eye 22.aseprite": {
+    "frame": { "x": 1122, "y": 0, "w": 51, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 46 },
+    "sourceSize": { "w": 51, "h": 46 },
+    "duration": 200
+   },
+   "plant-dark-eye 23.aseprite": {
+    "frame": { "x": 1173, "y": 0, "w": 51, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 46 },
+    "sourceSize": { "w": 51, "h": 46 },
+    "duration": 200
+   },
+   "plant-dark-eye 24.aseprite": {
+    "frame": { "x": 1224, "y": 0, "w": 51, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 46 },
+    "sourceSize": { "w": 51, "h": 46 },
+    "duration": 200
+   },
+   "plant-dark-eye 25.aseprite": {
+    "frame": { "x": 1275, "y": 0, "w": 51, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 46 },
+    "sourceSize": { "w": 51, "h": 46 },
+    "duration": 200
+   },
+   "plant-dark-eye 26.aseprite": {
+    "frame": { "x": 1326, "y": 0, "w": 51, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 46 },
+    "sourceSize": { "w": 51, "h": 46 },
+    "duration": 200
+   },
+   "plant-dark-eye 27.aseprite": {
+    "frame": { "x": 1377, "y": 0, "w": 51, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 46 },
+    "sourceSize": { "w": 51, "h": 46 },
+    "duration": 200
+   },
+   "plant-dark-eye 28.aseprite": {
+    "frame": { "x": 1428, "y": 0, "w": 51, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 46 },
+    "sourceSize": { "w": 51, "h": 46 },
+    "duration": 200
+   },
+   "plant-dark-eye 29.aseprite": {
+    "frame": { "x": 1479, "y": 0, "w": 51, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 46 },
+    "sourceSize": { "w": 51, "h": 46 },
+    "duration": 200
+   },
+   "plant-dark-eye 30.aseprite": {
+    "frame": { "x": 1530, "y": 0, "w": 51, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 46 },
+    "sourceSize": { "w": 51, "h": 46 },
+    "duration": 200
+   },
+   "plant-dark-eye 31.aseprite": {
+    "frame": { "x": 1581, "y": 0, "w": 51, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 51, "h": 46 },
+    "sourceSize": { "w": 51, "h": 46 },
+    "duration": 200
    }
  },
  "meta": {
@@ -141,14 +261,18 @@
   "version": "1.2.25-x64",
   "image": "plant-dark-eye.png",
   "format": "RGBA8888",
-  "size": { "w": 867, "h": 46 },
+  "size": { "w": 1632, "h": 46 },
   "scale": "1",
   "frameTags": [
-   { "name": "Loop", "from": 8, "to": 16, "direction": "forward" }
+   { "name": "Looking", "from": 0, "to": 7, "direction": "forward" },
+   { "name": "Idle", "from": 8, "to": 8, "direction": "forward" },
+   { "name": "Harvest", "from": 9, "to": 19, "direction": "forward" },
+   { "name": "Growing", "from": 20, "to": 31, "direction": "forward" }
   ],
   "layers": [
    { "name": "Layer 1", "opacity": 255, "blendMode": "normal" },
-   { "name": "Layer 3", "opacity": 255, "blendMode": "normal" }
+   { "name": "Layer 3", "opacity": 255, "blendMode": "normal" },
+   { "name": "Layer 4", "opacity": 255, "blendMode": "normal" }
   ],
   "slices": [
   ]

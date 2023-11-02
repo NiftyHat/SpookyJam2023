@@ -8,6 +8,7 @@ namespace SpookyBotanyGame.Collectable
         [Export] public string FriendlyName { get; set; }
         [Export] public char IconGlyph { get; set; }
         [Export] public Texture2D IconTexture { get; set; }
+        [Export] public Texture2D CarriedTexture { get; set; }
         
         public CollectableResource()
         {

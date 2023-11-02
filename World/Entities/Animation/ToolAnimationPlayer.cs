@@ -8,8 +8,7 @@ namespace SpookyBotanyGame.World.Entities.Animation
         private string _animationName = "1";
         
         private OneShotAnimationHandler _oneShotAnimationHandler = new OneShotAnimationHandler();
-        private Direction _holdDirection = Direction.North;
-
+        
         [Export] private AnimationPlayer Animation { get; set; }
         [Export] private Sprite2D Sprite { get; set; }
 
@@ -20,30 +19,9 @@ namespace SpookyBotanyGame.World.Entities.Animation
             base._Ready();
             _oneShotAnimationHandler.Animation = Animation;
         }
-
-        public override void _Process(double delta)
-        {
-            base._Process(delta);
-        }
-
-        public Direction SetVerticalAnimationDirection(Vector2 inputDirection)
-        { 
-            if (inputDirection.Y < 0)
-            {
-                _holdDirection = Direction.North;
-                Sprite.ZIndex = 0;
-            }
-            if (inputDirection.Y > 0)
-            {
-                _holdDirection = Direction.South;
-                Sprite.ZIndex = 3;
-            }
-            return _holdDirection;
-        }
-    
+        
         public void Play(Vector2 inputDirection, string animationName)
         {
-            SetVerticalAnimationDirection(inputDirection);
             SetFlipFromDirection(inputDirection);
             _animationName = animationName;
             string carriedAnimationName = GetCarriedAnimationName(animationName);
@@ -81,16 +59,11 @@ namespace SpookyBotanyGame.World.Entities.Animation
             return CarryAnimationName + "-" + animationName;
         }
 
-        public void PlayOneShot(string animationName, AnimationPlayer.AnimationFinishedEventHandler callback)
+        public void PlayOneShot(string animationName, AnimationPlayer.AnimationFinishedEventHandler callback = null)
         {
             string carriedAnimationName = GetCarriedAnimationName(animationName);
             _oneShotAnimationHandler.Add(carriedAnimationName, callback);
             Animation.Play(carriedAnimationName);
-        }
-
-        public void SetIdleState(int visibleFuelLevel)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

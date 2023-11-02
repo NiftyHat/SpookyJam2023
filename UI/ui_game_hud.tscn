@@ -1,6 +1,5 @@
-[gd_scene load_steps=9 format=3 uid="uid://c610weevdtphv"]
+[gd_scene load_steps=8 format=3 uid="uid://c610weevdtphv"]
 
-[ext_resource type="PackedScene" uid="uid://cjs3eluwc54ok" path="res://UI/Widgets/ui_widget_collectable_stack.tscn" id="1_m23ms"]
 [ext_resource type="Script" path="res://UI/Widgets/InputUI/InputUIControl.cs" id="1_u35we"]
 [ext_resource type="FontFile" uid="uid://c75gtcrbp2mjd" path="res://Fonts/m5x7.ttf" id="1_y8l3a"]
 [ext_resource type="Texture2D" uid="uid://bld2qqqsfd40i" path="res://UI/Input/Keyboard/keyboard_blank_key_1.png" id="2_vtfdy"]
@@ -16,41 +15,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 6
-theme_override_constants/margin_bottom = 6
-
-[node name="BottomBar" type="Control" parent="MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/BottomBar"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -79.0
-offset_top = -110.0
-grow_horizontal = 0
-grow_vertical = 0
-
-[node name="HBoxCollectables" type="HBoxContainer" parent="MarginContainer/BottomBar/HBoxContainer2"]
-layout_mode = 2
-
-[node name="UIResourceIcon2" parent="MarginContainer/BottomBar/HBoxContainer2/HBoxCollectables" instance=ExtResource("1_m23ms")]
-layout_mode = 2
 
 [node name="InputUIControl" type="Control" parent="." node_paths=PackedStringArray("Animator", "LabelKey")]
 layout_mode = 2

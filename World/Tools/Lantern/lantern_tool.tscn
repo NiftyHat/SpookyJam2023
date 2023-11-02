@@ -171,8 +171,7 @@ Animation = NodePath("../LanternAnimationPlayer")
 Sprite = NodePath("../LanternSprite2D")
 
 [node name="LanternSprite2D" type="Sprite2D" parent="."]
-z_index = 3
-z_as_relative = false
+z_index = 2
 texture = ExtResource("3_iduhq")
 hframes = 70
 

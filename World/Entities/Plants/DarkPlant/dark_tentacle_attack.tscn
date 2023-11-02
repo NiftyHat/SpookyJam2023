@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cwg841lwpsryh"]
+[gd_scene load_steps=24 format=3 uid="uid://cwg841lwpsryh"]
 
 [ext_resource type="Script" path="res://World/Entities/Plants/DarkPlantTentacle.cs" id="1_pfxqv"]
 [ext_resource type="PackedScene" uid="uid://7gfmj7lcvlnf" path="res://World/Entities/Plants/DarkPlant/dark_stem.tscn" id="2_201wo"]
@@ -10,38 +10,6 @@
 [ext_resource type="Script" path="res://World/Entities/Properties/SimAdvanceable.cs" id="7_8gh6y"]
 [ext_resource type="Script" path="res://Core/StateMachines/StateMachine.cs" id="8_oe1kj"]
 
-[sub_resource type="Animation" id="Animation_3meh7"]
-resource_name = "Grow-1"
-length = 0.70001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TenticleSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [29, 30, 31, 32, 33, 34, 35]
-}
-
-[sub_resource type="Animation" id="Animation_dx1cs"]
-resource_name = "Grow-2"
-length = 0.80001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TenticleSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [36, 37, 38, 39, 40, 41, 42, 43]
-}
-
 [sub_resource type="Animation" id="Animation_rg15r"]
 resource_name = "Idle"
 length = 0.60001
@@ -52,10 +20,10 @@ tracks/0/path = NodePath("TenticleSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [44, 45, 46]
+"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_lkioi"]
@@ -555,8 +523,6 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_aem2o"]
 _data = {
-"Grow-1": SubResource("Animation_3meh7"),
-"Grow-2": SubResource("Animation_dx1cs"),
 "Idle": SubResource("Animation_rg15r"),
 "Pap-East-End": SubResource("Animation_lkioi"),
 "Pap-East-Loop": SubResource("Animation_edwnc"),
@@ -606,9 +572,7 @@ monitoring = false
 script = ExtResource("4_cfcko")
 
 [node name="CollisionPolygon2D-Frame-1" type="CollisionPolygon2D" parent="SwipeArea2D"]
-visible = false
 polygon = PackedVector2Array(5, -6, -4, -5, -16, 5, -23, 17, -22, 30, -14, 39, -2, 41, 18, 36, 34, 27, 44, 26, 54, 32, 58, 32, 58, 26, 48, 20, 38, 20, 27, 24, 8, 31, -2, 30, -7, 24, -3, 15, 4, 8, 6, 2)
-disabled = true
 
 [node name="CollisionPolygon2D-Frame-2" type="CollisionPolygon2D" parent="SwipeArea2D"]
 visible = false

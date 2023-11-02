@@ -4,9 +4,9 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
 {
     public class RottingState  : State
     {
-        protected LightPlant _plant;
+        protected Plants.LightPlant _plant;
         
-        public RottingState(LightPlant plant)
+        public RottingState(Plants.LightPlant plant)
         {
             _plant = plant;
             _plant.Sim.OnDayTick += HandleDayAdvance;

@@ -147,11 +147,11 @@ OutputAmount = 4
 Effects = NodePath("EffectsLightPlant")
 Interactable = NodePath("Interactable")
 
-[node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("Entity") groups=["EntityProvider"]]
+[node name="InteractionArea2D" type="Area2D" parent="." node_paths=PackedStringArray("Entity") groups=["EntityProvider"]]
 script = ExtResource("2_4mo22")
 Entity = NodePath("..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea2D"]
 position = Vector2(-2, 2)
 shape = SubResource("RectangleShape2D_hlvoq")
 
@@ -161,7 +161,7 @@ hframes = 22
 
 [node name="LightSensor" type="Node2D" parent="." node_paths=PackedStringArray("HitBox")]
 script = ExtResource("4_hx2iv")
-HitBox = NodePath("../Area2D")
+HitBox = NodePath("../InteractionArea2D")
 
 [node name="SimAdvanceable" type="Node" parent="."]
 script = ExtResource("5_ry1ua")

@@ -30,6 +30,7 @@ namespace SpookyBotanyGame.World.Entities.Tools
         private Vector2 _pointing;
         private float _pointLightDefaultScale;
         private bool _isEmpty;
+        private bool _isDestroying;
 
         private OnEmptyChanged OnEmptyChange;
 
@@ -48,6 +49,10 @@ namespace SpookyBotanyGame.World.Entities.Tools
 
         public override void _Process(double delta)
         {
+            if (_isDestroying)
+            {
+                return;
+            }
             Fuel.Value -= (float)delta * FuelDrainPerSecond;
             if (Fuel.IsMin)
             {
@@ -62,7 +67,6 @@ namespace SpookyBotanyGame.World.Entities.Tools
                     LightZone.SetEnabled(false);
                 }
                 Animation.Play(_pointing,"0");
-                
             }
             else
             {
@@ -88,18 +92,19 @@ namespace SpookyBotanyGame.World.Entities.Tools
 
         public void Destroy()
         {
+            _isDestroying = true;
             Animation.PlayOneShot("Destroy", HandleDestroyAnimationComplete);
         }
 
         private void HandleDestroyAnimationComplete(StringName animName)
         {
-            this.QueueFree();
+            _isDestroying = false;
+            _isEmpty = !_isEmpty;
         }
 
         public void SetPointing(Vector2 direction)
         {
             _pointing = direction;
-            Animation.SetVerticalAnimationDirection(_pointing);
         }
     }
 }

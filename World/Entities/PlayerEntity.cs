@@ -1,4 +1,5 @@
 using Godot;
+using SpookyBotanyGame.Collectable;
 using SpookyBotanyGame.World.Entities.Animation;
 using SpookyBotanyGame.World.Entities.Collision;
 using SpookyBotanyGame.World.Entities.Properties;
@@ -18,6 +19,10 @@ namespace SpookyBotanyGame.World.Entities
         [Export] public CollectableContainer Inventory { get; set; }
         [Export] public LanternTool LanternTool { get; set; }
         
+        [Export] public Sprite2D CarriedSlotIcon { get; set; }
+        
+        public CollectableStackSlot<CollectableResource> CarriedSlot { get; set; } =  new CollectableStackSlot<CollectableResource>(0, 1);
+
         private SpawnPoint _spawnPoint;
 
         public override void _Ready()
@@ -25,8 +30,26 @@ namespace SpookyBotanyGame.World.Entities
             base._Ready();
             Killable.OnKilled += HandleKilled;
             Killable.OnRespawned += HandleRespawned;
+            CarriedSlot.OnChanged += HandleCarriedChanged;
             _properties.Add(Killable);
             CallDeferred("AddSpawnPointToParent");
+        }
+
+        private void HandleCarriedChanged(int newValue, int oldValue)
+        {
+            if (newValue > 0 && CarriedSlot.CollectableType != null)
+            {
+                if (CarriedSlotIcon.Visible == false)
+                {
+                    CarriedSlotIcon.Visible = true;
+                }
+                CarriedSlotIcon.Texture = CarriedSlot.CollectableType.CarriedTexture; 
+            }
+            else if (newValue == 0 || CarriedSlot.CollectableType == null)
+            {
+                CarriedSlotIcon.Texture = null;
+                CarriedSlotIcon.Visible = false;
+            }
         }
 
         private void HandleLanternEmptyChanged(bool isEmpty, LanternTool tool)
@@ -71,6 +94,7 @@ namespace SpookyBotanyGame.World.Entities
         {
             InputControlled.Disable();
             Interact.Disable();
+            LanternTool.Destroy();
             Animation.PlayOneShot("death", HandleDeathAnimationComplete);
         }
         

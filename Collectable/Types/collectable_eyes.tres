@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CollectableResource" load_steps=3 format=3 uid="uid://dlltwn1qhvooq"]
+
+[ext_resource type="Texture2D" uid="uid://bhg3uqud1h0sx" path="res://Collectable/Types/icon_carried_eye.png" id="1_1f76d"]
+[ext_resource type="Script" path="res://Collectable/CollectableResource.cs" id="1_jfwr1"]
+
+[resource]
+script = ExtResource("1_jfwr1")
+FriendlyName = "Eyeball"
+IconGlyph = 0
+IconTexture = ExtResource("1_1f76d")
+CarriedTexture = ExtResource("1_1f76d")
