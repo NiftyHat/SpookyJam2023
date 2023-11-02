@@ -4,7 +4,7 @@ namespace SpookyBotanyGame.World.Entities.Plants.States.DarkPlant
 {
     public class WaitForTargetState : State, IUpdatableState
     {
-        private float _minLightToAttack = 0.1f;
+        private readonly float _minLightToAttack = 0.1f;
         private float _aggroResetTimer = 0;
         private DarkPlantTentacle _tentacle;
     
