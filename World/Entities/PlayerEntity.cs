@@ -18,7 +18,6 @@ namespace SpookyBotanyGame.World.Entities
         [Export] public SimController Sim { get; set; }
         [Export] public CollectableContainer Inventory { get; set; }
         [Export] public LanternTool LanternTool { get; set; }
-        
         [Export] public Sprite2D CarriedSlotIcon { get; set; }
         
         public CollectableStackSlot<CollectableResource> CarriedSlot { get; set; } =  new CollectableStackSlot<CollectableResource>(0, 1);

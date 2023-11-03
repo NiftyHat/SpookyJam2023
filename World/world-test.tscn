@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://n8gglyvki7dw" path="res://World/Entities/Character/Player/player_entity.tscn" id="2_3tyht"]
 [ext_resource type="PackedScene" uid="uid://c610weevdtphv" path="res://UI/ui_game_hud.tscn" id="4_kp64n"]
 [ext_resource type="PackedScene" uid="uid://7gfmj7lcvlnf" path="res://World/Entities/Plants/DarkPlant/dark_stem.tscn" id="7_wanyc"]
-[ext_resource type="PackedScene" uid="uid://8qkjhgr0w8fg" path="res://World/Entities/plantable_spot.tscn" id="8_meodr"]
+[ext_resource type="PackedScene" uid="uid://8qkjhgr0w8fg" path="res://World/Entities/tillable_spot_entity.tscn" id="8_meodr"]
 [ext_resource type="Texture2D" uid="uid://08buiqxe4al1" path="res://Effects/effect_blue_flame.png" id="9_adafq"]
 [ext_resource type="Texture2D" uid="uid://bwk72256yuylr" path="res://World/Lights/light.png" id="10_hsdy0"]
 [ext_resource type="PackedScene" uid="uid://bb1sfvq8h1ymh" path="res://World/Entities/Plants/LightPlant/plant_light_flower.tscn" id="11_dh45g"]
@@ -127,6 +127,7 @@ position = Vector2(595, 152)
 position = Vector2(352, 240)
 
 [node name="Tillable-Spot" parent="WorldRoot" instance=ExtResource("8_meodr")]
+position = Vector2(2353, 1265)
 
 [node name="Sprite2D" type="Sprite2D" parent="WorldRoot"]
 position = Vector2(2379, 1198)

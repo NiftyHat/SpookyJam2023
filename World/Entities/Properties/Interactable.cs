@@ -1,3 +1,4 @@
+using System;
 using Godot;
 namespace SpookyBotanyGame.World.Entities.Properties
 {
@@ -9,6 +10,8 @@ namespace SpookyBotanyGame.World.Entities.Properties
 
         private bool _isTargeted;
         public event InteractionTriggered OnInteractionTriggered;
+        
+        public Func<GameEntity, bool> _canInteractFilter;
         
         public override void _Ready()
         {
@@ -47,6 +50,10 @@ namespace SpookyBotanyGame.World.Entities.Properties
                 return false;
             }
             if (OnInteractionTriggered == null)
+            {
+                return false;
+            }
+            if (_canInteractFilter != null && !_canInteractFilter(interactingEntity))
             {
                 return false;
             }
