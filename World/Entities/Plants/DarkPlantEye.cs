@@ -1,7 +1,10 @@
+using System;
 using Godot;
 using SpookyBotanyGame.Collectable;
 using SpookyBotanyGame.Core.StateMachines;
 using SpookyBotanyGame.World.Entities.Animation;
+using SpookyBotanyGame.World.Entities.Farm.Tillable;
+using SpookyBotanyGame.World.Entities.Plants.Planting;
 using SpookyBotanyGame.World.Entities.Plants.States.DarkEye;
 using SpookyBotanyGame.World.Entities.Properties;
 using SpookyBotanyGame.World.Systems;
@@ -9,7 +12,7 @@ using SpookyBotanyGame.World.Systems;
 namespace SpookyBotanyGame.World.Entities.Plants;
 
 [GlobalClass]
-public partial class DarkPlantEye : GameEntity
+public partial class DarkPlantEye : GameEntity, IPlantable
 {
     [Export] public LightSensor LightSensor { get; set; }
     
@@ -30,6 +33,7 @@ public partial class DarkPlantEye : GameEntity
     [Export] public int DaysToRegrow { get; set; } = 3;
 
     public event SimSystem.OnDaysTicked OnDayTick;
+    public event Action OnDestroyed;
 
     public override void _Ready()
     {
@@ -41,5 +45,19 @@ public partial class DarkPlantEye : GameEntity
     private void HandleDayTick(int daycount)
     {
         OnDayTick?.Invoke(daycount);
+    }
+
+    public void Destroy()
+    {
+        OnDestroyed?.Invoke();
+        QueueFree();
+    }
+
+
+    public void SetSpot(TillableSpot spot)
+    {
+        spot.AddChild(this);
+        Position = Vector2.Zero;
+        StateMachine.SetState(new GrowingState(this, 1));
     }
 }

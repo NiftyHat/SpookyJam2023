@@ -7,6 +7,7 @@ namespace SpookyBotanyGame.Core.StateMachines
     {
         [Export] private bool Logging { get; set; }
         private State _currentState;
+        public State CurrentState => _currentState;
         private IUpdatableState _updatableState;
         private string _loggingName;
         
@@ -33,6 +34,12 @@ namespace SpookyBotanyGame.Core.StateMachines
             {
                 GD.Print(_loggingName, $"Enter state {state.GetType()}");
             }
+            //if you try and set state with an active state force eject it so exit gets called.
+            if (_currentState != null)
+            {
+                _currentState.ForceExit(this);
+                _currentState = null;
+            }
             _currentState = state;
             _currentState.OnExit += HandleStateExit;
             if (state is IUpdatableState updatableState)
@@ -41,17 +48,17 @@ namespace SpookyBotanyGame.Core.StateMachines
             }
         }
 
-        private void HandleStateExit(State state)
+        private void HandleStateExit(State nextState)
         {
             if (Logging)
             {
-                GD.Print(_loggingName, $"Exit state {state.GetType()}");
+                GD.Print(_loggingName, $"Exit state {nextState.GetType()}");
             }
             _currentState = null;
             _updatableState = null;
-            if (state != null)
+            if (nextState != null)
             {
-                SetState(state);
+                SetState(nextState);
             }
         }
 

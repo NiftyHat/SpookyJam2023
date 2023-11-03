@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="CollectableResource" load_steps=3 format=3 uid="uid://kb7irsn4b1tn"]
+[gd_resource type="Resource" script_class="CollectableResource" load_steps=4 format=3 uid="uid://kb7irsn4b1tn"]
 
+[ext_resource type="Texture2D" uid="uid://csh6ojss8bcmw" path="res://Collectable/Types/icon_carried_light_seed.png" id="1_5s0k5"]
 [ext_resource type="Texture2D" uid="uid://c5jdvleihxbma" path="res://Fonts/flower-star.svg" id="1_h4jrc"]
 [ext_resource type="Script" path="res://Collectable/CollectableResource.cs" id="1_uwgvw"]
 
@@ -8,3 +9,4 @@ script = ExtResource("1_uwgvw")
 FriendlyName = "Flowers"
 IconGlyph = 0
 IconTexture = ExtResource("1_h4jrc")
+CarriedTexture = ExtResource("1_5s0k5")

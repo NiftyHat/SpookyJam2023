@@ -229,7 +229,7 @@ _data = {
 "RESET": SubResource("Animation_rpo80")
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_c1ek6"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wios0"]
 resource_local_to_scene = true
 shader = ExtResource("7_ykawc")
 shader_parameter/color = Color(1, 1, 1, 1)
@@ -281,7 +281,7 @@ Handler = NodePath("InteractionHandler")
 
 [node name="InteractionHandler" parent="Interactable" node_paths=PackedStringArray("Sprite") instance=ExtResource("6_1i5c1")]
 Sprite = NodePath("../../Sprite2D")
-InteractionMaterial = SubResource("ShaderMaterial_c1ek6")
+InteractionMaterial = SubResource("ShaderMaterial_wios0")
 
 [node name="SimAdvanceable" type="Node" parent="."]
 script = ExtResource("8_0lvtj")

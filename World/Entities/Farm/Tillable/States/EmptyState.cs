@@ -7,6 +7,7 @@ public class EmptyState : State<TillableSpot>
     public EmptyState(TillableSpot owner) : base(owner)
     {
         _owner.Animation.Play("Empty");
+        _owner.Interaction.SetEnabled(true);
         _owner.Interaction.OnInteractionTriggered += HandlePlayerInteracted;
     }
 

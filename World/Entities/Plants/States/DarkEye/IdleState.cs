@@ -19,8 +19,13 @@ namespace SpookyBotanyGame.World.Entities.Plants.States.DarkEye
                 _plant.LookAnimation.SetEnabled(true);
             }
             _plant.Interactable.SetEnabled(true);
-            
             _plant.Interactable.OnInteractionTriggered += HandleInteractionTriggered;
+        }
+
+        protected override void Exit(State state = null)
+        {
+            _plant.Interactable.OnInteractionTriggered += HandleInteractionTriggered;
+            base.Exit(state);
         }
 
         private bool HandleInteractionTriggered(GameEntity other, GameEntity self)

@@ -1,5 +1,6 @@
 using SpookyBotanyGame.Collectable;
 using SpookyBotanyGame.Core.StateMachines;
+using SpookyBotanyGame.World.Entities.Plants.Planting;
 
 namespace SpookyBotanyGame.World.Entities.Farm.Tillable.States
 {
@@ -17,8 +18,10 @@ namespace SpookyBotanyGame.World.Entities.Farm.Tillable.States
                         var plantScene = _owner.Planting.GetScene(carriedItemType);
                         if (plantScene != null)
                         {
-                            var instance= plantScene.Instantiate();
-                            _owner.GrowSpot.AddChild(instance);
+                            IPlantable instance= plantScene.Instantiate<IPlantable>();
+                            instance.SetSpot(_owner);
+                            playerEntity.CarriedSlot.Remove(1);
+                            Exit(new FilledState(_owner, instance));
                         }
                     }
                 }

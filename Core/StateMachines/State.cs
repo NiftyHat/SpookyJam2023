@@ -8,6 +8,15 @@ public abstract class State
     protected virtual void Exit(State state = null)
     {
         OnExit?.Invoke(state);
+        OnExit = null;
+    }
+
+    public void ForceExit(StateMachine stateMachine, State nextState = null)
+    {
+        if (stateMachine.CurrentState == this)
+        {
+            Exit(nextState);
+        }
     }
 }
 

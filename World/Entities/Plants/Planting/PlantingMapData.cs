@@ -13,6 +13,7 @@ namespace SpookyBotanyGame.World.Entities.Plants.Planting
 
         public void Init()
         {
+            _map = new Dictionary<CollectableResource, PackedScene>();
             foreach (var item in Items)
             {
                 _map[item.Collectable] = item.Scene;

@@ -1,14 +1,17 @@
+using System;
 using Godot;
 using SpookyBotanyGame.Collectable;
 using SpookyBotanyGame.Core.StateMachines;
 using SpookyBotanyGame.World.Entities.Effects;
+using SpookyBotanyGame.World.Entities.Farm.Tillable;
+using SpookyBotanyGame.World.Entities.Plants.Planting;
 using SpookyBotanyGame.World.Entities.Plants.States;
 using SpookyBotanyGame.World.Entities.Properties;
 using SpookyBotanyGame.World.Systems;
 
 namespace SpookyBotanyGame.World.Entities.Plants
 {
-    public partial class LightPlant : GameEntity
+    public partial class LightPlant : GameEntity, IPlantable
     {
         [Export] public LightSensor LightSensor { get; set; }
         
@@ -21,14 +24,16 @@ namespace SpookyBotanyGame.World.Entities.Plants
         [Export(PropertyHint.Range, "1,10,1,or_greater")] public int OutputAmount { get; set; }
         [Export] public EffectsLightPlant Effects { get; set; }
         [Export] public Interactable Interactable { get; set; }
+        [Export] public int InitialGrowthState { get; set; } = 1;
 
         public RandomNumberGenerator _rng = new RandomNumberGenerator();
         public event SimSystem.OnDaysTicked OnDayTick;
+        public event Action OnDestroyed;
 
         public override void _Ready()
         {
             base._Ready();
-            StateMachine.SetState(new GrowingState(this, _rng.RandiRange(1,3)));
+            StateMachine.SetState(new GrowingState(this, InitialGrowthState));
             Sim.OnDayTick += HandleDayTick;
         }
 
@@ -40,7 +45,14 @@ namespace SpookyBotanyGame.World.Entities.Plants
         public void Destroy()
         {
             OnDayTick = null;
+            OnDestroyed?.Invoke();
             QueueFree();
+        }
+        public void SetSpot(TillableSpot spot)
+        {
+            spot.AddChild(this);
+            Position = Vector2.Zero;
+            StateMachine.SetState(new GrowingState(this, InitialGrowthState));
         }
     }
 }
