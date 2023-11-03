@@ -13,7 +13,9 @@ namespace SpookyBotanyGame.World.Entities.Plants.States.DarkEye
         {
             _plant = plant;
             _plant.OnDayTick += HandleDayTick;
+            _plant.LookAnimation.SetEnabled(false);
             PlayGrowingAnimation(_plant.Animation);
+            _plant.Interactable.SetEnabled(false);
             _progress = progress;
         }
         

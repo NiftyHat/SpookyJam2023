@@ -24,7 +24,7 @@ namespace SpookyBotanyGame.World.Entities.Plants.States.DarkEye
 
         protected override void Exit(State state = null)
         {
-            _plant.Interactable.OnInteractionTriggered += HandleInteractionTriggered;
+            _plant.Interactable.OnInteractionTriggered -= HandleInteractionTriggered;
             base.Exit(state);
         }
 

@@ -39,12 +39,16 @@ namespace SpookyBotanyGame.Core.StateMachines
             {
                 _currentState.ForceExit(this);
                 _currentState = null;
+                _updatableState = null;
             }
             _currentState = state;
-            _currentState.OnExit += HandleStateExit;
-            if (state is IUpdatableState updatableState)
+            if (state != null)
             {
-                _updatableState = updatableState;
+                _currentState.OnExit += HandleStateExit;
+                if (state is IUpdatableState updatableState)
+                {
+                    _updatableState = updatableState;
+                }
             }
         }
 
