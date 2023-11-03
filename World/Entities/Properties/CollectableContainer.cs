@@ -34,6 +34,11 @@ namespace SpookyBotanyGame.World.Entities.Properties
             return _slots[type];
         }
 
+        public bool TryGetSlot(CollectableResource type, out CollectableStackSlot<ICollectableType> slot)
+        {
+            return _slots.TryGetValue(type, out slot);
+        }
+
         public void Add(CollectableResource type, int amount)
         {
             var slot = GetSlot(type);
