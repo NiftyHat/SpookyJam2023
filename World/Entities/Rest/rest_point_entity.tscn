@@ -11,7 +11,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_npdwl"]
 size = Vector2(24, 21)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xber5"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bo7c2"]
 resource_local_to_scene = true
 shader = ExtResource("5_321eu")
 shader_parameter/color = Color(1, 1, 1, 1)
@@ -43,7 +43,7 @@ Handler = NodePath("InteractionHandler")
 
 [node name="InteractionHandler" parent="Interactable" node_paths=PackedStringArray("Sprite") instance=ExtResource("4_0rjuv")]
 Sprite = NodePath("../../Sprite2D")
-InteractionMaterial = SubResource("ShaderMaterial_xber5")
+InteractionMaterial = SubResource("ShaderMaterial_bo7c2")
 
 [node name="SimController" type="Node" parent="."]
 script = ExtResource("6_gx5yp")

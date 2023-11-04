@@ -89,6 +89,15 @@ namespace SpookyBotanyGame.Collectable
             SetAmount(amount);
             SetMax(max);
         }
+
+        public bool Has(TCollectable collectableType, int amount)
+        {
+            if (CollectableType != null)
+            {
+                return CollectableType.Equals(collectableType) && Amount >= amount;
+            }
+            return false;
+        }
         
         public CollectableStackSlot(TCollectable collectableType, int amount, int max) : this (amount, max)
         {

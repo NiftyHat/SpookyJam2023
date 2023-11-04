@@ -56,7 +56,7 @@ public partial class DarkPlantEye : GameEntity, IPlantable
 
     public void SetSpot(TillableSpot spot)
     {
-        spot.AddChild(this);
+        spot.GrowSpot.AddChild(this);
         Position = Vector2.Zero;
         StateMachine.SetState(null);
         StateMachine.SetState(new GrowingState(this, 1));

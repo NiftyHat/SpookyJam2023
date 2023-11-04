@@ -74,6 +74,7 @@ GrowSpot = NodePath("GrowSpotNode2D")
 Planting = ExtResource("2_wq1vj")
 
 [node name="PlantableSprite2D" type="Sprite2D" parent="."]
+position = Vector2(16, 16)
 texture = ExtResource("1_8a2kh")
 hframes = 2
 
@@ -88,6 +89,7 @@ script = ExtResource("3_lp5gk")
 Entity = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(16, 16)
 shape = SubResource("RectangleShape2D_d1kqw")
 
 [node name="Interactable" type="Node2D" parent="." node_paths=PackedStringArray("Handler")]
@@ -101,3 +103,4 @@ Sprite = NodePath("../../PlantableSprite2D")
 script = ExtResource("6_8vkxj")
 
 [node name="GrowSpotNode2D" type="Node2D" parent="."]
+position = Vector2(16, 16)

@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using SpookyBotanyGame.Collectable;
 using SpookyBotanyGame.World.Entities.Properties;
@@ -9,9 +10,13 @@ public partial class EyeSlot : GameEntity
 {
     [Export] public AnimationPlayer SlotAnimation { get; set; }
     [Export] public Interactable Interactable { get; set; }
-    [Export] public CollectableResource CollectableType { get; set; }
+    [Export] public CollectableResource StoredCollectable { get; set; }
 
-    private CollectableStackSlot<CollectableResource> _slot = new CollectableStackSlot<CollectableResource>();
+    public bool IsFilled => _slot != null && _slot.IsFull;
+
+    private CollectableStackSlot<CollectableResource> _slot = new CollectableStackSlot<CollectableResource>(0,1);
+
+    public event Action<bool> OnFilledChanged;
 
     public override void _Ready()
     {
@@ -20,6 +25,24 @@ public partial class EyeSlot : GameEntity
         _slot.OnChanged += HandleSlotChanged;
         SlotAnimation.HasAnimation("Added");
         SlotAnimation.HasAnimation("Removed");
+        SlotAnimation.AnimationFinished += HandleAnimationFinished;
+    }
+
+    private void HandleAnimationFinished(StringName animationName)
+    {
+        switch (animationName)
+        {
+            case "Added":
+                SlotAnimation.Play("Full");
+                Interactable.SetEnabled(true);
+                OnFilledChanged?.Invoke(true);
+                break;
+            case "Removed":
+                SlotAnimation.Play("Empty");
+                Interactable.SetEnabled(true);
+                OnFilledChanged?.Invoke(false);
+                break;
+        }
     }
 
     public override string[] _GetConfigurationWarnings()
@@ -44,26 +67,34 @@ public partial class EyeSlot : GameEntity
         if (newAmount > 0 && oldAmount == 0)
         {
             SlotAnimation.Play("Added");
+            Interactable.SetEnabled(false);
         }
         else if (newAmount == 0 && oldAmount > 0)
         {
             SlotAnimation.Play("Removed");
+            Interactable.SetEnabled(false);
         }
     }
 
     private bool HandleInteractionTriggered(GameEntity other, GameEntity self)
     {
-        if (!_slot.IsFull)
+        if (other is PlayerEntity player && player.CarriedSlot != null)
         {
-            return false;
+            bool hasItem = _slot.Amount > 0;
+            if (hasItem && player.CarriedSlot.Amount == 0)
+            {
+                player.CarriedSlot.Add(StoredCollectable);
+                _slot.Remove(1);
+                return true;
+            }
+            if (!hasItem && player.CarriedSlot.Has(StoredCollectable, 1))
+            {
+                player.CarriedSlot.Remove(1);
+                _slot.Add(StoredCollectable);
+                return true;
+            }
         }
-        if (other is PlayerEntity player && player.Inventory != null && player.Inventory.TryGetSlot(CollectableType, out var slot) && slot.Amount > 0)
-        {
-            slot.Remove(1);
-            _slot.Add(1);
-            Interactable.OnInteractionTriggered -= HandleInteractionTriggered;
-            return true;
-        }
+
         return false;
     }
 }

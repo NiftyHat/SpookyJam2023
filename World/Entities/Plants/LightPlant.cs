@@ -50,7 +50,7 @@ namespace SpookyBotanyGame.World.Entities.Plants
         }
         public void SetSpot(TillableSpot spot)
         {
-            spot.AddChild(this);
+            spot.GrowSpot.AddChild(this);
             Position = Vector2.Zero;
             StateMachine.SetState(new GrowingState(this, InitialGrowthState));
         }

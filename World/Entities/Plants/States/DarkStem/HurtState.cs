@@ -13,6 +13,12 @@ public class HurtState : State
         _stem.Animation.Play("Hurt");
     }
 
+    protected override void Exit(State state = null)
+    {
+        _stem.OnAnimationFinished -= HandleAnimationFinished;
+        base.Exit(state);
+    }
+
     private void HandleAnimationFinished(string animationName)
     {
         if (animationName == "Hurt")
