@@ -72,7 +72,7 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
                 if (playerEntity.LanternTool != null)
                 {
                     var amountToHarvest = _collectableAmount.Value;
-                    playerEntity.LanternTool.Fuel.Value += amountToHarvest * 3;
+                    playerEntity.LanternTool.Fuel.Value += 50;
                     _plant.Animation.Play("Harvest");
                     _plant.Interactable.SetEnabled(false);
                     _collectableAmount.Value = 0;

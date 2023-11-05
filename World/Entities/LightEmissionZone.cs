@@ -9,6 +9,8 @@ namespace SpookyBotanyGame.World.Entities
     {
         [Export] public Area2D HitBox { get; set; }
         
+        [Export(PropertyHint.Range, "0,1,0.1,or_greater")] private float LightPower { get; set; }
+        
         private Dictionary<Node2D, LightSensor> _trackedEntities = new Dictionary<Node2D, LightSensor>();
 
         public bool IsEnabled { get; private set; } = true;
@@ -30,7 +32,7 @@ namespace SpookyBotanyGame.World.Entities
         
         public float GetLightAmount()
         {
-            return 1;
+            return LightPower;
         }
         
         private void HandleEntered(Node2D area)

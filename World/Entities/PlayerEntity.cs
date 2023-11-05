@@ -3,7 +3,7 @@ using SpookyBotanyGame.Collectable;
 using SpookyBotanyGame.World.Entities.Animation;
 using SpookyBotanyGame.World.Entities.Collision;
 using SpookyBotanyGame.World.Entities.Properties;
-using SpookyBotanyGame.World.Entities.Tools;
+using SpookyBotanyGame.World.Tools.Lantern;
 
 namespace SpookyBotanyGame.World.Entities
 {
@@ -70,6 +70,24 @@ namespace SpookyBotanyGame.World.Entities
             {
                 Interact?.DoInteract();
             }
+
+            if (!LanternTool.IsEmpty)
+            {
+                if (Input.IsActionPressed("lantern_primary"))
+                {
+                    LanternTool.SetMode(LanternTool.ModeHigh);
+                }
+                else if (Input.IsActionPressed("lantern_secondary"))
+                {
+                    LanternTool.SetMode(LanternTool.ModeLow);
+                }
+                else 
+                {
+                    LanternTool.SetMode(LanternTool.ModeMedium);
+                }
+            }
+            
+            
             base._Process(delta);
         }
 

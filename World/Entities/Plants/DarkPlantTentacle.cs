@@ -23,7 +23,7 @@ namespace SpookyBotanyGame.World.Entities.Plants
         public float LightTriggerAttackThreshold { get; set; } = 0.1f;
         public bool IsLightTriggeringAttack { get; set; } = false;
 
-        public bool HasAttackFromStem => PlantStem != null && PlantStem.CanAttack;
+        public bool HasAttackFromStem => PlantStem != null && PlantStem.CanTriggerAttack;
         
         public event Action<string> OnAnimationFinished;
         

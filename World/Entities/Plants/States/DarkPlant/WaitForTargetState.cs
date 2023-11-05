@@ -26,7 +26,7 @@ namespace SpookyBotanyGame.World.Entities.Plants.States.DarkPlant
             {
                 return;
             }
-            if (lightPower > _minLightToAttack || _aggroResetTimer > 1.0f)
+            if (lightPower >= _minLightToAttack || _aggroResetTimer > 1.0f)
             {
                 if (AttackSwipeState.CanTarget(_tentacle, lightEmissionZone))
                 {

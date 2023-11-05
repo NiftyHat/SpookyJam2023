@@ -10,7 +10,6 @@ namespace SpookyBotanyGame.World
 
         public void Spawn(Node2D node, SpawnCompleted onComplete)
         {
-            GD.Print("Spawn");
             node.Position = this.Position;
             onComplete?.Invoke(this);
         }

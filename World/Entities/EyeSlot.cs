@@ -12,7 +12,7 @@ public partial class EyeSlot : GameEntity
     [Export] public Interactable Interactable { get; set; }
     [Export] public CollectableResource StoredCollectable { get; set; }
 
-    public bool IsFilled => _slot != null && _slot.IsFull;
+    public bool IsFilled => _slot != null && _slot.Amount > 0;
 
     private CollectableStackSlot<CollectableResource> _slot = new CollectableStackSlot<CollectableResource>(0,1);
 

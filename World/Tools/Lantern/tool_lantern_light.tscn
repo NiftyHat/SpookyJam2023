@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b4f2fcnq0kh7w"]
 
 [ext_resource type="Script" path="res://World/Tools/Lantern/LanternPointLight.cs" id="1_t2bga"]
-[ext_resource type="Texture2D" uid="uid://bwk72256yuylr" path="res://World/Lights/light.png" id="1_vbo2w"]
+[ext_resource type="Texture2D" uid="uid://dxqff23b2jobx" path="res://Effects/light_lantern_half_cone.png" id="2_mwjxh"]
 
 [node name="LanternPointLight" type="Node2D" node_paths=PackedStringArray("SpriteLight", "ShadowLight")]
 script = ExtResource("1_t2bga")
@@ -9,16 +9,22 @@ SpriteLight = NodePath("SpriteLight")
 ShadowLight = NodePath("ShadowLight")
 
 [node name="SpriteLight" type="PointLight2D" parent="."]
+position = Vector2(20.5, -1)
 color = Color(0.721569, 0.721569, 0.721569, 1)
 energy = 0.6
+blend_mode = 2
 range_item_cull_mask = 3
-texture = ExtResource("1_vbo2w")
+texture = ExtResource("2_mwjxh")
+offset = Vector2(29, 0)
 texture_scale = 0.5
 
 [node name="ShadowLight" type="PointLight2D" parent="."]
+position = Vector2(20.5, -1)
 energy = 0.6
+blend_mode = 2
 range_layer_max = 3
 shadow_enabled = true
-shadow_filter = 1
-texture = ExtResource("1_vbo2w")
+shadow_color = Color(0, 0, 0, 1)
+texture = ExtResource("2_mwjxh")
+offset = Vector2(29, 0)
 texture_scale = 0.5

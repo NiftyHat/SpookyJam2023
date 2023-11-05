@@ -42,8 +42,6 @@ namespace SpookyBotanyGame.World.Entities
 
         private void HandleAreaEntered(Area2D area)
         {
-            
-            
             if (GameEntity.TryGetProperty(area, out Interactable interactable, out GameEntity gameEntity))
             {
                 Add(interactable, gameEntity);

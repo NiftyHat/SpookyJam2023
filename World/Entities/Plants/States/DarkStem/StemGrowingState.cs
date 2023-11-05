@@ -105,7 +105,7 @@ public class StemGrowingState : State
             return;
         }
 
-        if (lightPower > 0.1f)
+        if (lightPower >= 0.1f)
         {
             _plant.Animation.Play(_animationName);
             _wasAnimationPlayed = true;

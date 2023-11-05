@@ -23,7 +23,6 @@ public partial class EyeDoor : Node2D
             {
                 areAllFilled = false;
             }
-
             item.OnFilledChanged += HandleFilledChanged;
         }
 
@@ -35,7 +34,6 @@ public partial class EyeDoor : Node2D
         {
             Animation.Play("Closed");
         }
-        
     }
 
     private void HandleFilledChanged(bool obj)
@@ -48,6 +46,7 @@ public partial class EyeDoor : Node2D
                 areAllFilled = false;
             }
         }
+        GD.Print(Name, $"all filled {areAllFilled}");
         if (areAllFilled)
         {
             Animation.Play("Open");

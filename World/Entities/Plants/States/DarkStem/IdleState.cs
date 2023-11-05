@@ -9,10 +9,9 @@ public class IdleState : State, IUpdatableState
     private bool _isDamagedByLight;
     public IdleState(DarkPlantStem stem)
     {
-        GD.Print("IdleState");
         stem.Animation.Play("Idle");
         _stem = stem;
-        _stem.CanAttack = true;
+        _stem.CanTriggerAttack = true;
         _stem.LightSensor.OnApply += HandleLightApply;
     }
 
@@ -39,7 +38,11 @@ public class IdleState : State, IUpdatableState
     
     private void HandleLightApply(LightEmissionZone zone, float lightPower)
     {
-        if (lightPower > 0.5f)
+        if (_isDamagedByLight)
+        {
+            return;
+        }
+        if (lightPower >= 0.9f)
         {
             _isDamagedByLight = true;
         }

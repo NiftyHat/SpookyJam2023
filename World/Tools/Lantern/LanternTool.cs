@@ -1,44 +1,41 @@
-using System.Diagnostics;
-using System.Drawing;
 using Godot;
 using SpookyBotanyGame.Core;
+using SpookyBotanyGame.World.Entities;
 using SpookyBotanyGame.World.Entities.Animation;
 
-namespace SpookyBotanyGame.World.Entities.Tools
+namespace SpookyBotanyGame.World.Tools.Lantern
 {
     [GlobalClass]
     public partial class LanternTool : Node2D
     {
         public delegate void OnEmptyChanged(bool isEmpty, LanternTool tool);
         
-        [Export] public ToolAnimationPlayer Animation;
-
-        [Export] public float FuelDrainPerSecond { get; set; } = 1;
-        
-        [Export] public PointLight2D AmbientLight { get; set; }
-        
-        [Export] public LanternPointLight PointLight { get; set; }
-        
+        [Export] public ToolAnimationPlayer ToolAnimation;
         [Export] public InputDirectionalPointing Pointing { get; set; }
+        [Export] public LanternModeNode ModeHigh { get; set; }
+        [Export] public LanternModeNode ModeMedium { get; set; }
+        [Export] public LanternModeNode ModeLow { get; set; }
         
-        [Export] public LightEmissionZone LightZone { get; set; }
-        
-        public Range<float> Fuel { get; private set; }  = new Range<float>(100,0, 50);
+        public Range<float> Fuel { get; private set; }  = new Range<float>(300,0, 300);
+
+        public bool IsEmpty => _isEmpty;
 
         //private Core.Range<float> _fuelLevel = new Range<float>(100,0, 50);
         private int _visibleFuelLevel;
         private Vector2 _pointing;
-        private float _pointLightDefaultScale;
         private bool _isEmpty;
         private bool _isDestroying;
+        private LanternModeNode _lanternMode;
 
-        private OnEmptyChanged OnEmptyChange;
+        public event OnEmptyChanged OnEmptyChange;
 
         public override void _Ready()
         {
-            _pointLightDefaultScale = AmbientLight.TextureScale;
             Pointing.OnDirectionChanged += HandlePointingDirectionChanged;
             _isEmpty = Fuel.IsZero;
+            ModeLow.SetEnabled(false);
+            ModeHigh.SetEnabled(false);
+            SetMode(ModeMedium);
             base._Ready();
         }
 
@@ -49,63 +46,70 @@ namespace SpookyBotanyGame.World.Entities.Tools
 
         public override void _Process(double delta)
         {
-            if (_isDestroying)
+            if (_isDestroying || _lanternMode == null)
             {
                 return;
             }
-            Fuel.Value -= (float)delta * FuelDrainPerSecond;
-            if (Fuel.IsMin)
+            Fuel.Value -= (float)delta * _lanternMode.FuelBurnRate;
+            if (!_isEmpty && Fuel.Value <= 0)
             {
-                if (!_isEmpty)
-                {
-                    _isEmpty = true;
-                    OnEmptyChange?.Invoke(_isEmpty, this);
-                    PointLight.SetEnergy(0.1f);
-                    PointLight.SetScale(0.3f);
-                    AmbientLight.Energy = 0;
-                    AmbientLight.TextureScale = 0;
-                    LightZone.SetEnabled(false);
-                }
-                Animation.Play(_pointing,"0");
+                OnEmptyChange?.Invoke(true, this);
+                SetMode(null);
+                _isEmpty = true;
+                ToolAnimation.Play(_pointing,"0");
+                return;
             }
-            else
+            if (_isEmpty && Fuel.Value > 0)
             {
-                if (_isEmpty)
-                {
-                    _isEmpty = false;
-                    OnEmptyChange?.Invoke(_isEmpty, this);
-                    PointLight.Reset();
-                    LightZone.SetEnabled(true);
-                }
-                float fuelPerc = Core.Range.Percentage(Fuel);
-                int newFuelLevel = Mathf.CeilToInt(Core.Range.Percentage(Fuel) * 5);
-                if (newFuelLevel != _visibleFuelLevel)
-                {
-                    _visibleFuelLevel = newFuelLevel;
-                }
-                Animation.Play(_pointing,_visibleFuelLevel.ToString());
-                AmbientLight.Energy = 0.05f + fuelPerc * 0.4f;
-                AmbientLight.TextureScale = _pointLightDefaultScale + (fuelPerc * 0.3f);
+                _isEmpty = false;
+                OnEmptyChange?.Invoke(false, this);
+                SetMode(ModeLow);
             }
+            float fuelPercentage = Core.Range.Percentage(Fuel);
+            int newFuelLevel = Mathf.CeilToInt(Core.Range.Percentage(Fuel) * 5);
+            
+            if (_visibleFuelLevel != newFuelLevel)
+            {
+               
+                //_lanternMode.UpdateFuelLevel(_visibleFuelLevel,fuelPercentage);
+                _visibleFuelLevel = newFuelLevel;
+            }
+            ToolAnimation.Play(_pointing,_visibleFuelLevel.ToString());
             base._Process(delta);
+        }
+
+        public void SetMode(LanternModeNode mode)
+        {
+            if (_lanternMode != null)
+            {
+                _lanternMode.SetEnabled(false);
+                _lanternMode = null;
+            }
+            _lanternMode = mode;
+            if (_lanternMode != null)
+            {
+                _lanternMode.SetEnabled(true);
+                Pointing.Controlled = _lanternMode;
+            }
         }
 
         public void Destroy()
         {
+            _lanternMode = null;
             _isDestroying = true;
-            Animation.PlayOneShot("Destroy", HandleDestroyAnimationComplete);
+            ToolAnimation.PlayOneShot("Destroy", HandleDestroyAnimationComplete);
         }
 
         private void HandleDestroyAnimationComplete(StringName animName)
         {
             _isDestroying = false;
-            _isEmpty = !_isEmpty;
         }
 
         public void SetPointing(Vector2 direction)
         {
             _pointing = direction;
         }
+        
     }
 }
 

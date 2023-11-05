@@ -1,12 +1,16 @@
-[gd_scene load_steps=18 format=3 uid="uid://cl3cgkfn6rgh3"]
+[gd_scene load_steps=22 format=3 uid="uid://cl3cgkfn6rgh3"]
 
 [ext_resource type="Script" path="res://World/Tools/Lantern/LanternTool.cs" id="1_f0r4n"]
 [ext_resource type="Script" path="res://World/Entities/Animation/ToolAnimationPlayer.cs" id="2_lw3nr"]
 [ext_resource type="Texture2D" uid="uid://bpgkac7owy7qc" path="res://World/Tools/Lantern/tool-lantern.png" id="3_iduhq"]
 [ext_resource type="Texture2D" uid="uid://bwk72256yuylr" path="res://World/Lights/light.png" id="4_fdu5e"]
 [ext_resource type="Script" path="res://World/Entities/InputDirectionalPointing.cs" id="5_vjwlx"]
-[ext_resource type="PackedScene" uid="uid://b4f2fcnq0kh7w" path="res://World/Tools/Lantern/tool_lantern_light.tscn" id="6_ko75a"]
+[ext_resource type="Script" path="res://World/Tools/Lantern/LanternPointLight.cs" id="6_d2c50"]
+[ext_resource type="Script" path="res://World/Tools/Lantern/LanternModeNode.cs" id="6_exbq6"]
+[ext_resource type="Texture2D" uid="uid://cdicwxwcpqy2b" path="res://Effects/light_lantern_beam.png" id="7_jqshj"]
+[ext_resource type="Texture2D" uid="uid://dxqff23b2jobx" path="res://Effects/light_lantern_half_cone.png" id="7_rco2c"]
 [ext_resource type="Script" path="res://World/Entities/LightEmissionZone.cs" id="7_rn2i1"]
+[ext_resource type="Texture2D" uid="uid://b7whmpdlecn5t" path="res://Effects/light_lantern_small_circle.png" id="9_7301d"]
 
 [sub_resource type="Animation" id="Animation_roibe"]
 resource_name = "Carry-0"
@@ -154,16 +158,16 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_14ej4"]
-radius = 38.0132
+radius = 14.0
 
-[node name="LanternTool" type="Node2D" node_paths=PackedStringArray("Animation", "AmbientLight", "PointLight", "Pointing", "LightZone")]
+[node name="LanternTool" type="Node2D" node_paths=PackedStringArray("ToolAnimation", "Pointing", "ModeHigh", "ModeMedium", "ModeLow")]
 z_as_relative = false
 script = ExtResource("1_f0r4n")
-Animation = NodePath("LanternToolAnimationPlayer")
-AmbientLight = NodePath("LanternPointLight")
-PointLight = NodePath("InputDirectionalPointing/PointLightLantern")
+ToolAnimation = NodePath("LanternToolAnimationPlayer")
 Pointing = NodePath("InputDirectionalPointing")
-LightZone = NodePath("InputDirectionalPointing/PointLightLantern/LightEmissionZone")
+ModeHigh = NodePath("InputDirectionalPointing/LanternHigh")
+ModeMedium = NodePath("InputDirectionalPointing/LanternMedium")
+ModeLow = NodePath("InputDirectionalPointing/LanternLow")
 
 [node name="LanternToolAnimationPlayer" type="Node2D" parent="." node_paths=PackedStringArray("Animation", "Sprite")]
 script = ExtResource("2_lw3nr")
@@ -189,21 +193,163 @@ libraries = {
 "": SubResource("AnimationLibrary_rset5")
 }
 
-[node name="InputDirectionalPointing" type="Node2D" parent="." node_paths=PackedStringArray("Controlled")]
-position = Vector2(0, 4)
+[node name="InputDirectionalPointing" type="Node2D" parent="." node_paths=PackedStringArray("Controlled", "RayCast")]
 script = ExtResource("5_vjwlx")
 Distance = 10.0
-Controlled = NodePath("PointLightLantern")
+Controlled = NodePath("LanternMedium")
+RayCast = NodePath("RayCast2D")
 
-[node name="PointLightLantern" parent="InputDirectionalPointing" instance=ExtResource("6_ko75a")]
-position = Vector2(-31, 0)
+[node name="RayCast2D" type="RayCast2D" parent="InputDirectionalPointing"]
+target_position = Vector2(0, 20)
 
-[node name="LightEmissionZone" type="Node2D" parent="InputDirectionalPointing/PointLightLantern" node_paths=PackedStringArray("HitBox")]
+[node name="LanternHigh" type="Node2D" parent="InputDirectionalPointing" node_paths=PackedStringArray("LightEmissionZones", "LanternBeamLight")]
+visible = false
+script = ExtResource("6_exbq6")
+FuelBurnRate = 2.0
+LightEmissionZones = [NodePath("HighLightBeam/LightEmissionZoneStrong"), NodePath("HighLightBeam/LightEmissionZoneMedium")]
+LanternBeamLight = NodePath("HighLightBeam")
+
+[node name="HighLightBeam" type="Node2D" parent="InputDirectionalPointing/LanternHigh" node_paths=PackedStringArray("SpriteLight", "ShadowLight")]
+script = ExtResource("6_d2c50")
+SpriteLight = NodePath("../../LanternMedium/MediumLightBeam/SpriteLight")
+ShadowLight = NodePath("../../LanternMedium/MediumLightBeam/ShadowLight")
+
+[node name="SpriteLight" type="PointLight2D" parent="InputDirectionalPointing/LanternHigh/HighLightBeam"]
+position = Vector2(3, 1.25)
+color = Color(0.518799, 0.73682, 1, 1)
+energy = 0.6
+blend_mode = 2
+range_item_cull_mask = 3
+texture = ExtResource("7_jqshj")
+offset = Vector2(29, 0)
+texture_scale = 0.5
+
+[node name="ShadowLight" type="PointLight2D" parent="InputDirectionalPointing/LanternHigh/HighLightBeam"]
+position = Vector2(3, 1.25)
+energy = 0.6
+blend_mode = 2
+range_layer_max = 3
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 1)
+texture = ExtResource("7_jqshj")
+offset = Vector2(29, 0)
+texture_scale = 0.5
+
+[node name="LightEmissionZoneStrong" type="Node2D" parent="InputDirectionalPointing/LanternHigh/HighLightBeam" node_paths=PackedStringArray("HitBox")]
+script = ExtResource("7_rn2i1")
+HitBox = NodePath("../../../LanternMedium/MediumLightBeam/LightEmissionZoneMedium/Area2D")
+LightPower = 1.0
+
+[node name="Area2D" type="Area2D" parent="InputDirectionalPointing/LanternHigh/HighLightBeam/LightEmissionZoneStrong"]
+position = Vector2(-9, 2)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="InputDirectionalPointing/LanternHigh/HighLightBeam/LightEmissionZoneStrong/Area2D"]
+polygon = PackedVector2Array(42, 19, 53, 22, 60, 19, 63, 13, 65, 2, 65, -8, 60, -22, 54, -24, 7, -10, 2, -6, 1, -1, 3, 5, 7, 8)
+
+[node name="LightEmissionZoneMedium" type="Node2D" parent="InputDirectionalPointing/LanternHigh/HighLightBeam" node_paths=PackedStringArray("HitBox")]
 script = ExtResource("7_rn2i1")
 HitBox = NodePath("Area2D")
+LightPower = 0.5
 
-[node name="Area2D" type="Area2D" parent="InputDirectionalPointing/PointLightLantern/LightEmissionZone"]
+[node name="Area2D" type="Area2D" parent="InputDirectionalPointing/LanternHigh/HighLightBeam/LightEmissionZoneMedium"]
+position = Vector2(-9, 2)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InputDirectionalPointing/PointLightLantern/LightEmissionZone/Area2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="InputDirectionalPointing/LanternHigh/HighLightBeam/LightEmissionZoneMedium/Area2D"]
+polygon = PackedVector2Array(74, 30, 79, 30, 89, 14, 91, 2, 89, -14, 84, -27, 75, -31, 69, -29, 8, -11, 2, -7, 0, 0, 3, 5, 7, 8)
+
+[node name="LanternMedium" type="Node2D" parent="InputDirectionalPointing" node_paths=PackedStringArray("LightEmissionZones", "LanternBeamLight")]
+visible = false
+script = ExtResource("6_exbq6")
+FuelBurnRate = 1.0
+LightEmissionZones = [NodePath("MediumLightBeam/LightEmissionZoneMedium"), NodePath("MediumLightBeam/LightEmissionZoneLow")]
+LanternBeamLight = NodePath("MediumLightBeam")
+
+[node name="MediumLightBeam" type="Node2D" parent="InputDirectionalPointing/LanternMedium" node_paths=PackedStringArray("SpriteLight", "ShadowLight")]
+script = ExtResource("6_d2c50")
+SpriteLight = NodePath("SpriteLight")
+ShadowLight = NodePath("ShadowLight")
+
+[node name="SpriteLight" type="PointLight2D" parent="InputDirectionalPointing/LanternMedium/MediumLightBeam"]
+position = Vector2(19.5, 4)
+color = Color(0.721569, 0.721569, 0.721569, 1)
+energy = 0.6
+blend_mode = 2
+range_item_cull_mask = 3
+texture = ExtResource("7_rco2c")
+offset = Vector2(29, 0)
+texture_scale = 0.5
+
+[node name="ShadowLight" type="PointLight2D" parent="InputDirectionalPointing/LanternMedium/MediumLightBeam"]
+position = Vector2(19.5, 4)
+energy = 0.6
+blend_mode = 2
+range_layer_max = 3
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 1)
+texture = ExtResource("7_rco2c")
+offset = Vector2(29, 0)
+texture_scale = 0.5
+
+[node name="LightEmissionZoneMedium" type="Node2D" parent="InputDirectionalPointing/LanternMedium/MediumLightBeam" node_paths=PackedStringArray("HitBox")]
+script = ExtResource("7_rn2i1")
+HitBox = NodePath("Area2D")
+LightPower = 0.5
+
+[node name="Area2D" type="Area2D" parent="InputDirectionalPointing/LanternMedium/MediumLightBeam/LightEmissionZoneMedium"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="InputDirectionalPointing/LanternMedium/MediumLightBeam/LightEmissionZoneMedium/Area2D"]
+polygon = PackedVector2Array(7, -22, 0, -22, -7, -20, -14, -15, -19, -7, -20, -1, -20, 4, -16, 12, -9, 19, -2, 22, 7, 22, 11, 82, 30, 79, 52, 68, 68, 54, 80, 33, 85, 16, 87, 0, 84, -19, 76, -38, 66, -53, 52, -66, 37, -75, 13, -80)
+
+[node name="LightEmissionZoneLow" type="Node2D" parent="InputDirectionalPointing/LanternMedium/MediumLightBeam" node_paths=PackedStringArray("HitBox")]
+script = ExtResource("7_rn2i1")
+HitBox = NodePath("Area2D")
+LightPower = 0.1
+
+[node name="Area2D" type="Area2D" parent="InputDirectionalPointing/LanternMedium/MediumLightBeam/LightEmissionZoneLow"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="InputDirectionalPointing/LanternMedium/MediumLightBeam/LightEmissionZoneLow/Area2D"]
+polygon = PackedVector2Array(8, -29, -1, -28, -14, -21, -21, -13, -25, -4, -25, 0, -23, 11, -17, 20, -6, 29, 9, 33, -3, 97, 24, 97, 53, 93, 79, 81, 100, 65, 113, 47, 119, 26, 121, 0, 118, -19, 104, -45, 89, -64, 59, -81, 27, -89, 0, -90)
+
+[node name="LanternLow" type="Node2D" parent="InputDirectionalPointing" node_paths=PackedStringArray("LightEmissionZones", "LanternBeamLight")]
+script = ExtResource("6_exbq6")
+FuelBurnRate = 0.5
+LightEmissionZones = []
+LanternBeamLight = NodePath("LowLightBeam")
+
+[node name="LowLightBeam" type="Node2D" parent="InputDirectionalPointing/LanternLow" node_paths=PackedStringArray("SpriteLight", "ShadowLight")]
+script = ExtResource("6_d2c50")
+SpriteLight = NodePath("SpriteLight")
+ShadowLight = NodePath("ShadowLight")
+
+[node name="SpriteLight" type="PointLight2D" parent="InputDirectionalPointing/LanternLow/LowLightBeam"]
+position = Vector2(-16.75, -0.75)
+color = Color(0.721569, 0.721569, 0.721569, 1)
+energy = 0.6
+blend_mode = 2
+range_item_cull_mask = 3
+texture = ExtResource("9_7301d")
+offset = Vector2(29, 0)
+texture_scale = 0.5
+
+[node name="ShadowLight" type="PointLight2D" parent="InputDirectionalPointing/LanternLow/LowLightBeam"]
+position = Vector2(-16.75, -0.75)
+energy = 0.6
+blend_mode = 2
+range_layer_max = 3
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 1)
+texture = ExtResource("9_7301d")
+offset = Vector2(29, 0)
+texture_scale = 0.5
+
+[node name="LightEmissionZoneLow" type="Node2D" parent="InputDirectionalPointing/LanternLow/LowLightBeam" node_paths=PackedStringArray("HitBox")]
+script = ExtResource("7_rn2i1")
+HitBox = NodePath("Area2D")
+LightPower = 0.1
+
+[node name="Area2D" type="Area2D" parent="InputDirectionalPointing/LanternLow/LowLightBeam/LightEmissionZoneLow"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InputDirectionalPointing/LanternLow/LowLightBeam/LightEmissionZoneLow/Area2D"]
+position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_14ej4")
 debug_color = Color(0.580392, 0.54902, 0.0666667, 0.419608)

@@ -30,6 +30,14 @@ public partial class LanternPointLight : Node2D
         ShadowLight.Energy = newEnergy;
         SpriteLight.Energy = newEnergy;
     }
+
+    public void SetTexture(Texture2D texture2D)
+    {
+        ShadowLight.Texture = texture2D;
+        SpriteLight.Texture = texture2D;
+        SpriteLight.QueueRedraw();
+        ShadowLight.QueueRedraw();
+    }
     
     public void SetScale(float newScale)
     {

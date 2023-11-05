@@ -20,7 +20,7 @@ public partial class DarkPlantStem : GameEntity
     [Export] public StateMachine StateMachine { get; set; }
 
     public Range<float> Health { get; protected set; } = new Range<float>(3, 0, 3);
-    public bool CanAttack { get; set; } = false;
+    public bool CanTriggerAttack { get; set; } = false;
 
     public event Action<string> OnAnimationFinished;
     

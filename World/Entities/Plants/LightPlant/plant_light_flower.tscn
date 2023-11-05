@@ -148,6 +148,7 @@ Effects = NodePath("EffectsLightPlant")
 Interactable = NodePath("Interactable")
 
 [node name="InteractionArea2D" type="Area2D" parent="." node_paths=PackedStringArray("Entity") groups=["EntityProvider"]]
+position = Vector2(2, -6)
 script = ExtResource("2_4mo22")
 Entity = NodePath("..")
 
@@ -156,6 +157,7 @@ position = Vector2(-2, 2)
 shape = SubResource("RectangleShape2D_hlvoq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2, -2)
 texture = ExtResource("3_jt7fx")
 hframes = 22
 

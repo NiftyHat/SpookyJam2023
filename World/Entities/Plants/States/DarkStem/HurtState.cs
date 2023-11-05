@@ -15,12 +15,12 @@ public class HurtState : State
 
     protected override void Exit(State state = null)
     {
-        _stem.OnAnimationFinished -= HandleAnimationFinished;
         base.Exit(state);
     }
 
     private void HandleAnimationFinished(string animationName)
     {
+        _stem.OnAnimationFinished -= HandleAnimationFinished;
         if (animationName == "Hurt")
         {
             if (_stem.Health.Value <= 0)

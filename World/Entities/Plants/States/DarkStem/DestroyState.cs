@@ -11,7 +11,7 @@ public class DestroyState : State
         stem.Animation.Play("Destroy");
         _stem = stem;
         _stem.OnDayTick += HandleDayTick;
-        _stem.CanAttack = false;
+        _stem.CanTriggerAttack = false;
     }
 
     protected override void Exit(State state = null)

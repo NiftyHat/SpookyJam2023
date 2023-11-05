@@ -52,6 +52,8 @@ public partial class EntityDetectionZone : Area2D
     public bool IsEnabled { get; private set; } = true;
     
     private Detector _detector;
+    
+    [Export] public bool IsLogging { get; set; }
 
     public void SetEnabled(bool isEnabled)
     {
@@ -104,7 +106,7 @@ public partial class EntityDetectionZone : Area2D
         if (body.IsInGroup("EntityProvider") && body.HasMethod("GetEntity"))
         {
             GameEntity gameEntity = body.Call("GetEntity").As<GameEntity>();
-            if (gameEntity != null)
+            if (IsLogging && gameEntity != null)
             {
                 GD.Print(gameEntity.Name, " HandleBodyExited");
             }
