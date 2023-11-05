@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using SpookyBotanyGame.Core.StateMachines;
 
@@ -52,7 +53,7 @@ namespace SpookyBotanyGame.World.Entities.Plants.States.DarkPlant
 
         public static bool CanTarget(DarkPlantTentacle plant, Node2D target)
         {
-            return target.GlobalPosition.Y > plant.GlobalPosition.Y;
+            return target.GlobalPosition.Y > plant.GlobalPosition.Y && Math.Abs(target.GlobalPosition.Y - plant.GlobalPosition.Y) < 100;
         }
 
         protected override void Exit(State state = null)

@@ -52,9 +52,9 @@ namespace SpookyBotanyGame.World.Entities.Plants.States.DarkEye
                 return false;
             }
         
-            if (other is PlayerEntity playerEntity && playerEntity.CarriedSlot != null && !playerEntity.CarriedSlot.IsFull)
+            if (other is PlayerEntity playerEntity && playerEntity.CarriedEyeSlot != null && !playerEntity.CarriedEyeSlot.IsFull)
             {
-                playerEntity.CarriedSlot.Add(_owner.Output);
+                playerEntity.CarriedEyeSlot.Add(_owner.Output);
                 _owner.Interactable.SetEnabled(false);
                 _owner.LookAnimation.SetEnabled(false);
                 Exit(new HarvestState(_owner));

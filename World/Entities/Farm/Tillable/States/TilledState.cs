@@ -10,9 +10,10 @@ namespace SpookyBotanyGame.World.Entities.Farm.Tillable.States
         {
             if (other is PlayerEntity playerEntity)
             {
-                if (playerEntity.CarriedSlot.Amount > 0)
+                var activeSeedSlot = playerEntity.GetFirstActiveSeedSlot();
+                if (activeSeedSlot != null) 
                 {
-                    CollectableResource carriedItemType = playerEntity.CarriedSlot.CollectableType;
+                    CollectableResource carriedItemType = activeSeedSlot.CollectableType;
                     if (_owner.Planting != null && carriedItemType != null)
                     {
                         var plantScene = _owner.Planting.GetScene(carriedItemType);
@@ -20,7 +21,7 @@ namespace SpookyBotanyGame.World.Entities.Farm.Tillable.States
                         {
                             IPlantable instance= plantScene.Instantiate<IPlantable>();
                             instance.SetSpot(_owner);
-                            playerEntity.CarriedSlot.Remove(1);
+                            activeSeedSlot.Remove(1);
                             Exit(new FilledState(_owner, instance));
                         }
                     }

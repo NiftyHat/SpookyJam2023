@@ -620,8 +620,9 @@ _data = {
 "Swipe-Start": SubResource("Animation_en0q7")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8463a"]
-size = Vector2(102, 40.75)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hskls"]
+radius = 14.375
+height = 78.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oko3s"]
 size = Vector2(61, 9)
@@ -656,9 +657,7 @@ monitoring = false
 script = ExtResource("4_cfcko")
 
 [node name="CollisionPolygon2D-Frame-1" type="CollisionPolygon2D" parent="SwipeArea2D"]
-visible = false
 polygon = PackedVector2Array(5, -6, -4, -5, -16, 5, -23, 17, -22, 30, -14, 39, -2, 41, 18, 36, 34, 27, 44, 26, 54, 32, 58, 32, 58, 26, 48, 20, 38, 20, 27, 24, 8, 31, -2, 30, -7, 24, -3, 15, 4, 8, 6, 2)
-disabled = true
 
 [node name="CollisionPolygon2D-Frame-2" type="CollisionPolygon2D" parent="SwipeArea2D"]
 visible = false
@@ -719,9 +718,9 @@ script = ExtResource("6_krhqp")
 Entity = NodePath("../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LightSensor/LightSensorArea2D"]
-visible = false
-position = Vector2(-6, 9.625)
-shape = SubResource("RectangleShape2D_8463a")
+position = Vector2(-3, 2)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_hskls")
 debug_color = Color(0.67451, 0.541176, 0.309804, 0.419608)
 
 [node name="SimAdvanceable" type="Node" parent="."]
@@ -729,6 +728,7 @@ script = ExtResource("7_8gh6y")
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("8_oe1kj")
+Logging = true
 
 [node name="SideAttackArea2D" type="Area2D" parent="."]
 monitoring = false

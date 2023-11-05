@@ -78,9 +78,9 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
                     _collectableAmount.Value = 0;
                 }
 
-                if (playerEntity.CarriedSlot != null)
+                if (playerEntity.CarriedSeedSlot != null)
                 {
-                    playerEntity.CarriedSlot.Add(_plant.Output);
+                    playerEntity.CarriedSeedSlot.Add(_plant.Output);
                 }
                 //playerEntity.LanternTool
                 /*

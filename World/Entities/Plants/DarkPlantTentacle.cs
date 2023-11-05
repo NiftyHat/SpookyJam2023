@@ -47,7 +47,6 @@ namespace SpookyBotanyGame.World.Entities.Plants
                 IsLightTriggeringAttack = false;
                 return;
             }
-            
             if (lightPower > 0)
             {
                 IsLightTriggeringAttack = lightPower >= LightTriggerAttackThreshold;

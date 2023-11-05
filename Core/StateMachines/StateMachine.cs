@@ -33,8 +33,8 @@ namespace SpookyBotanyGame.Core.StateMachines
             if (Logging)
             {
                 string currentStateName = _currentState != null ? _currentState.GetType().Name : "null";
-                string nextStateName = state != null ? state.GetType().Name : "null";
-                GD.Print(_loggingName, $"{currentStateName} -> {nextStateName}");
+                string nextStateName = state != null ? state.GetType().Name : "[null]";
+                GD.Print(_loggingName, $" {currentStateName} -> {nextStateName}");
             }
             //if you try and set state with an active state force eject it so exit gets called.
             if (_currentState != null)
@@ -58,9 +58,9 @@ namespace SpookyBotanyGame.Core.StateMachines
         {
             if (Logging)
             {
-                string currentStateName = _currentState != null ? _currentState.GetType().ToString() : "null";
-                string nextStateName = nextState != null ? nextState.GetType().ToString() : "null";
-                GD.Print(_loggingName, $"{currentStateName} -> {nextStateName}");
+                string currentStateName = _currentState != null ? _currentState.GetType().ToString() : "[null]";
+                string nextStateName = nextState != null ? nextState.GetType().ToString() : "[null]";
+                GD.Print(_loggingName, $" {currentStateName} -> {nextStateName}");
             }
             
             _currentState = null;

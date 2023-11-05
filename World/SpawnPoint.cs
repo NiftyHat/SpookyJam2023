@@ -7,6 +7,7 @@ namespace SpookyBotanyGame.World
     {
         public delegate void SpawnCompleted(SpawnPoint spawnPoint);
         [Export] public EntityDetectionZone SpawnActivationZone { get; set; }
+        [Export] public AudioStreamPlayer2D SafeZoneMusic { get; set; }
         protected PackedScene _spawnedObject { get; set; }
 
         public override void _Ready()
@@ -16,10 +17,15 @@ namespace SpookyBotanyGame.World
             {
                 var playerDetector = new EntityDetectionZone.Detector<PlayerEntity>();
                 playerDetector.OnEnter = HandlePlayerEnterZone;
+                playerDetector.OnExit = HandlePlayerExitZone;
                 SpawnActivationZone.Set(playerDetector);
             }
         }
-        
+
+        private void HandlePlayerExitZone(PlayerEntity player)
+        {
+        }
+
         private void HandlePlayerEnterZone(PlayerEntity player)
         {
             player.SetSpawn(this);

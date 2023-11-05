@@ -21,7 +21,8 @@ namespace SpookyBotanyGame.World.Entities
         [Export] public LanternTool LanternTool { get; set; }
         [Export] public Sprite2D CarriedSlotIcon { get; set; }
         
-        public CollectableStackSlot<CollectableResource> CarriedSlot { get; set; } =  new CollectableStackSlot<CollectableResource>(0, 1);
+        public CollectableStackSlot<CollectableResource> CarriedEyeSlot { get; set; } =  new CollectableStackSlot<CollectableResource>(0, 1);
+        public CollectableStackSlot<CollectableResource> CarriedSeedSlot { get; set; } =  new CollectableStackSlot<CollectableResource>(0, 5);
 
         private SpawnPoint _spawnPoint;
 
@@ -30,22 +31,39 @@ namespace SpookyBotanyGame.World.Entities
             base._Ready();
             Killable.OnKilled += HandleKilled;
             Killable.OnRespawned += HandleRespawned;
-            CarriedSlot.OnChanged += HandleCarriedChanged;
+            CarriedEyeSlot.OnChanged += HandleCarriedChanged;
+            CarriedSeedSlot.OnChanged += HandleCarriedChanged;
             _properties.Add(Killable);
             CallDeferred("AddSpawnPointToParent");
         }
 
+        public CollectableStackSlot<CollectableResource> GetFirstActiveSeedSlot()
+        {
+            if (CarriedEyeSlot != null && CarriedEyeSlot.Amount > 0)
+            {
+                return CarriedEyeSlot;
+            }
+
+            if (CarriedSeedSlot != null && CarriedSeedSlot.Amount > 0)
+            {
+                return CarriedSeedSlot;
+            }
+
+            return null;
+        }
+
         private void HandleCarriedChanged(int newValue, int oldValue)
         {
-            if (newValue > 0 && CarriedSlot.CollectableType != null)
+            var activeSlot = GetFirstActiveSeedSlot();
+            if (activeSlot != null && activeSlot.CollectableType != null)
             {
                 if (CarriedSlotIcon.Visible == false)
                 {
                     CarriedSlotIcon.Visible = true;
                 }
-                CarriedSlotIcon.Texture = CarriedSlot.CollectableType.CarriedTexture; 
+                CarriedSlotIcon.Texture = activeSlot.CollectableType.CarriedTexture; 
             }
-            else if (newValue == 0 || CarriedSlot.CollectableType == null)
+            else
             {
                 CarriedSlotIcon.Texture = null;
                 CarriedSlotIcon.Visible = false;

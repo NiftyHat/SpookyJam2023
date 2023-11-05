@@ -78,18 +78,18 @@ public partial class EyeSlot : GameEntity
 
     private bool HandleInteractionTriggered(GameEntity other, GameEntity self)
     {
-        if (other is PlayerEntity player && player.CarriedSlot != null)
+        if (other is PlayerEntity player && player.CarriedEyeSlot != null)
         {
             bool hasItem = _slot.Amount > 0;
-            if (hasItem && player.CarriedSlot.Amount == 0)
+            if (hasItem && player.CarriedEyeSlot.Amount == 0)
             {
-                player.CarriedSlot.Add(StoredCollectable);
+                player.CarriedEyeSlot.Add(StoredCollectable);
                 _slot.Remove(1);
                 return true;
             }
-            if (!hasItem && player.CarriedSlot.Has(StoredCollectable, 1))
+            if (!hasItem && player.CarriedEyeSlot.Has(StoredCollectable, 1))
             {
-                player.CarriedSlot.Remove(1);
+                player.CarriedEyeSlot.Remove(1);
                 _slot.Add(StoredCollectable);
                 return true;
             }
