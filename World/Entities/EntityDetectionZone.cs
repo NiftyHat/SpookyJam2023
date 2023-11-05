@@ -4,6 +4,7 @@ using Godot;
 
 namespace SpookyBotanyGame.World.Entities;
 
+[GlobalClass]
 public partial class EntityDetectionZone : Area2D
 {
     public abstract class Detector
@@ -85,7 +86,6 @@ public partial class EntityDetectionZone : Area2D
 
     private void HandleBodyEntered(Node2D body)
     {
-        
         if (body.IsInGroup("EntityProvider") && body.HasMethod("GetEntity"))
         {
             GameEntity gameEntity = body.Call("GetEntity").As<GameEntity>();
@@ -110,7 +110,7 @@ public partial class EntityDetectionZone : Area2D
             {
                 GD.Print(gameEntity.Name, " HandleBodyExited");
             }
-            if (_detector.CanDetect(gameEntity))
+            if (_detector != null && _detector.CanDetect(gameEntity))
             {
                 _detector.Remove(gameEntity);
             };

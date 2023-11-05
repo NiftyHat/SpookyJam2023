@@ -90,12 +90,7 @@ namespace SpookyBotanyGame.World.Entities
             
             base._Process(delta);
         }
-
-        private void HandleOwnerReady()
-        {
-            AddSpawnPointToParent();
-        }
-
+        
         private void AddSpawnPointToParent()
         {
             _spawnPoint = new SpawnPoint();
@@ -126,6 +121,11 @@ namespace SpookyBotanyGame.World.Entities
             _spawnPoint.Spawn(Body, Killable.Spawn);
             Sim.PlayerRespawn(this);
             Animation.Reset();
+        }
+
+        public void SetSpawn(SpawnPoint spawnPoint)
+        {
+            _spawnPoint = spawnPoint;
         }
     }
 }
