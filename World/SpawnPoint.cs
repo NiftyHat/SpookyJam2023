@@ -18,8 +18,6 @@ namespace SpookyBotanyGame.World
                 playerDetector.OnEnter = HandlePlayerEnterZone;
                 SpawnActivationZone.Set(playerDetector);
             }
-            
-            //playerDetector.OnExit = HandlePlayerExitZone;
         }
         
         private void HandlePlayerEnterZone(PlayerEntity player)

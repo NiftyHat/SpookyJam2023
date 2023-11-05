@@ -110,7 +110,6 @@ texture = SubResource("CanvasTexture_nemjj")
 y_sort_enabled = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="WorldRoot"]
-visible = false
 color = Color(0, 0, 0, 1)
 
 [node name="GameMap" parent="WorldRoot" instance=ExtResource("1_sadh0")]

@@ -205,7 +205,7 @@ target_position = Vector2(0, 20)
 [node name="LanternHigh" type="Node2D" parent="InputDirectionalPointing" node_paths=PackedStringArray("LightEmissionZones", "LanternBeamLight")]
 visible = false
 script = ExtResource("6_exbq6")
-FuelBurnRate = 2.0
+FuelBurnRate = 1.0
 LightEmissionZones = [NodePath("HighLightBeam/LightEmissionZoneStrong"), NodePath("HighLightBeam/LightEmissionZoneMedium")]
 LanternBeamLight = NodePath("HighLightBeam")
 
@@ -260,7 +260,7 @@ polygon = PackedVector2Array(74, 30, 79, 30, 89, 14, 91, 2, 89, -14, 84, -27, 75
 [node name="LanternMedium" type="Node2D" parent="InputDirectionalPointing" node_paths=PackedStringArray("LightEmissionZones", "LanternBeamLight")]
 visible = false
 script = ExtResource("6_exbq6")
-FuelBurnRate = 1.0
+FuelBurnRate = 0.5
 LightEmissionZones = [NodePath("MediumLightBeam/LightEmissionZoneMedium"), NodePath("MediumLightBeam/LightEmissionZoneLow")]
 LanternBeamLight = NodePath("MediumLightBeam")
 
@@ -312,7 +312,7 @@ polygon = PackedVector2Array(8, -29, -1, -28, -14, -21, -21, -13, -25, -4, -25, 
 
 [node name="LanternLow" type="Node2D" parent="InputDirectionalPointing" node_paths=PackedStringArray("LightEmissionZones", "LanternBeamLight")]
 script = ExtResource("6_exbq6")
-FuelBurnRate = 0.5
+FuelBurnRate = 0.25
 LightEmissionZones = []
 LanternBeamLight = NodePath("LowLightBeam")
 
