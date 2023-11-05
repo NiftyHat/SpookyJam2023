@@ -27,6 +27,7 @@ namespace SpookyBotanyGame.World.Entities.Farm.Tillable
             base._Ready();
             if (StartingPlant != null)
             {
+                GD.Print($"{Name} StartingPlant");
                 var parent = StartingPlant.GetParent();
                 if (parent != null)
                 {
@@ -39,6 +40,7 @@ namespace SpookyBotanyGame.World.Entities.Farm.Tillable
                         StateMachine.SetState(new FilledState(this, StartingPlant));
                     }
                     GetTree().ProcessFrame += MoveChild;
+                    return;
                 }
             }
             StateMachine.SetState(new EmptyState(this));

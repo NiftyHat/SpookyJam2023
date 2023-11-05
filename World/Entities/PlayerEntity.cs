@@ -14,6 +14,7 @@ namespace SpookyBotanyGame.World.Entities
         [Export] public DiagonalAnimationPlayer Animation { get; set; }
         [Export] public PlayerInputControlled InputControlled { get; set; }
         [Export] public EntityCharacterBody2D Body { get; set; }
+        [Export] public CollisionShape2D Collision { get; set; }
         [Export] public InteractionInputDirectional Interact { get; set; }
         [Export] public SimController Sim { get; set; }
         [Export] public CollectableContainer Inventory { get; set; }
@@ -86,11 +87,23 @@ namespace SpookyBotanyGame.World.Entities
                     LanternTool.SetMode(LanternTool.ModeMedium);
                 }
             }
-            
-            
+
+            if (OS.IsDebugBuild())
+            {
+                if (Input.IsActionJustPressed("toggle_collision"))
+                {
+                    Collision.Disabled = true;
+                    //ody
+                }
+                else if (Input.IsActionJustReleased("toggle_collision"))
+                {
+                    Collision.Disabled = false;
+                    //ody
+                }
+            }
             base._Process(delta);
         }
-        
+
         private void AddSpawnPointToParent()
         {
             _spawnPoint = new SpawnPoint();

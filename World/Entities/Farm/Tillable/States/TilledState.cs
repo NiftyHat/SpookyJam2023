@@ -33,6 +33,14 @@ namespace SpookyBotanyGame.World.Entities.Farm.Tillable.States
         {
             _owner.Animation.Play("Tilled");
             _owner.Interaction.OnInteractionTriggered += HandlePlayerInteracted;
+            _owner.Interaction.SetEnabled(true);
+        }
+
+        protected override void Exit(State state = null)
+        {
+            base.Exit(state);
+            _owner.Interaction.OnInteractionTriggered -= HandlePlayerInteracted;
+            _owner.Interaction.SetEnabled(false);
         }
     }
 }

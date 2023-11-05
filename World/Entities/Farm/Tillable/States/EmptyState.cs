@@ -11,6 +11,12 @@ public class EmptyState : State<TillableSpot>
         _owner.Interaction.OnInteractionTriggered += HandlePlayerInteracted;
     }
 
+    protected override void Exit(State state = null)
+    {
+        base.Exit(state);
+        _owner.Interaction.OnInteractionTriggered -= HandlePlayerInteracted;
+    }
+
     private bool HandlePlayerInteracted(GameEntity other, GameEntity self)
     {
         if (self == _owner)

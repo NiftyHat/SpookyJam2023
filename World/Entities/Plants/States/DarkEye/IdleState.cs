@@ -3,28 +3,31 @@ using SpookyBotanyGame.Core.StateMachines;
 
 namespace SpookyBotanyGame.World.Entities.Plants.States.DarkEye
 {
-    public class IdleState : State
+    public class IdleState : State<DarkPlantEye>, IUpdatableState
     {
-        protected readonly DarkPlantEye _plant;
+        private bool _isDamagedByLight;
 
-        public IdleState(DarkPlantEye plantEye)
+        public IdleState(DarkPlantEye plantEye) : base(plantEye)
         {
-            _plant = plantEye;
-            if (_plant.LookDetectionZone != null && _plant.LookAnimation != null)
+            if (_owner.LookDetectionZone != null && _owner.LookAnimation != null)
             {
                 var playerDetector = new EntityDetectionZone.Detector<PlayerEntity>();
                 playerDetector.OnOverlap = HandlePlayerInLookZone;
                 playerDetector.OnExit = HandlePlayerExitLookZone;
-                _plant.LookDetectionZone.Set(playerDetector);
-                _plant.LookAnimation.SetEnabled(true);
+                _owner.LookDetectionZone.Set(playerDetector);
+                _owner.LookAnimation.SetEnabled(true);
             }
-            _plant.Interactable.SetEnabled(true);
-            _plant.Interactable.OnInteractionTriggered += HandleInteractionTriggered;
+            _owner.LightSensor.OnApply += HandleLightApply;
+            _owner.Interactable.SetEnabled(true);
+            _owner.Interactable.OnInteractionTriggered += HandleInteractionTriggered;
         }
 
         protected override void Exit(State state = null)
         {
-            _plant.Interactable.OnInteractionTriggered -= HandleInteractionTriggered;
+            _owner.LookAnimation.SetEnabled(false);
+            _owner.Interactable.SetEnabled(false);
+            _owner.LightSensor.OnApply -= HandleLightApply;
+            _owner.Interactable.OnInteractionTriggered -= HandleInteractionTriggered;
             base.Exit(state);
         }
 
@@ -32,41 +35,73 @@ namespace SpookyBotanyGame.World.Entities.Plants.States.DarkEye
         {
             if (self == null)
             {
-                GD.PushError($"Failed ${nameof(HandleInteractionTriggered)} on '{_plant.Name}' sending entity was null");
+                GD.PushError($"Failed ${nameof(HandleInteractionTriggered)} on '{_owner.Name}' sending entity was null");
                 return false;
             }
 
-            if (self != _plant)
+            if (self != _owner)
             {
                 GD.PushError(
-                    $"Failed ${nameof(HandleInteractionTriggered)} on '{_plant.Name}' as sending entity {self.Name} didn't match plant");
+                    $"Failed ${nameof(HandleInteractionTriggered)} on '{_owner.Name}' as sending entity {self.Name} didn't match plant");
                 return false;
             }
 
             if (other == null)
             {
-                GD.PushError($"Failed ${nameof(HandleInteractionTriggered)} on '{_plant.Name}' as other entity was null");
+                GD.PushError($"Failed ${nameof(HandleInteractionTriggered)} on '{_owner.Name}' as other entity was null");
                 return false;
             }
         
             if (other is PlayerEntity playerEntity && playerEntity.CarriedSlot != null && !playerEntity.CarriedSlot.IsFull)
             {
-                playerEntity.CarriedSlot.Add(_plant.Output);
-                _plant.Interactable.SetEnabled(false);
-                _plant.LookAnimation.SetEnabled(false);
-                Exit(new HarvestState(_plant));
+                playerEntity.CarriedSlot.Add(_owner.Output);
+                _owner.Interactable.SetEnabled(false);
+                _owner.LookAnimation.SetEnabled(false);
+                Exit(new HarvestState(_owner));
             }
             return false;
+        }
+        
+        public void Process(double delta)
+        {
+            if (_isDamagedByLight)
+            {
+                if (_owner.Health.Value > 0)
+                {
+                    Exit(new HurtState(_owner, 1));
+                }
+                else
+                {
+                    Exit(new DestroyState(_owner));
+                }
+            }
         }
 
         private void HandlePlayerExitLookZone(PlayerEntity player)
         {
-            _plant.LookAnimation.ClearTarget();
+            _owner.LookAnimation.ClearTarget();
         }
 
         private void HandlePlayerInLookZone(PlayerEntity player)
         {
-            _plant.LookAnimation.SetTarget(player.GlobalPosition);
+            _owner.LookAnimation.SetTarget(player.GlobalPosition);
+        }
+        
+        private void HandleLightApply(LightEmissionZone zone, float lightPower)
+        {
+            if (_isDamagedByLight)
+            {
+                GD.Print("_isDamagedByLight");
+                return;
+            }
+            if (lightPower >= 0.5f)
+            {
+                _isDamagedByLight = true;
+            }
+            else
+            {
+                _isDamagedByLight = false;
+            }
         }
     }
 }

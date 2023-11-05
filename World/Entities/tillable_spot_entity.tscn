@@ -101,6 +101,7 @@ Sprite = NodePath("../../PlantableSprite2D")
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("6_8vkxj")
+Logging = true
 
 [node name="GrowSpotNode2D" type="Node2D" parent="."]
 position = Vector2(16, 16)

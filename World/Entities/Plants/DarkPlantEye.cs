@@ -1,6 +1,7 @@
 using System;
 using Godot;
 using SpookyBotanyGame.Collectable;
+using SpookyBotanyGame.Core;
 using SpookyBotanyGame.Core.StateMachines;
 using SpookyBotanyGame.World.Entities.Animation;
 using SpookyBotanyGame.World.Entities.Farm.Tillable;
@@ -32,6 +33,12 @@ public partial class DarkPlantEye : GameEntity, IPlantable
 
     [Export] public int DaysToRegrow { get; set; } = 3;
 
+    [Export] public int InitialHealth { get; set; } = 3;
+    
+    public Range<float> Health { get; protected set; } = new Range<float>(100, 0, 3);
+    
+    public event Action<string> OnAnimationFinished;
+
     public event SimSystem.OnDaysTicked OnDayTick;
     public event Action OnDestroyed;
 
@@ -39,7 +46,14 @@ public partial class DarkPlantEye : GameEntity, IPlantable
     {
         base._Ready();
         StateMachine.SetState(new IdleState(this));
+        Animation.AnimationFinished += HandleAnimationFinished;
         Sim.OnDayTick += HandleDayTick;
+        Health.SetValue(InitialHealth);
+    }
+
+    private void HandleAnimationFinished(StringName animname)
+    {
+        OnAnimationFinished?.Invoke(animname);
     }
 
     private void HandleDayTick(int daycount)

@@ -147,12 +147,13 @@ radius = 13.3417
 script = ExtResource("1_mqoqk")
 Entity = NodePath("PlayerEntity")
 
-[node name="PlayerEntity" type="Node2D" parent="." node_paths=PackedStringArray("Killable", "Animation", "InputControlled", "Body", "Interact", "Sim", "Inventory", "LanternTool", "CarriedSlotIcon")]
+[node name="PlayerEntity" type="Node2D" parent="." node_paths=PackedStringArray("Killable", "Animation", "InputControlled", "Body", "Collision", "Interact", "Sim", "Inventory", "LanternTool", "CarriedSlotIcon")]
 script = ExtResource("1_8x44m")
 Killable = NodePath("Killable")
 Animation = NodePath("../DiagonalAnimationPlayer")
 InputControlled = NodePath("PlayerInputControlled")
 Body = NodePath("..")
+Collision = NodePath("../CollisionShape2D")
 Interact = NodePath("../InteractionInputDirectional")
 Sim = NodePath("SimController")
 Inventory = NodePath("CollectableContainer")

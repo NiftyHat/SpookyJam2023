@@ -222,7 +222,6 @@ script = ExtResource("6_dxiod")
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("7_867r3")
-Logging = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 

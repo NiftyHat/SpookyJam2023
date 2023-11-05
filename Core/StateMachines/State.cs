@@ -31,6 +31,5 @@ public abstract class State<TOwner> : State where TOwner : class
     protected override void Exit(State state = null)
     {
         base.Exit(state);
-        _owner = null;
     }
 }
