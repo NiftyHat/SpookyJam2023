@@ -15,6 +15,7 @@
     <EmbeddedResource Remove="UI\Widgets\UIInputAnimation\**" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CHANGELOG.md" />
     <Content Include="World\Entities\Lamp\entity_lamp.tscn" />
   </ItemGroup>
 </Project>

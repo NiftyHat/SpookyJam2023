@@ -13,7 +13,8 @@ config_version=5
 config/name="Spooky Botany Game"
 run/main_scene="res://World/world-test.tscn"
 config/features=PackedStringArray("4.1", "C#", "Forward Plus")
-config/icon="res://icon.png"
+run/max_fps=60
+config/icon="res://windows-app-icon.png"
 
 [autoload]
 

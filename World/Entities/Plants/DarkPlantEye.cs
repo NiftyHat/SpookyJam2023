@@ -31,7 +31,7 @@ public partial class DarkPlantEye : GameEntity, IPlantable
     
     [Export] public EntityDetectionZone LookDetectionZone { get; set; }
 
-    [Export] public int DaysToRegrow { get; set; } = 3;
+    [Export] public int DaysToRegrow { get; set; } = 1;
 
     [Export] public int InitialHealth { get; set; } = 3;
     

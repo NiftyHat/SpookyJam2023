@@ -8,3 +8,4 @@ StartingPlant = NodePath("GrowSpotNode2D/Plant-LightFlower")
 
 [node name="Plant-LightFlower" parent="GrowSpotNode2D" index="0" instance=ExtResource("2_2r7ju")]
 position = Vector2(0, 0)
+InitialGrowthState = 2

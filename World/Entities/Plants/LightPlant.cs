@@ -46,6 +46,8 @@ namespace SpookyBotanyGame.World.Entities.Plants
         {
             OnDayTick = null;
             OnDestroyed?.Invoke();
+            StateMachine.Destroy();
+            StateMachine = null;
             QueueFree();
         }
         public void SetSpot(TillableSpot spot)

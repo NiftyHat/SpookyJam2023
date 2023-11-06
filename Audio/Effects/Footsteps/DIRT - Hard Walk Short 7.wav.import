@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cm3hg4d2u578n"
+path="res://.godot/imported/DIRT - Hard Walk Short 7.wav-eb2a1e04384c96a591fd82ff7e0de148.sample"
+
+[deps]
+
+source_file="res://Audio/Effects/Footsteps/DIRT - Hard Walk Short 7.wav"
+dest_files=["res://.godot/imported/DIRT - Hard Walk Short 7.wav-eb2a1e04384c96a591fd82ff7e0de148.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

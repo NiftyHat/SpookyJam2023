@@ -2,16 +2,16 @@
 
 [ext_resource type="Script" path="res://World/Entities/Rest/RestPointEntity.cs" id="1_s73lb"]
 [ext_resource type="Script" path="res://World/Entities/Area2DEntityReference.cs" id="2_jcu1q"]
-[ext_resource type="Texture2D" uid="uid://dfs4ou55i0ri4" path="res://World/Entities/Rest/entity-placeholder-rest.png" id="2_qpl78"]
+[ext_resource type="Texture2D" uid="uid://t21ie4p1u3qx" path="res://World/Entities/Sleep-Spot.PNG" id="3_c8lub"]
 [ext_resource type="Script" path="res://World/Entities/Properties/Interactable.cs" id="3_wv8f3"]
 [ext_resource type="PackedScene" uid="uid://cmcnfywe836lq" path="res://World/Entities/interaction_outline_effect.tscn" id="4_0rjuv"]
 [ext_resource type="Shader" path="res://Shaders/Sprite Shaders/2d_outline.gdshader" id="5_321eu"]
 [ext_resource type="Script" path="res://World/Entities/Properties/SimController.cs" id="6_gx5yp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_npdwl"]
-size = Vector2(24, 21)
+size = Vector2(25, 19)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bo7c2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kihox"]
 resource_local_to_scene = true
 shader = ExtResource("5_321eu")
 shader_parameter/color = Color(1, 1, 1, 1)
@@ -25,17 +25,17 @@ script = ExtResource("1_s73lb")
 Interaction = NodePath("Interactable")
 Sim = NodePath("SimController")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_c8lub")
+
 [node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("Entity") groups=["EntityProvider"]]
 script = ExtResource("2_jcu1q")
 Entity = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, 0.5)
+position = Vector2(0.5, -0.5)
 shape = SubResource("RectangleShape2D_npdwl")
 debug_color = Color(0, 0.721569, 0.537255, 0.419608)
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_qpl78")
 
 [node name="Interactable" type="Node2D" parent="." node_paths=PackedStringArray("Handler")]
 script = ExtResource("3_wv8f3")
@@ -43,7 +43,7 @@ Handler = NodePath("InteractionHandler")
 
 [node name="InteractionHandler" parent="Interactable" node_paths=PackedStringArray("Sprite") instance=ExtResource("4_0rjuv")]
 Sprite = NodePath("../../Sprite2D")
-InteractionMaterial = SubResource("ShaderMaterial_bo7c2")
+InteractionMaterial = SubResource("ShaderMaterial_kihox")
 
 [node name="SimController" type="Node" parent="."]
 script = ExtResource("6_gx5yp")

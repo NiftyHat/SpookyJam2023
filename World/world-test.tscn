@@ -1,10 +1,12 @@
-[gd_scene load_steps=35 format=3 uid="uid://b78acft5a5sfy"]
+[gd_scene load_steps=41 format=3 uid="uid://b78acft5a5sfy"]
 
 [ext_resource type="PackedScene" uid="uid://c8va41g0wvmpj" path="res://World/Maps/game_map.tscn" id="1_sadh0"]
 [ext_resource type="PackedScene" uid="uid://n8gglyvki7dw" path="res://World/Entities/Character/Player/player_entity.tscn" id="2_3tyht"]
 [ext_resource type="PackedScene" uid="uid://c610weevdtphv" path="res://UI/ui_game_hud.tscn" id="4_kp64n"]
 [ext_resource type="PackedScene" uid="uid://7gfmj7lcvlnf" path="res://World/Entities/Plants/DarkPlant/dark_stem.tscn" id="7_wanyc"]
+[ext_resource type="Texture2D" uid="uid://s1kibninc8k8" path="res://World/Pyre/BonfireRocks.PNG" id="7_ymh6s"]
 [ext_resource type="PackedScene" uid="uid://8qkjhgr0w8fg" path="res://World/Entities/tillable_spot_entity.tscn" id="8_meodr"]
+[ext_resource type="AudioStream" uid="uid://bwt7w7e1gwvn2" path="res://Audio/Effects/Pyre/Pyre-Ambient-Loop.mp3" id="8_p53t0"]
 [ext_resource type="Texture2D" uid="uid://08buiqxe4al1" path="res://Effects/effect_blue_flame.png" id="9_adafq"]
 [ext_resource type="Texture2D" uid="uid://bwk72256yuylr" path="res://World/Lights/light.png" id="10_hsdy0"]
 [ext_resource type="Texture2D" uid="uid://cayax5f38yj38" path="res://Effects/light_blue_flame.png" id="10_ji4qj"]
@@ -26,8 +28,11 @@
 [ext_resource type="PackedScene" uid="uid://e8qj5ot0rqm2" path="res://World/Entities/tillable_spot_light_plant_1.tscn" id="16_b0v6k"]
 [ext_resource type="Texture2D" uid="uid://brjpw1at0myjw" path="res://World/Tutorial/Tutorial-Pictograph-Lantern-Low.png" id="16_k7me7"]
 [ext_resource type="AudioStream" uid="uid://bim7460esdjxd" path="res://Audio/Effects/end-turn-ticks.ogg" id="18_6q13d"]
+[ext_resource type="Texture2D" uid="uid://c7jkeb0w6d8k" path="res://World/Tutorial/Tutorial-Pictograph-Sleep.png" id="18_yx6h4"]
 [ext_resource type="Script" path="res://World/Entities/EntityDetectionZone.cs" id="23_2x3ik"]
 [ext_resource type="Script" path="res://World/SpawnPoint.cs" id="23_ky4pj"]
+[ext_resource type="AudioStream" uid="uid://do8pcslidpgqt" path="res://Audio/Music/Mysterious_Ambience_song21.mp3" id="27_o03ef"]
+[ext_resource type="AudioStream" uid="uid://dswka7trt3s27" path="res://Audio/Effects/421826__kinoton__dark-cave-drone.wav" id="31_43arb"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_nemjj"]
 
@@ -94,6 +99,10 @@ _data = {
 "RESET": SubResource("Animation_8xnhe")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4opmc"]
+radius = 17.0
+height = 60.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jyjwf"]
 size = Vector2(96, 64)
 
@@ -116,7 +125,7 @@ color = Color(0, 0, 0, 1)
 [node name="GameMap" parent="WorldRoot" instance=ExtResource("1_sadh0")]
 
 [node name="PlayerEntity" parent="WorldRoot" groups=["EntityProvider"] instance=ExtResource("2_3tyht")]
-position = Vector2(3505, 1969)
+position = Vector2(1985, 1153)
 
 [node name="Camera2D" type="Camera2D" parent="WorldRoot/PlayerEntity"]
 position = Vector2(-1, -1)
@@ -131,29 +140,49 @@ InitialGrowthState = 4
 position = Vector2(721, 273)
 OutputAmount = 5
 
-[node name="BlueFlame" type="Sprite2D" parent="WorldRoot"]
+[node name="Node2D" type="Node2D" parent="WorldRoot"]
 position = Vector2(2379, 1198)
+
+[node name="BlueFlame" type="Sprite2D" parent="WorldRoot/Node2D"]
 texture = ExtResource("9_adafq")
-offset = Vector2(0, -70)
+offset = Vector2(-4, -82)
 hframes = 60
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="WorldRoot/BlueFlame"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WorldRoot/Node2D/BlueFlame"]
 autoplay = "Idle"
 libraries = {
 "": SubResource("AnimationLibrary_3wjqr")
 }
 
-[node name="PointLight2D3" type="PointLight2D" parent="WorldRoot/BlueFlame"]
+[node name="PointLight2D3" type="PointLight2D" parent="WorldRoot/Node2D/BlueFlame"]
 position = Vector2(6, -77)
 color = Color(0.533333, 0.741176, 1, 1)
 texture = ExtResource("10_ji4qj")
 texture_scale = 1.53
 
-[node name="PointLight2D2" type="PointLight2D" parent="WorldRoot/BlueFlame"]
+[node name="PointLight2D2" type="PointLight2D" parent="WorldRoot/Node2D/BlueFlame"]
 position = Vector2(6, 19)
 color = Color(0.533333, 0.741176, 1, 1)
 texture = ExtResource("10_hsdy0")
 texture_scale = 1.3
+
+[node name="PyreRocks" type="Sprite2D" parent="WorldRoot/Node2D"]
+texture = ExtResource("7_ymh6s")
+offset = Vector2(-3, 5)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="WorldRoot/Node2D/PyreRocks"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldRoot/Node2D/PyreRocks/StaticBody2D"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_4opmc")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="WorldRoot/Node2D"]
+stream = ExtResource("8_p53t0")
+volume_db = -20.0
+pitch_scale = 0.9
+autoplay = true
+max_distance = 800.0
+attenuation = 0.594603
 
 [node name="TutorialArea" type="Node2D" parent="WorldRoot"]
 position = Vector2(1, 1)
@@ -337,6 +366,26 @@ energy = 0.05
 texture = ExtResource("10_hsdy0")
 texture_scale = 0.4
 
+[node name="Tutorial-Pictograph8" type="Node2D" parent="WorldRoot/TutorialArea"]
+position = Vector2(2256, 1280)
+
+[node name="Sprite2D" type="Sprite2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph8"]
+position = Vector2(0, -32)
+texture = ExtResource("18_yx6h4")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph8"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph8/StaticBody2D"]
+position = Vector2(0, -32)
+shape = SubResource("RectangleShape2D_jyjwf")
+
+[node name="PointLight2D" type="PointLight2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph8"]
+position = Vector2(0, -32)
+color = Color(0.490196, 0.992157, 1, 1)
+energy = 0.05
+texture = ExtResource("10_hsdy0")
+texture_scale = 0.4
+
 [node name="Tutorial-Pictograph7" type="Node2D" parent="WorldRoot/TutorialArea"]
 position = Vector2(2448, 2016)
 
@@ -381,12 +430,12 @@ position = Vector2(2321, 433)
 position = Vector2(2481, 433)
 
 [node name="Dark-Eye" parent="WorldRoot/ExitDoor1" instance=ExtResource("14_5tmcl")]
-position = Vector2(2385, 657)
+position = Vector2(1745, 705)
 
 [node name="HubArea" type="Node2D" parent="WorldRoot"]
 
 [node name="RestPointEntity" parent="WorldRoot/HubArea" instance=ExtResource("13_4nh1i")]
-position = Vector2(2320, 1233)
+position = Vector2(2369, 1249)
 
 [node name="Tillable-Spot" parent="WorldRoot/HubArea" instance=ExtResource("16_b0v6k")]
 position = Vector2(2241, 1089)
@@ -395,7 +444,7 @@ position = Vector2(2241, 1089)
 position = Vector2(2497, 1249)
 
 [node name="Tillable-Spot3" parent="WorldRoot/HubArea" instance=ExtResource("16_b0v6k")]
-position = Vector2(2241, 1249)
+position = Vector2(2177, 1089)
 
 [node name="Tillable-Spot4" parent="WorldRoot/HubArea" node_paths=PackedStringArray("Interaction", "StateMachine", "Animation", "GrowSpot", "StartingPlant") instance=ExtResource("16_b0v6k")]
 position = Vector2(2497, 1089)
@@ -480,17 +529,23 @@ position = Vector2(1844, 1646)
 [node name="Dark-Tentacle11" parent="WorldRoot/SouthWestArea" instance=ExtResource("13_tws6j")]
 position = Vector2(1873, 1265)
 
-[node name="SpawnPoint" type="Node2D" parent="WorldRoot" node_paths=PackedStringArray("SpawnActivationZone")]
+[node name="SpawnPoint" type="Node2D" parent="WorldRoot" node_paths=PackedStringArray("SpawnActivationZone", "SafeZoneMusic")]
 position = Vector2(2385, 1329)
 script = ExtResource("23_ky4pj")
 SpawnActivationZone = NodePath("EntityDetectionZone")
+SafeZoneMusic = NodePath("AudioStreamPlayer2D")
 
 [node name="EntityDetectionZone" type="Area2D" parent="WorldRoot/SpawnPoint"]
+visible = false
 script = ExtResource("23_2x3ik")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorldRoot/SpawnPoint/EntityDetectionZone"]
 position = Vector2(0, -128)
 shape = SubResource("RectangleShape2D_qdc7p")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="WorldRoot/SpawnPoint"]
+stream = ExtResource("27_o03ef")
+volume_db = -40.0
 
 [node name="ExitDoor2" type="Node2D" parent="WorldRoot"]
 position = Vector2(1, 1)
@@ -510,6 +565,26 @@ position = Vector2(2464, 208)
 
 [node name="EyeSlot4" parent="WorldRoot/ExitDoor2" instance=ExtResource("11_dwygl")]
 position = Vector2(2528, 208)
+
+[node name="FieldNearExit" type="Node2D" parent="WorldRoot"]
+
+[node name="Tillable-Spot" parent="WorldRoot/FieldNearExit" instance=ExtResource("8_meodr")]
+position = Vector2(1585, 353)
+
+[node name="Tillable-Spot2" parent="WorldRoot/FieldNearExit" instance=ExtResource("8_meodr")]
+position = Vector2(1697, 385)
+
+[node name="Tillable-Spot3" parent="WorldRoot/FieldNearExit" instance=ExtResource("8_meodr")]
+position = Vector2(1601, 449)
+
+[node name="Tillable-Spot4" parent="WorldRoot/FieldNearExit" instance=ExtResource("8_meodr")]
+position = Vector2(1729, 449)
+
+[node name="Tillable-Spot5" parent="WorldRoot/FieldNearExit" instance=ExtResource("16_b0v6k")]
+position = Vector2(1665, 513)
+
+[node name="Tillable-Spot6" parent="WorldRoot/FieldNearExit" instance=ExtResource("8_meodr")]
+position = Vector2(1601, 577)
 
 [node name="FadeWorld" type="CanvasLayer" parent="." node_paths=PackedStringArray("Rect", "SleepJingle")]
 script = ExtResource("13_e1v1h")
@@ -534,5 +609,16 @@ offset_bottom = -9.0
 [node name="SleepJingleMusicPlayer" type="AudioStreamPlayer" parent="UIRoot"]
 stream = ExtResource("18_6q13d")
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="UIRoot"]
+stream = ExtResource("31_43arb")
+volume_db = -20.0
+autoplay = true
+
 [node name="Tillable-Spot" parent="." instance=ExtResource("8_meodr")]
 position = Vector2(2817, 1889)
+
+[node name="Dark-Tentacle" parent="." instance=ExtResource("13_tws6j")]
+position = Vector2(1745, 593)
+
+[node name="Dark-Tentacle2" parent="." instance=ExtResource("13_tws6j")]
+position = Vector2(1937, 753)
