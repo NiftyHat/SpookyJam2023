@@ -5,32 +5,69 @@ namespace SpookyBotanyGame.Core.StateMachines
     [GlobalClass]
     public partial class StateMachine : Node
     {
+        [Export] private bool Logging { get; set; }
         private State _currentState;
+        public State CurrentState => _currentState;
         private IUpdatableState _updatableState;
+        private string _loggingName;
         
         public override void _Ready()
         {
+            if (Logging)
+            {
+                var parent = GetParent();
+                if (parent != null)
+                {
+                    _loggingName = $"{parent.Name}.{this.Name}";
+                }
+                else
+                {
+                    _loggingName = $"{this.Name}";
+                }
+            }
             base._Ready();
         }
 
         public void SetState(State state)
         {
-            _currentState = state;
-            _currentState.OnExit += HandleStateExit;
-            GD.Print("Add Exit Handler ", _currentState);
-            if (state is IUpdatableState updatableState)
+            if (Logging)
             {
-                _updatableState = updatableState;
+                string currentStateName = _currentState != null ? _currentState.GetType().Name : "null";
+                string nextStateName = state != null ? state.GetType().Name : "[null]";
+                GD.Print(_loggingName, $" {currentStateName} -> {nextStateName}");
+            }
+            //if you try and set state with an active state force eject it so exit gets called.
+            if (_currentState != null)
+            {
+                _currentState.ForceExit(this);
+                _currentState = null;
+                _updatableState = null;
+            }
+            _currentState = state;
+            if (state != null)
+            {
+                _currentState.OnExit += HandleStateExit;
+                if (state is IUpdatableState updatableState)
+                {
+                    _updatableState = updatableState;
+                }
             }
         }
 
-        private void HandleStateExit(State state)
+        private void HandleStateExit(State nextState)
         {
-            GD.Print("Handle state exit", state);
-            _currentState = null;
-            if (state != null)
+            if (Logging)
             {
-                SetState(state);
+                string currentStateName = _currentState != null ? _currentState.GetType().ToString() : "[null]";
+                string nextStateName = nextState != null ? nextState.GetType().ToString() : "[null]";
+                GD.Print(_loggingName, $" {currentStateName} -> {nextStateName}");
+            }
+            
+            _currentState = null;
+            _updatableState = null;
+            if (nextState != null)
+            {
+                SetState(nextState);
             }
         }
 
@@ -39,12 +76,5 @@ namespace SpookyBotanyGame.Core.StateMachines
             _updatableState?.Process(delta);
             base._Process(delta);
         }
-
-        /*
-        public override void _PhysicsProcess(double delta)
-        {
-            _updatableState.PhysicsProcess(delta);
-            base._PhysicsProcess(delta);
-        }*/
     }
 }

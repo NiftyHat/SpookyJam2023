@@ -1,31 +1,104 @@
-[gd_scene load_steps=16 format=3 uid="uid://b78acft5a5sfy"]
+[gd_scene load_steps=35 format=3 uid="uid://b78acft5a5sfy"]
 
-[ext_resource type="PackedScene" uid="uid://jksnbdthe1y6" path="res://World/Maps/test_map.tscn" id="1_wukwe"]
+[ext_resource type="PackedScene" uid="uid://c8va41g0wvmpj" path="res://World/Maps/game_map.tscn" id="1_sadh0"]
 [ext_resource type="PackedScene" uid="uid://n8gglyvki7dw" path="res://World/Entities/Character/Player/player_entity.tscn" id="2_3tyht"]
-[ext_resource type="PackedScene" uid="uid://bhitj5sv3t5vw" path="res://World/Entities/Hazards/fatal_hazard_test.tscn" id="3_37lbi"]
-[ext_resource type="PackedScene" uid="uid://djavq7x3k3fm0" path="res://World/Entities/Storage/storage_entity.tscn" id="4_3l7xu"]
 [ext_resource type="PackedScene" uid="uid://c610weevdtphv" path="res://UI/ui_game_hud.tscn" id="4_kp64n"]
-[ext_resource type="Script" path="res://World/Entities/GameEntity.cs" id="4_lr4tl"]
-[ext_resource type="Shader" path="res://Shaders/Sprite Shaders/2d_outline.gdshader" id="6_is4cx"]
-[ext_resource type="Script" path="res://World/Entities/Area2DEntityReference.cs" id="6_u5nph"]
-[ext_resource type="Texture2D" uid="uid://bld2qqqsfd40i" path="res://UI/Input/Keyboard/keyboard_blank_key_1.png" id="7_hfiev"]
-[ext_resource type="Script" path="res://World/Entities/InteractionHandler.cs" id="8_aiqyl"]
-[ext_resource type="Script" path="res://World/Entities/Properties/Interactable.cs" id="9_ufl5l"]
+[ext_resource type="PackedScene" uid="uid://7gfmj7lcvlnf" path="res://World/Entities/Plants/DarkPlant/dark_stem.tscn" id="7_wanyc"]
+[ext_resource type="PackedScene" uid="uid://8qkjhgr0w8fg" path="res://World/Entities/tillable_spot_entity.tscn" id="8_meodr"]
+[ext_resource type="Texture2D" uid="uid://08buiqxe4al1" path="res://Effects/effect_blue_flame.png" id="9_adafq"]
+[ext_resource type="Texture2D" uid="uid://bwk72256yuylr" path="res://World/Lights/light.png" id="10_hsdy0"]
+[ext_resource type="Texture2D" uid="uid://cayax5f38yj38" path="res://Effects/light_blue_flame.png" id="10_ji4qj"]
 [ext_resource type="PackedScene" uid="uid://bb1sfvq8h1ymh" path="res://World/Entities/Plants/LightPlant/plant_light_flower.tscn" id="11_dh45g"]
+[ext_resource type="PackedScene" uid="uid://cffk4bayvjfk8" path="res://World/Entities/Storage/eye_slot_entity.tscn" id="11_dwygl"]
+[ext_resource type="Texture2D" uid="uid://dhk0k5x8h3r6n" path="res://World/Tutorial/Tutorial-Pictograph-Grow-Light.png" id="12_6i58b"]
+[ext_resource type="Texture2D" uid="uid://ctaytv6pcrunu" path="res://World/Tutorial/Tutorial-Pictograph-Walk.png" id="12_vsml3"]
+[ext_resource type="Texture2D" uid="uid://con5fr6b11r1t" path="res://World/Tutorial/Tutorial-Pictograph-Till-Soil.png" id="12_w1vrb"]
+[ext_resource type="PackedScene" uid="uid://ng01afb5x4gj" path="res://World/Entities/Rest/rest_point_entity.tscn" id="13_4nh1i"]
+[ext_resource type="Texture2D" uid="uid://dg2pa68myxpmg" path="res://World/Tutorial/Tutorial-Pictograph-GatherEyes.png" id="13_cxjx0"]
+[ext_resource type="Script" path="res://UI/Effects/EffectSleepFade.cs" id="13_e1v1h"]
+[ext_resource type="Texture2D" uid="uid://lcos38mqqnm6" path="res://World/Tutorial/Tutorial-Pictograph-GatherLight.png" id="13_ha8yd"]
+[ext_resource type="Texture2D" uid="uid://5wnlxcnyukm" path="res://World/Tutorial/Tutorial-Pictograph-PlaceEyes.png" id="13_pgjs6"]
+[ext_resource type="PackedScene" uid="uid://cwg841lwpsryh" path="res://World/Entities/Plants/DarkPlant/dark_tentacle_attack.tscn" id="13_tws6j"]
+[ext_resource type="PackedScene" uid="uid://djq6xj2shs6wk" path="res://World/Entities/Plants/DarkPlant/dark_eye.tscn" id="14_5tmcl"]
+[ext_resource type="PackedScene" uid="uid://eln6vxtru7mk" path="res://World/Doors/door_eye.tscn" id="14_gwvp1"]
+[ext_resource type="Texture2D" uid="uid://bbtmafhiwnpje" path="res://World/Tutorial/Tutorial-Pictograph-Plant-Light.png" id="14_rjx1t"]
+[ext_resource type="Texture2D" uid="uid://dveer70m4e1ns" path="res://World/Tutorial/Tutorial-Pictograph-Lantern-High.png" id="15_cwdwf"]
+[ext_resource type="PackedScene" uid="uid://e8qj5ot0rqm2" path="res://World/Entities/tillable_spot_light_plant_1.tscn" id="16_b0v6k"]
+[ext_resource type="Texture2D" uid="uid://brjpw1at0myjw" path="res://World/Tutorial/Tutorial-Pictograph-Lantern-Low.png" id="16_k7me7"]
+[ext_resource type="AudioStream" uid="uid://bim7460esdjxd" path="res://Audio/Effects/end-turn-ticks.ogg" id="18_6q13d"]
+[ext_resource type="Script" path="res://World/Entities/EntityDetectionZone.cs" id="23_2x3ik"]
+[ext_resource type="Script" path="res://World/SpawnPoint.cs" id="23_ky4pj"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_nemjj"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hlvoq"]
-size = Vector2(25, 24)
+[sub_resource type="Animation" id="Animation_d7x3a"]
+resource_name = "Idle"
+length = 2.5
+loop_mode = 1
+step = 0.0416667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:vframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0416667, 0.0833333, 0.125, 0.166667, 0.208333, 0.25, 0.291667, 0.333333, 0.375, 0.416667, 0.458333, 0.5, 0.541667, 0.583333, 0.625, 0.666667, 0.708333, 0.75, 0.791667, 0.833333, 0.875, 0.916667, 0.958333, 1, 1.04167, 1.08333, 1.125, 1.16667, 1.20833, 1.25, 1.29167, 1.33333, 1.375, 1.41667, 1.45833, 1.5, 1.54167, 1.58333, 1.625, 1.66667, 1.70833, 1.75, 1.79167, 1.83333, 1.875, 1.91667, 1.95833, 2, 2.04167, 2.08333, 2.125, 2.16667, 2.20833, 2.25, 2.29167, 2.33333, 2.375, 2.41667, 2.45833),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59]
+}
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dnptv"]
-resource_local_to_scene = true
-shader = ExtResource("6_is4cx")
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
+[sub_resource type="Animation" id="Animation_8xnhe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:vframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3wjqr"]
+_data = {
+"Idle": SubResource("Animation_d7x3a"),
+"RESET": SubResource("Animation_8xnhe")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyjwf"]
+size = Vector2(96, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qdc7p"]
+size = Vector2(480, 352)
 
 [node name="world-test" type="Node2D"]
 
@@ -35,56 +108,431 @@ scale = Vector2(1e+08, 1e+08)
 texture = SubResource("CanvasTexture_nemjj")
 
 [node name="WorldRoot" type="Node2D" parent="."]
-
-[node name="test_map" parent="WorldRoot" instance=ExtResource("1_wukwe")]
-position = Vector2(0, 1)
-
-[node name="PlayerEntity" parent="WorldRoot" groups=["EntityProvider"] instance=ExtResource("2_3tyht")]
-position = Vector2(404, 153)
-
-[node name="Camera2D" type="Camera2D" parent="WorldRoot/PlayerEntity"]
-position = Vector2(-1, -1)
-
-[node name="FatalHazard-Test" parent="WorldRoot" instance=ExtResource("3_37lbi")]
-position = Vector2(330, 218)
-
-[node name="Storage-Test" parent="WorldRoot" instance=ExtResource("4_3l7xu")]
-
-[node name="InteractableTest" type="Node2D" parent="WorldRoot"]
-position = Vector2(542, 105)
-script = ExtResource("4_lr4tl")
-
-[node name="Area2D" type="Area2D" parent="WorldRoot/InteractableTest" node_paths=PackedStringArray("Entity") groups=["EntityProvider"]]
-script = ExtResource("6_u5nph")
-Entity = NodePath("..")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldRoot/InteractableTest/Area2D"]
-shape = SubResource("RectangleShape2D_hlvoq")
-
-[node name="Sprite2D" type="Sprite2D" parent="WorldRoot/InteractableTest"]
-texture = ExtResource("7_hfiev")
-
-[node name="Interactable" type="Node2D" parent="WorldRoot/InteractableTest" node_paths=PackedStringArray("Handler")]
-script = ExtResource("9_ufl5l")
-Handler = NodePath("InteractionHandler")
-
-[node name="InteractionHandler" type="Node2D" parent="WorldRoot/InteractableTest/Interactable" node_paths=PackedStringArray("Sprite")]
-script = ExtResource("8_aiqyl")
-Sprite = NodePath("../../Sprite2D")
-InteractionMaterial = SubResource("ShaderMaterial_dnptv")
+y_sort_enabled = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="WorldRoot"]
 color = Color(0, 0, 0, 1)
 
-[node name="Plant-LightFlower" parent="WorldRoot" instance=ExtResource("11_dh45g")]
-position = Vector2(333, 120)
+[node name="GameMap" parent="WorldRoot" instance=ExtResource("1_sadh0")]
+
+[node name="PlayerEntity" parent="WorldRoot" groups=["EntityProvider"] instance=ExtResource("2_3tyht")]
+position = Vector2(3505, 1969)
+
+[node name="Camera2D" type="Camera2D" parent="WorldRoot/PlayerEntity"]
+position = Vector2(-1, -1)
+zoom = Vector2(2, 2)
 
 [node name="Plant-LightFlower2" parent="WorldRoot" instance=ExtResource("11_dh45g")]
 position = Vector2(404, 247)
+OutputAmount = 5
+InitialGrowthState = 4
 
 [node name="Plant-LightFlower3" parent="WorldRoot" instance=ExtResource("11_dh45g")]
-position = Vector2(512, 126)
+position = Vector2(721, 273)
+OutputAmount = 5
+
+[node name="BlueFlame" type="Sprite2D" parent="WorldRoot"]
+position = Vector2(2379, 1198)
+texture = ExtResource("9_adafq")
+offset = Vector2(0, -70)
+hframes = 60
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WorldRoot/BlueFlame"]
+autoplay = "Idle"
+libraries = {
+"": SubResource("AnimationLibrary_3wjqr")
+}
+
+[node name="PointLight2D3" type="PointLight2D" parent="WorldRoot/BlueFlame"]
+position = Vector2(6, -77)
+color = Color(0.533333, 0.741176, 1, 1)
+texture = ExtResource("10_ji4qj")
+texture_scale = 1.53
+
+[node name="PointLight2D2" type="PointLight2D" parent="WorldRoot/BlueFlame"]
+position = Vector2(6, 19)
+color = Color(0.533333, 0.741176, 1, 1)
+texture = ExtResource("10_hsdy0")
+texture_scale = 1.3
+
+[node name="TutorialArea" type="Node2D" parent="WorldRoot"]
+position = Vector2(1, 1)
+
+[node name="Dark-Eye" parent="WorldRoot/TutorialArea" instance=ExtResource("14_5tmcl")]
+position = Vector2(2576, 2064)
+InitialHealth = 100
+
+[node name="Dark-Stem" parent="WorldRoot/TutorialArea" instance=ExtResource("7_wanyc")]
+position = Vector2(2128, 1552)
+
+[node name="Tillable-Spot" parent="WorldRoot/TutorialArea" node_paths=PackedStringArray("StartingPlant") instance=ExtResource("8_meodr")]
+position = Vector2(2561, 1569)
+StartingPlant = NodePath("../Plant-LightFlower")
+
+[node name="Tillable-Spot2" parent="WorldRoot/TutorialArea" instance=ExtResource("8_meodr")]
+position = Vector2(2176, 1568)
+
+[node name="Plant-LightFlower" parent="WorldRoot/TutorialArea" instance=ExtResource("11_dh45g")]
+position = Vector2(2577, 1585)
+OutputAmount = 5
+InitialGrowthState = 4
+
+[node name="Tutorial-Pictograph3-Move" type="Node2D" parent="WorldRoot/TutorialArea"]
+position = Vector2(3440, 1920)
+
+[node name="Sprite2D" type="Sprite2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph3-Move"]
+position = Vector2(0, -32)
+texture = ExtResource("12_vsml3")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph3-Move"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph3-Move/StaticBody2D"]
+position = Vector2(0, -32)
+shape = SubResource("RectangleShape2D_jyjwf")
+
+[node name="PointLight2D" type="PointLight2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph3-Move"]
+position = Vector2(0, -32)
+color = Color(0.490196, 0.992157, 1, 1)
+energy = 0.05
+texture = ExtResource("10_hsdy0")
+texture_scale = 0.4
+
+[node name="Tutorial-Pictograph-Gather-Light" type="Node2D" parent="WorldRoot/TutorialArea"]
+position = Vector2(3120, 1856)
+
+[node name="Sprite2D" type="Sprite2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph-Gather-Light"]
+position = Vector2(0, -32)
+texture = ExtResource("13_ha8yd")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph-Gather-Light"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph-Gather-Light/StaticBody2D"]
+position = Vector2(0, -32)
+shape = SubResource("RectangleShape2D_jyjwf")
+
+[node name="PointLight2D" type="PointLight2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph-Gather-Light"]
+position = Vector2(0, -32)
+color = Color(0.490196, 0.992157, 1, 1)
+energy = 0.05
+texture = ExtResource("10_hsdy0")
+texture_scale = 0.4
+
+[node name="Tutorial-Pictograph-Grow-Light" type="Node2D" parent="WorldRoot/TutorialArea"]
+position = Vector2(3216, 1920)
+
+[node name="Sprite2D" type="Sprite2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph-Grow-Light"]
+position = Vector2(0, -32)
+texture = ExtResource("12_6i58b")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph-Grow-Light"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph-Grow-Light/StaticBody2D"]
+position = Vector2(0, -32)
+shape = SubResource("RectangleShape2D_jyjwf")
+
+[node name="PointLight2D" type="PointLight2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph-Grow-Light"]
+position = Vector2(0, -32)
+color = Color(0.490196, 0.992157, 1, 1)
+energy = 0.05
+texture = ExtResource("10_hsdy0")
+texture_scale = 0.4
+
+[node name="Tutorial-Till-Soil" type="Node2D" parent="WorldRoot/TutorialArea"]
+position = Vector2(2928, 1952)
+
+[node name="Sprite2D" type="Sprite2D" parent="WorldRoot/TutorialArea/Tutorial-Till-Soil"]
+position = Vector2(0, -32)
+texture = ExtResource("12_w1vrb")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="WorldRoot/TutorialArea/Tutorial-Till-Soil"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldRoot/TutorialArea/Tutorial-Till-Soil/StaticBody2D"]
+position = Vector2(0, -32)
+shape = SubResource("RectangleShape2D_jyjwf")
+
+[node name="PointLight2D" type="PointLight2D" parent="WorldRoot/TutorialArea/Tutorial-Till-Soil"]
+position = Vector2(0, -32)
+color = Color(0.490196, 0.992157, 1, 1)
+energy = 0.05
+texture = ExtResource("10_hsdy0")
+texture_scale = 0.4
+
+[node name="Tutorial-Plant-Light2" type="Node2D" parent="WorldRoot/TutorialArea"]
+position = Vector2(2832, 1856)
+
+[node name="Sprite2D" type="Sprite2D" parent="WorldRoot/TutorialArea/Tutorial-Plant-Light2"]
+position = Vector2(0, -32)
+texture = ExtResource("14_rjx1t")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="WorldRoot/TutorialArea/Tutorial-Plant-Light2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldRoot/TutorialArea/Tutorial-Plant-Light2/StaticBody2D"]
+position = Vector2(0, -32)
+shape = SubResource("RectangleShape2D_jyjwf")
+
+[node name="PointLight2D" type="PointLight2D" parent="WorldRoot/TutorialArea/Tutorial-Plant-Light2"]
+position = Vector2(0, -32)
+color = Color(0.490196, 0.992157, 1, 1)
+energy = 0.05
+texture = ExtResource("10_hsdy0")
+texture_scale = 0.4
+
+[node name="Tutorial-Pictograph-Gather-Eye" type="Node2D" parent="WorldRoot/TutorialArea"]
+position = Vector2(2417, 1857)
+
+[node name="Sprite2D" type="Sprite2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph-Gather-Eye"]
+position = Vector2(0, -32)
+texture = ExtResource("13_cxjx0")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph-Gather-Eye"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph-Gather-Eye/StaticBody2D"]
+position = Vector2(0, -32)
+shape = SubResource("RectangleShape2D_jyjwf")
+
+[node name="PointLight2D" type="PointLight2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph-Gather-Eye"]
+position = Vector2(0, -32)
+color = Color(0.490196, 0.992157, 1, 1)
+energy = 0.05
+texture = ExtResource("10_hsdy0")
+texture_scale = 0.4
+
+[node name="Tutorial-Pictograph-Slot-Eye" type="Node2D" parent="WorldRoot/TutorialArea"]
+position = Vector2(2673, 1825)
+
+[node name="Sprite2D" type="Sprite2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph-Slot-Eye"]
+position = Vector2(0, -32)
+texture = ExtResource("13_pgjs6")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph-Slot-Eye"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph-Slot-Eye/StaticBody2D"]
+position = Vector2(0, -32)
+shape = SubResource("RectangleShape2D_jyjwf")
+
+[node name="PointLight2D" type="PointLight2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph-Slot-Eye"]
+position = Vector2(0, -32)
+color = Color(0.490196, 0.992157, 1, 1)
+energy = 0.05
+texture = ExtResource("10_hsdy0")
+texture_scale = 0.4
+
+[node name="Tutorial-Pictograph6" type="Node2D" parent="WorldRoot/TutorialArea"]
+position = Vector2(2256, 1568)
+
+[node name="Sprite2D" type="Sprite2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph6"]
+position = Vector2(0, -32)
+texture = ExtResource("15_cwdwf")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph6"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph6/StaticBody2D"]
+position = Vector2(0, -32)
+shape = SubResource("RectangleShape2D_jyjwf")
+
+[node name="PointLight2D" type="PointLight2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph6"]
+position = Vector2(0, -32)
+color = Color(0.490196, 0.992157, 1, 1)
+energy = 0.05
+texture = ExtResource("10_hsdy0")
+texture_scale = 0.4
+
+[node name="Tutorial-Pictograph7" type="Node2D" parent="WorldRoot/TutorialArea"]
+position = Vector2(2448, 2016)
+
+[node name="Sprite2D" type="Sprite2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph7"]
+position = Vector2(0, -32)
+texture = ExtResource("16_k7me7")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph7"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph7/StaticBody2D"]
+position = Vector2(0, -32)
+shape = SubResource("RectangleShape2D_jyjwf")
+
+[node name="PointLight2D" type="PointLight2D" parent="WorldRoot/TutorialArea/Tutorial-Pictograph7"]
+position = Vector2(0, -32)
+color = Color(0.490196, 0.992157, 1, 1)
+energy = 0.05
+texture = ExtResource("10_hsdy0")
+texture_scale = 0.4
+
+[node name="EyeSlot-Tutorial" parent="WorldRoot/TutorialArea" instance=ExtResource("11_dwygl")]
+position = Vector2(2576, 1681)
+
+[node name="Door-Tutorial" parent="WorldRoot/TutorialArea" node_paths=PackedStringArray("OpeningEyeSlots") instance=ExtResource("14_gwvp1")]
+position = Vector2(2496, 1696)
+OpeningEyeSlots = [NodePath("../EyeSlot-Tutorial")]
+
+[node name="Plant-LightFlower2" parent="WorldRoot/TutorialArea" instance=ExtResource("11_dh45g")]
+position = Vector2(3120, 1904)
+InitialGrowthState = 4
+
+[node name="ExitDoor1" type="Node2D" parent="WorldRoot"]
+
+[node name="Door" parent="WorldRoot/ExitDoor1" node_paths=PackedStringArray("OpeningEyeSlots") instance=ExtResource("14_gwvp1")]
+position = Vector2(2369, 449)
+OpeningEyeSlots = [NodePath("../EyeSlot"), NodePath("../EyeSlot2")]
+
+[node name="EyeSlot" parent="WorldRoot/ExitDoor1" instance=ExtResource("11_dwygl")]
+position = Vector2(2321, 433)
+
+[node name="EyeSlot2" parent="WorldRoot/ExitDoor1" instance=ExtResource("11_dwygl")]
+position = Vector2(2481, 433)
+
+[node name="Dark-Eye" parent="WorldRoot/ExitDoor1" instance=ExtResource("14_5tmcl")]
+position = Vector2(2385, 657)
+
+[node name="HubArea" type="Node2D" parent="WorldRoot"]
+
+[node name="RestPointEntity" parent="WorldRoot/HubArea" instance=ExtResource("13_4nh1i")]
+position = Vector2(2320, 1233)
+
+[node name="Tillable-Spot" parent="WorldRoot/HubArea" instance=ExtResource("16_b0v6k")]
+position = Vector2(2241, 1089)
+
+[node name="Tillable-Spot2" parent="WorldRoot/HubArea" instance=ExtResource("16_b0v6k")]
+position = Vector2(2497, 1249)
+
+[node name="Tillable-Spot3" parent="WorldRoot/HubArea" instance=ExtResource("16_b0v6k")]
+position = Vector2(2241, 1249)
+
+[node name="Tillable-Spot4" parent="WorldRoot/HubArea" node_paths=PackedStringArray("Interaction", "StateMachine", "Animation", "GrowSpot", "StartingPlant") instance=ExtResource("16_b0v6k")]
+position = Vector2(2497, 1089)
+Interaction = NodePath("../Tillable-Spot3/Interactable")
+StateMachine = NodePath("../Tillable-Spot3/StateMachine")
+Animation = NodePath("../Tillable-Spot3/AnimationPlayer")
+GrowSpot = NodePath("../Tillable-Spot3/GrowSpotNode2D")
+StartingPlant = NodePath("../Tillable-Spot3/GrowSpotNode2D/Plant-LightFlower")
+
+[node name="SouthWestArea" type="Node2D" parent="WorldRoot"]
+
+[node name="Tillable-Spot" parent="WorldRoot/SouthWestArea" instance=ExtResource("8_meodr")]
+position = Vector2(1761, 1313)
+
+[node name="Dark-Eye" parent="WorldRoot/SouthWestArea" instance=ExtResource("14_5tmcl")]
+position = Vector2(1841, 1777)
+
+[node name="Dark-Eye2" parent="WorldRoot/SouthWestArea" instance=ExtResource("14_5tmcl")]
+position = Vector2(417, 1473)
+
+[node name="Dark-Tentacle" parent="WorldRoot/SouthWestArea" instance=ExtResource("13_tws6j")]
+position = Vector2(529, 1489)
+
+[node name="Dark-Tentacle2" parent="WorldRoot/SouthWestArea" instance=ExtResource("13_tws6j")]
+position = Vector2(785, 1361)
+
+[node name="Dark-Tentacle3" parent="WorldRoot/SouthWestArea" instance=ExtResource("13_tws6j")]
+position = Vector2(945, 1489)
+
+[node name="Dark-Tentacle4" parent="WorldRoot/SouthWestArea" instance=ExtResource("13_tws6j")]
+position = Vector2(433, 1265)
+
+[node name="Dark-Tentacle8" parent="WorldRoot/SouthWestArea" instance=ExtResource("13_tws6j")]
+position = Vector2(1700, 1742)
+
+[node name="Tillable-Spot-Light" parent="WorldRoot/SouthWestArea" instance=ExtResource("16_b0v6k")]
+position = Vector2(481, 1889)
+
+[node name="Tillable-Spot-Light2" parent="WorldRoot/SouthWestArea" node_paths=PackedStringArray("Interaction", "StateMachine", "Animation", "GrowSpot", "StartingPlant") instance=ExtResource("16_b0v6k")]
+position = Vector2(417, 1889)
+Interaction = NodePath("../Tillable-Spot-Light/Interactable")
+StateMachine = NodePath("../Tillable-Spot-Light/StateMachine")
+Animation = NodePath("../Tillable-Spot-Light/AnimationPlayer")
+GrowSpot = NodePath("../Tillable-Spot-Light/GrowSpotNode2D")
+StartingPlant = NodePath("../Tillable-Spot-Light/GrowSpotNode2D/Plant-LightFlower")
+
+[node name="Tillable-Spot-Light3" parent="WorldRoot/SouthWestArea" node_paths=PackedStringArray("Interaction", "StateMachine", "Animation", "GrowSpot", "StartingPlant") instance=ExtResource("16_b0v6k")]
+position = Vector2(1236, 1182)
+Interaction = NodePath("../Tillable-Spot-Light/Interactable")
+StateMachine = NodePath("../Tillable-Spot-Light/StateMachine")
+Animation = NodePath("../Tillable-Spot-Light/AnimationPlayer")
+GrowSpot = NodePath("../Tillable-Spot-Light/GrowSpotNode2D")
+StartingPlant = NodePath("../Tillable-Spot-Light/GrowSpotNode2D/Plant-LightFlower")
+
+[node name="Dark-Eye3" parent="WorldRoot/SouthWestArea" instance=ExtResource("14_5tmcl")]
+position = Vector2(240, 2000)
+
+[node name="Dark-Tentacle5" parent="WorldRoot/SouthWestArea" instance=ExtResource("13_tws6j")]
+position = Vector2(449, 1937)
+
+[node name="Dark-Tentacle6" parent="WorldRoot/SouthWestArea" instance=ExtResource("13_tws6j")]
+position = Vector2(566, 2032)
+
+[node name="Dark-Tentacle7" parent="WorldRoot/SouthWestArea" instance=ExtResource("13_tws6j")]
+position = Vector2(854, 1969)
+
+[node name="Dark-Stem" parent="WorldRoot/SouthWestArea" instance=ExtResource("7_wanyc")]
+position = Vector2(1112, 2034)
+
+[node name="Tillable-Spot3" parent="WorldRoot/SouthWestArea" instance=ExtResource("16_b0v6k")]
+position = Vector2(1249, 1730)
+
+[node name="Tillable-Spot2" parent="WorldRoot/SouthWestArea" instance=ExtResource("8_meodr")]
+position = Vector2(1684, 1214)
+
+[node name="Dark-Tentacle9" parent="WorldRoot/SouthWestArea" instance=ExtResource("13_tws6j")]
+position = Vector2(1924, 1838)
+
+[node name="Dark-Tentacle10" parent="WorldRoot/SouthWestArea" instance=ExtResource("13_tws6j")]
+position = Vector2(1844, 1646)
+
+[node name="Dark-Tentacle11" parent="WorldRoot/SouthWestArea" instance=ExtResource("13_tws6j")]
+position = Vector2(1873, 1265)
+
+[node name="SpawnPoint" type="Node2D" parent="WorldRoot" node_paths=PackedStringArray("SpawnActivationZone")]
+position = Vector2(2385, 1329)
+script = ExtResource("23_ky4pj")
+SpawnActivationZone = NodePath("EntityDetectionZone")
+
+[node name="EntityDetectionZone" type="Area2D" parent="WorldRoot/SpawnPoint"]
+script = ExtResource("23_2x3ik")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldRoot/SpawnPoint/EntityDetectionZone"]
+position = Vector2(0, -128)
+shape = SubResource("RectangleShape2D_qdc7p")
+
+[node name="ExitDoor2" type="Node2D" parent="WorldRoot"]
+position = Vector2(1, 1)
+
+[node name="Door" parent="WorldRoot/ExitDoor2" node_paths=PackedStringArray("OpeningEyeSlots") instance=ExtResource("14_gwvp1")]
+position = Vector2(2368, 224)
+OpeningEyeSlots = [NodePath("../EyeSlot"), NodePath("../EyeSlot2"), NodePath("../EyeSlot3"), NodePath("../EyeSlot4")]
+
+[node name="EyeSlot" parent="WorldRoot/ExitDoor2" instance=ExtResource("11_dwygl")]
+position = Vector2(2336, 208)
+
+[node name="EyeSlot2" parent="WorldRoot/ExitDoor2" instance=ExtResource("11_dwygl")]
+position = Vector2(2272, 208)
+
+[node name="EyeSlot3" parent="WorldRoot/ExitDoor2" instance=ExtResource("11_dwygl")]
+position = Vector2(2464, 208)
+
+[node name="EyeSlot4" parent="WorldRoot/ExitDoor2" instance=ExtResource("11_dwygl")]
+position = Vector2(2528, 208)
+
+[node name="FadeWorld" type="CanvasLayer" parent="." node_paths=PackedStringArray("Rect", "SleepJingle")]
+script = ExtResource("13_e1v1h")
+Rect = NodePath("ColorRect")
+SleepJingle = NodePath("../UIRoot/SleepJingleMusicPlayer")
+
+[node name="ColorRect" type="ColorRect" parent="FadeWorld"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 1)
 
 [node name="UIRoot" type="CanvasLayer" parent="."]
 
 [node name="UIGameHUD" parent="UIRoot" instance=ExtResource("4_kp64n")]
+offset_left = 13.0
+offset_top = -9.0
+offset_right = 13.0
+offset_bottom = -9.0
+
+[node name="SleepJingleMusicPlayer" type="AudioStreamPlayer" parent="UIRoot"]
+stream = ExtResource("18_6q13d")
+
+[node name="Tillable-Spot" parent="." instance=ExtResource("8_meodr")]
+position = Vector2(2817, 1889)

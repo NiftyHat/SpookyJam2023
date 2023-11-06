@@ -1,0 +1,106 @@
+[gd_scene load_steps=13 format=3 uid="uid://8qkjhgr0w8fg"]
+
+[ext_resource type="Script" path="res://World/Entities/Farm/Tillable/TillableSpot.cs" id="1_0vvho"]
+[ext_resource type="Texture2D" uid="uid://tgi4fa34gvs3" path="res://World/Entities/Plantable-Tiles.png" id="1_8a2kh"]
+[ext_resource type="Script" path="res://World/Entities/Properties/Interactable.cs" id="2_pyan2"]
+[ext_resource type="Resource" uid="uid://coadux14thd1m" path="res://World/Entities/Plants/Planting/planting_map.tres" id="2_wq1vj"]
+[ext_resource type="PackedScene" uid="uid://b6pgafi77v13j" path="res://World/Entities/interaction_handler_glow.tscn" id="3_2b7gw"]
+[ext_resource type="Script" path="res://World/Entities/Area2DEntityReference.cs" id="3_lp5gk"]
+[ext_resource type="Script" path="res://Core/StateMachines/StateMachine.cs" id="6_8vkxj"]
+
+[sub_resource type="Animation" id="Animation_sd6d2"]
+resource_name = "Empty"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlantableSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_b4pak"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlantableSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_sg7i6"]
+resource_name = "Tilled"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlantableSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oyddd"]
+_data = {
+"Empty": SubResource("Animation_sd6d2"),
+"RESET": SubResource("Animation_b4pak"),
+"Tilled": SubResource("Animation_sg7i6")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d1kqw"]
+size = Vector2(14, 12)
+
+[node name="Tillable-Spot" type="Node2D" node_paths=PackedStringArray("Interaction", "StateMachine", "Animation", "GrowSpot")]
+script = ExtResource("1_0vvho")
+Interaction = NodePath("Interactable")
+StateMachine = NodePath("StateMachine")
+Animation = NodePath("AnimationPlayer")
+GrowSpot = NodePath("GrowSpotNode2D")
+Planting = ExtResource("2_wq1vj")
+
+[node name="PlantableSprite2D" type="Sprite2D" parent="."]
+position = Vector2(16, 16)
+texture = ExtResource("1_8a2kh")
+hframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Empty"
+libraries = {
+"": SubResource("AnimationLibrary_oyddd")
+}
+
+[node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("Entity") groups=["EntityProvider"]]
+script = ExtResource("3_lp5gk")
+Entity = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_d1kqw")
+
+[node name="Interactable" type="Node2D" parent="." node_paths=PackedStringArray("Handler")]
+script = ExtResource("2_pyan2")
+Handler = NodePath("InteractionHandler-Outline")
+
+[node name="InteractionHandler-Outline" parent="Interactable" node_paths=PackedStringArray("Sprite") instance=ExtResource("3_2b7gw")]
+Sprite = NodePath("../../PlantableSprite2D")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("6_8vkxj")
+
+[node name="GrowSpotNode2D" type="Node2D" parent="."]
+position = Vector2(16, 16)

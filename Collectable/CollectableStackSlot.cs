@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SpookyBotanyGame.Collectable
 {
-    public class CollectableStackSlot<TStacked>
+    public class CollectableStackSlot<TCollectable>
     {
         public const int DEFAULT_MAX_VALUE = 256;
 
@@ -13,7 +13,7 @@ namespace SpookyBotanyGame.Collectable
 
         public delegate void OnChange(int newValue, int oldValue);
 
-        public delegate void OnOverflow(IEnumerable<CollectableStackSlot<TStacked>> overflow);
+        public delegate void OnOverflow(IEnumerable<CollectableStackSlot<TCollectable>> overflow);
 
         public event OnEmpty OnEmptied;
         public event OnFull OnFilled;
@@ -40,6 +40,10 @@ namespace SpookyBotanyGame.Collectable
 
         public int Max => _max;
 
+        public bool IsFull => _amount >= _max;
+        
+        public TCollectable CollectableType { get; private set; }
+
         public CollectableStackSlot()
         {
             _amount = 0;
@@ -51,10 +55,15 @@ namespace SpookyBotanyGame.Collectable
             if (amount < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(amount),
-                    $"{nameof(CollectableStackSlot<TStacked>)}() ctor {nameof(amount)} of {amount} cannot be less than 0");
+                    $"{nameof(CollectableStackSlot<TCollectable>)}() ctor {nameof(amount)} of {amount} cannot be less than 0");
             }
 
             SetAmount(amount);
+        }
+
+        public CollectableStackSlot(TCollectable collectableType, int amount) : this (amount)
+        {
+            CollectableType = collectableType;
         }
 
         public CollectableStackSlot(int amount, int max)
@@ -68,17 +77,31 @@ namespace SpookyBotanyGame.Collectable
             if (amount < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(amount),
-                    $"{nameof(CollectableStackSlot<TStacked>)}() ctor {nameof(amount)} of {amount} cannot be less than 0");
+                    $"{nameof(CollectableStackSlot<TCollectable>)}() ctor {nameof(amount)} of {amount} cannot be less than 0");
             }
 
             if (amount > max)
             {
                 throw new ArgumentOutOfRangeException(nameof(amount),
-                    $"{nameof(CollectableStackSlot<TStacked>)}() ctor {nameof(amount)} of {amount} cannot be greater than {nameof(max)} of {max}");
+                    $"{nameof(CollectableStackSlot<TCollectable>)}() ctor {nameof(amount)} of {amount} cannot be greater than {nameof(max)} of {max}");
             }
 
             SetAmount(amount);
             SetMax(max);
+        }
+
+        public bool Has(TCollectable collectableType, int amount)
+        {
+            if (CollectableType != null)
+            {
+                return CollectableType.Equals(collectableType) && Amount >= amount;
+            }
+            return false;
+        }
+        
+        public CollectableStackSlot(TCollectable collectableType, int amount, int max) : this (amount, max)
+        {
+            CollectableType = collectableType;
         }
 
         public CollectableStackSlot(int amount, int max, OnOverflow onOverflow)
@@ -98,6 +121,11 @@ namespace SpookyBotanyGame.Collectable
             OnOverflowed += onOverflow;
             SetAmount(amount);
             SetMax(max);
+        }
+        
+        public CollectableStackSlot(TCollectable collectableType, int amount, int max, OnOverflow onOverflow) : this (amount, max, onOverflow)
+        {
+            CollectableType = collectableType;
         }
 
         public void SetMax(int value)
@@ -121,11 +149,11 @@ namespace SpookyBotanyGame.Collectable
         {
             if (OnOverflowed != null)
             {
-                List<CollectableStackSlot<TStacked>> allOverflowStacks = new List<CollectableStackSlot<TStacked>>();
+                List<CollectableStackSlot<TCollectable>> allOverflowStacks = new List<CollectableStackSlot<TCollectable>>();
                 for (int i = _max; i < amount; i += _max)
                 {
                     //deal with the final stack somehow
-                    CollectableStackSlot<TStacked> overflowStack = new CollectableStackSlot<TStacked>(_max);
+                    CollectableStackSlot<TCollectable> overflowStack = new CollectableStackSlot<TCollectable>(_max);
                     allOverflowStacks.Add(overflowStack);
                 }
 
@@ -133,7 +161,6 @@ namespace SpookyBotanyGame.Collectable
                 _amount -= amount;
             }
         }
-
 
         public int Amount
         {
@@ -160,7 +187,7 @@ namespace SpookyBotanyGame.Collectable
 
             int oldCount = _amount;
             _amount = value;
-            OnChanged?.Invoke(0, oldCount);
+            OnChanged?.Invoke(value, oldCount);
             if (_amount == 0)
             {
                 OnEmptied?.Invoke();
@@ -191,21 +218,41 @@ namespace SpookyBotanyGame.Collectable
             SetAmount(_amount + value);
         }
 
-        public void Add(TStacked item)
+        public void Add(TCollectable addedType)
         {
-            SetAmount(_amount + 1);
+            if (CollectableType == null)
+            {
+                CollectableType = addedType;
+                SetAmount(1);
+                return;
+            }
+            if (CollectableType.Equals(addedType))
+            {
+                SetAmount(_amount + 1);
+            }
+            else if (_amount > 0)
+            {
+                Overflow(_amount);
+                CollectableType = addedType;
+                SetAmount(1);
+            }
+            else
+            {
+                CollectableType = addedType;
+                SetAmount(1);
+            }
         }
 
-        public void Add(CollectableStackSlot<TStacked> stackSlot)
+        public void Add(CollectableStackSlot<TCollectable> stackSlot)
         {
             SetAmount(stackSlot._amount);
             stackSlot.Empty();
         }
 
-        public CollectableStackSlot<TStacked> Remove(int count)
+        public CollectableStackSlot<TCollectable> Remove(int count)
         {
             SetAmount(_amount - count);
-            return new CollectableStackSlot<TStacked>(count);
+            return new CollectableStackSlot<TCollectable>(count);
         }
 
         public void Empty()

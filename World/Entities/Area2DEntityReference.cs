@@ -2,6 +2,7 @@ using Godot;
 
 namespace SpookyBotanyGame.World.Entities
 {
+    [GlobalClass]
     public partial class Area2DEntityReference : Area2D, IEntityProvider
     {
         [Export] private GameEntity Entity { get; set; }

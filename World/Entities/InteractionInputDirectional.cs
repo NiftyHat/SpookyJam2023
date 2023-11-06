@@ -72,6 +72,7 @@ namespace SpookyBotanyGame.World.Entities
             var pivotPosition = Vector2.Zero;
             return (mousePosition - pivotPosition);
         }
+        
         private void UpdateDebug()
         {
             StringBuilder sb = new StringBuilder();

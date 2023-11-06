@@ -1,8 +1,9 @@
 using Godot;
+using SpookyBotanyGame.Collectable;
+using SpookyBotanyGame.World.Entities.Animation;
 using SpookyBotanyGame.World.Entities.Collision;
 using SpookyBotanyGame.World.Entities.Properties;
-using DiagonalAnimationPlayer = SpookyBotanyGame.World.Entities.Animation.DiagonalAnimationPlayer;
-using PlayerInputControlled = SpookyBotanyGame.World.Entities.Properties.PlayerInputControlled;
+using SpookyBotanyGame.World.Tools.Lantern;
 
 namespace SpookyBotanyGame.World.Entities
 {
@@ -13,22 +14,73 @@ namespace SpookyBotanyGame.World.Entities
         [Export] public DiagonalAnimationPlayer Animation { get; set; }
         [Export] public PlayerInputControlled InputControlled { get; set; }
         [Export] public EntityCharacterBody2D Body { get; set; }
+        [Export] public CollisionShape2D Collision { get; set; }
         [Export] public InteractionInputDirectional Interact { get; set; }
-        
-        [Export] public SimAdvanceable Sim { get; set; }
-        
+        [Export] public SimController Sim { get; set; }
         [Export] public CollectableContainer Inventory { get; set; }
+        [Export] public LanternTool LanternTool { get; set; }
+        [Export] public Sprite2D CarriedSlotIcon { get; set; }
+        
+        public CollectableStackSlot<CollectableResource> CarriedEyeSlot { get; set; } =  new CollectableStackSlot<CollectableResource>(0, 1);
+        public CollectableStackSlot<CollectableResource> CarriedSeedSlot { get; set; } =  new CollectableStackSlot<CollectableResource>(0, 5);
 
-        private World.SpawnPoint _spawnPoint;
+        private SpawnPoint _spawnPoint;
 
         public override void _Ready()
         {
             base._Ready();
             Killable.OnKilled += HandleKilled;
             Killable.OnRespawned += HandleRespawned;
+            CarriedEyeSlot.OnChanged += HandleCarriedChanged;
+            CarriedSeedSlot.OnChanged += HandleCarriedChanged;
             _properties.Add(Killable);
-            
             CallDeferred("AddSpawnPointToParent");
+        }
+
+        public CollectableStackSlot<CollectableResource> GetFirstActiveSeedSlot()
+        {
+            if (CarriedEyeSlot != null && CarriedEyeSlot.Amount > 0)
+            {
+                return CarriedEyeSlot;
+            }
+
+            if (CarriedSeedSlot != null && CarriedSeedSlot.Amount > 0)
+            {
+                return CarriedSeedSlot;
+            }
+
+            return null;
+        }
+
+        private void HandleCarriedChanged(int newValue, int oldValue)
+        {
+            var activeSlot = GetFirstActiveSeedSlot();
+            if (activeSlot != null && activeSlot.CollectableType != null)
+            {
+                if (CarriedSlotIcon.Visible == false)
+                {
+                    CarriedSlotIcon.Visible = true;
+                }
+                CarriedSlotIcon.Texture = activeSlot.CollectableType.CarriedTexture; 
+            }
+            else
+            {
+                CarriedSlotIcon.Texture = null;
+                CarriedSlotIcon.Visible = false;
+            }
+        }
+
+        private void HandleLanternEmptyChanged(bool isEmpty, LanternTool tool)
+        {
+            if (isEmpty)
+            {
+                
+            }
+        }
+
+        private void HandleLanternDirectionChange(Vector2 direction, Vector2 distance)
+        {
+            LanternTool.SetPointing(direction);
         }
 
         public override void _Process(double delta)
@@ -37,12 +89,37 @@ namespace SpookyBotanyGame.World.Entities
             {
                 Interact?.DoInteract();
             }
-            base._Process(delta);
-        }
 
-        private void HandleOwnerReady()
-        {
-            AddSpawnPointToParent();
+            if (!LanternTool.IsEmpty)
+            {
+                if (Input.IsActionPressed("lantern_primary"))
+                {
+                    LanternTool.SetMode(LanternTool.ModeHigh);
+                }
+                else if (Input.IsActionPressed("lantern_secondary"))
+                {
+                    LanternTool.SetMode(LanternTool.ModeLow);
+                }
+                else 
+                {
+                    LanternTool.SetMode(LanternTool.ModeMedium);
+                }
+            }
+
+            if (OS.IsDebugBuild())
+            {
+                if (Input.IsActionJustPressed("toggle_collision"))
+                {
+                    Collision.Disabled = true;
+                    //ody
+                }
+                else if (Input.IsActionJustReleased("toggle_collision"))
+                {
+                    Collision.Disabled = false;
+                    //ody
+                }
+            }
+            base._Process(delta);
         }
 
         private void AddSpawnPointToParent()
@@ -60,6 +137,7 @@ namespace SpookyBotanyGame.World.Entities
         {
             InputControlled.Disable();
             Interact.Disable();
+            LanternTool.Destroy();
             Animation.PlayOneShot("death", HandleDeathAnimationComplete);
         }
         
@@ -72,7 +150,13 @@ namespace SpookyBotanyGame.World.Entities
         private void HandleDeathAnimationComplete(StringName animName)
         {
             _spawnPoint.Spawn(Body, Killable.Spawn);
+            Sim.PlayerRespawn(this);
             Animation.Reset();
+        }
+
+        public void SetSpawn(SpawnPoint spawnPoint)
+        {
+            _spawnPoint = spawnPoint;
         }
     }
 }

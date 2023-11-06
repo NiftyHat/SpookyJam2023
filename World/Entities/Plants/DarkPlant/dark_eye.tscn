@@ -1,0 +1,390 @@
+[gd_scene load_steps=35 format=3 uid="uid://djq6xj2shs6wk"]
+
+[ext_resource type="Script" path="res://World/Entities/Plants/DarkPlantEye.cs" id="1_xwfs4"]
+[ext_resource type="Resource" uid="uid://dlltwn1qhvooq" path="res://Collectable/Types/collectable_eyes.tres" id="2_mbyk5"]
+[ext_resource type="Texture2D" uid="uid://b1uj67c4lsmjg" path="res://World/Entities/Plants/DarkPlant/plant-dark-eye.png" id="3_0k76s"]
+[ext_resource type="Shader" path="res://Shaders/Sprite Shaders/flash.gdshader" id="3_cwcb6"]
+[ext_resource type="Script" path="res://World/Entities/Animation/LookDirectionAnimationPlayer.cs" id="4_yp3e1"]
+[ext_resource type="Script" path="res://World/Entities/Properties/Interactable.cs" id="5_6jokk"]
+[ext_resource type="PackedScene" uid="uid://cmcnfywe836lq" path="res://World/Entities/interaction_outline_effect.tscn" id="6_1i5c1"]
+[ext_resource type="Shader" path="res://Shaders/Sprite Shaders/2d_outline.gdshader" id="7_ykawc"]
+[ext_resource type="Script" path="res://World/Entities/Properties/SimAdvanceable.cs" id="8_0lvtj"]
+[ext_resource type="Script" path="res://World/Entities/Properties/LightSensor.cs" id="9_cm1h0"]
+[ext_resource type="Script" path="res://Core/StateMachines/StateMachine.cs" id="10_ackqy"]
+[ext_resource type="Script" path="res://World/Entities/EntityDetectionZone.cs" id="11_wcsjl"]
+[ext_resource type="Script" path="res://World/Entities/Area2DEntityReference.cs" id="12_4bvcw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yhx4e"]
+shader = ExtResource("3_cwcb6")
+shader_parameter/solid_color = Vector4(255, 0, 0, 0)
+
+[sub_resource type="Animation" id="Animation_wilaf"]
+resource_name = "Grow"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 31]
+}
+
+[sub_resource type="Animation" id="Animation_v35xe"]
+resource_name = "Harvest"
+length = 1.40001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19]
+}
+
+[sub_resource type="Animation" id="Animation_yne1h"]
+resource_name = "Look-East"
+length = 0.10001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
+[sub_resource type="Animation" id="Animation_gjnjo"]
+resource_name = "Look-None"
+length = 4.50001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.9, 1.1, 1.9, 2, 2.5, 2.9, 3.6, 3.8, 4.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 2, 3, 8, 5, 6, 7, 8, 0, 1, 8]
+}
+
+[sub_resource type="Animation" id="Animation_klcyd"]
+resource_name = "Look-North"
+length = 0.10001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_xttvx"]
+resource_name = "Look-NorthEast"
+length = 0.10001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+
+[sub_resource type="Animation" id="Animation_c54or"]
+resource_name = "Look-NorthWest"
+length = 0.10001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="Animation" id="Animation_mhda8"]
+resource_name = "Look-South"
+length = 0.10001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_vwua1"]
+resource_name = "Look-SouthEast"
+length = 0.10001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+
+[sub_resource type="Animation" id="Animation_wruh2"]
+resource_name = "Look-SouthEast"
+length = 0.10001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_1fi7k"]
+resource_name = "Look-East"
+length = 0.10001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_rpo80"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/solid_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector4(255, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jsuny"]
+resource_name = "Destroyed\\"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [32, 33, 34, 35, 36, 37, 38, 39]
+}
+
+[sub_resource type="Animation" id="Animation_apk80"]
+resource_name = "Hurt"
+length = 0.80001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 11, 9, 8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/solid_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector4(255, 0, 0, 0), Vector4(1, 0, 0, 0.6), Vector4(1, 0, 0, 0), Vector4(1, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w0abv"]
+_data = {
+"Destroyed": SubResource("Animation_jsuny"),
+"Growing": SubResource("Animation_wilaf"),
+"Harvest": SubResource("Animation_v35xe"),
+"Hurt": SubResource("Animation_apk80"),
+"Look-East": SubResource("Animation_yne1h"),
+"Look-None": SubResource("Animation_gjnjo"),
+"Look-North": SubResource("Animation_klcyd"),
+"Look-NorthEast": SubResource("Animation_xttvx"),
+"Look-NorthWest": SubResource("Animation_c54or"),
+"Look-South": SubResource("Animation_mhda8"),
+"Look-SouthEast": SubResource("Animation_vwua1"),
+"Look-SouthWest": SubResource("Animation_wruh2"),
+"Look-West": SubResource("Animation_1fi7k"),
+"RESET": SubResource("Animation_rpo80")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ukm2l"]
+resource_local_to_scene = true
+shader = ExtResource("7_ykawc")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0j6m6"]
+radius = 13.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kmvgu"]
+radius = 66.0303
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ilq18"]
+radius = 5.0
+height = 24.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xb1dr"]
+size = Vector2(14.5, 10)
+
+[node name="Dark-Eye" type="Node2D" node_paths=PackedStringArray("LightSensor", "Animation", "Sim", "StateMachine", "Interactable", "LookAnimation", "LookDetectionZone")]
+position = Vector2(336, 171)
+script = ExtResource("1_xwfs4")
+LightSensor = NodePath("LightSensor")
+Animation = NodePath("AnimationPlayer")
+Sim = NodePath("SimAdvanceable")
+StateMachine = NodePath("StateMachine")
+Interactable = NodePath("Interactable")
+Output = ExtResource("2_mbyk5")
+LookAnimation = NodePath("LookAnimationController")
+LookDetectionZone = NodePath("LookArea2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_yhx4e")
+position = Vector2(0, -14)
+texture = ExtResource("3_0k76s")
+hframes = 40
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Look-None"
+libraries = {
+"": SubResource("AnimationLibrary_w0abv")
+}
+
+[node name="Interactable" type="Node2D" parent="." node_paths=PackedStringArray("Handler")]
+script = ExtResource("5_6jokk")
+Handler = NodePath("InteractionHandler")
+
+[node name="InteractionHandler" parent="Interactable" node_paths=PackedStringArray("Sprite") instance=ExtResource("6_1i5c1")]
+Sprite = NodePath("../../Sprite2D")
+InteractionMaterial = SubResource("ShaderMaterial_ukm2l")
+
+[node name="SimAdvanceable" type="Node" parent="."]
+script = ExtResource("8_0lvtj")
+
+[node name="LightSensor" type="Node2D" parent="."]
+script = ExtResource("9_cm1h0")
+
+[node name="Area2D" type="Area2D" parent="LightSensor"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LightSensor/Area2D"]
+position = Vector2(-1, 1)
+shape = SubResource("CircleShape2D_0j6m6")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("10_ackqy")
+
+[node name="LookAnimationController" type="Node2D" parent="." node_paths=PackedStringArray("Animation")]
+script = ExtResource("4_yp3e1")
+Animation = NodePath("../AnimationPlayer")
+
+[node name="LookArea2D" type="Area2D" parent="."]
+script = ExtResource("11_wcsjl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LookArea2D"]
+shape = SubResource("CircleShape2D_kmvgu")
+debug_color = Color(1, 1, 1, 0.419608)
+
+[node name="CollisionStaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, -14)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionStaticBody2D"]
+position = Vector2(0, 14)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ilq18")
+
+[node name="InteractionArea2D" type="Area2D" parent="." node_paths=PackedStringArray("Entity") groups=["EntityProvider"]]
+position = Vector2(2, -9)
+script = ExtResource("12_4bvcw")
+Entity = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea2D"]
+position = Vector2(-2, 9)
+shape = SubResource("RectangleShape2D_xb1dr")

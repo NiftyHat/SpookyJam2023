@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://e8qj5ot0rqm2"]
+
+[ext_resource type="PackedScene" uid="uid://8qkjhgr0w8fg" path="res://World/Entities/tillable_spot_entity.tscn" id="1_hhlnw"]
+[ext_resource type="PackedScene" uid="uid://bb1sfvq8h1ymh" path="res://World/Entities/Plants/LightPlant/plant_light_flower.tscn" id="2_2r7ju"]
+
+[node name="Tillable-Spot" node_paths=PackedStringArray("StartingPlant") instance=ExtResource("1_hhlnw")]
+StartingPlant = NodePath("GrowSpotNode2D/Plant-LightFlower")
+
+[node name="Plant-LightFlower" parent="GrowSpotNode2D" index="0" instance=ExtResource("2_2r7ju")]
+position = Vector2(0, 0)

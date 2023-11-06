@@ -1,0 +1,231 @@
+[gd_scene load_steps=18 format=3 uid="uid://7gfmj7lcvlnf"]
+
+[ext_resource type="Shader" path="res://Shaders/Sprite Shaders/flash.gdshader" id="1_u8s6j"]
+[ext_resource type="Script" path="res://World/Entities/Plants/DarkPlantStem.cs" id="2_dxgwp"]
+[ext_resource type="Texture2D" uid="uid://crn5sqf3qrj4f" path="res://World/Entities/Plants/DarkPlant/plant-dark-tentacle.png" id="3_l84mp"]
+[ext_resource type="Script" path="res://World/Entities/Properties/LightSensor.cs" id="4_ka26n"]
+[ext_resource type="Script" path="res://World/Entities/Area2DEntityReference.cs" id="5_1px5r"]
+[ext_resource type="Script" path="res://World/Entities/Properties/SimAdvanceable.cs" id="6_dxiod"]
+[ext_resource type="Script" path="res://Core/StateMachines/StateMachine.cs" id="7_867r3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dapyv"]
+shader = ExtResource("1_u8s6j")
+shader_parameter/solid_color = Vector4(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s6nge"]
+resource_local_to_scene = true
+shader = ExtResource("1_u8s6j")
+shader_parameter/solid_color = Vector4(0.74, 0, 0, 0)
+
+[sub_resource type="Animation" id="Animation_ddysv"]
+resource_name = "Destroy"
+length = 2.10001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StemSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.5, 0.7, 0.8, 0.9, 1.1, 1.3, 1.5, 1.7, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_vlg0m"]
+resource_name = "Grow-1"
+length = 1.60001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StemSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_5enwd"]
+resource_name = "Hurt"
+length = 1.00001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StemSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.5, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [28, 44, 28, 45, 28, 46]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StemSprite2D:material:shader_parameter/solid_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.4, 0.6, 0.7, 0.9),
+"transitions": PackedFloat32Array(1, 1.7411, 1, 1, 1.93187, 1),
+"update": 0,
+"values": [Vector4(0.74, 0, 0, 0), Vector4(0.74, 0, 0, 0.5), Vector4(0.74, 0, 0, 0), Vector4(0.74, 0, 0, 0), Vector4(0.74, 0, 0, 0.5), Vector4(0.74, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qs2av"]
+resource_name = "Idle"
+length = 0.60001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StemSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [44, 45, 46]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_a83go"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StemSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StemSprite2D:material:shader_parameter/solid_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector4(0.74, 0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_06o7f"]
+_data = {
+"Destroy": SubResource("Animation_ddysv"),
+"Growing-1": SubResource("Animation_vlg0m"),
+"Hurt": SubResource("Animation_5enwd"),
+"Idle": SubResource("Animation_qs2av"),
+"RESET": SubResource("Animation_a83go")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_atgqr"]
+radius = 12.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w1l70"]
+radius = 8.0
+height = 28.0
+
+[node name="Dark-Stem" type="Node2D" node_paths=PackedStringArray("LightSensor", "Animation", "Sim", "StateMachine")]
+material = SubResource("ShaderMaterial_dapyv")
+script = ExtResource("2_dxgwp")
+LightSensor = NodePath("LightSensor")
+Animation = NodePath("StemAnimationPlayer")
+Sim = NodePath("SimAdvanceable")
+StateMachine = NodePath("StateMachine")
+
+[node name="StemSprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_s6nge")
+position = Vector2(6, -1)
+texture = ExtResource("3_l84mp")
+hframes = 65
+
+[node name="StemAnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "RESET"
+libraries = {
+"": SubResource("AnimationLibrary_06o7f")
+}
+
+[node name="LightSensor" type="Node2D" parent="." node_paths=PackedStringArray("HitBox")]
+script = ExtResource("4_ka26n")
+HitBox = NodePath("StemLightSensorArea")
+
+[node name="StemLightSensorArea" type="Area2D" parent="LightSensor" node_paths=PackedStringArray("Entity") groups=["EntityProvider"]]
+script = ExtResource("5_1px5r")
+Entity = NodePath("../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LightSensor/StemLightSensorArea"]
+position = Vector2(-4, 0)
+shape = SubResource("CircleShape2D_atgqr")
+
+[node name="SimAdvanceable" type="Node" parent="."]
+script = ExtResource("6_dxiod")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("7_867r3")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-6, -1)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_w1l70")

@@ -1,0 +1,142 @@
+{ "frames": {
+   "storage_slot_eye 0.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 23, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 17 },
+    "sourceSize": { "w": 23, "h": 17 },
+    "duration": 100
+   },
+   "storage_slot_eye 1.aseprite": {
+    "frame": { "x": 23, "y": 0, "w": 23, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 17 },
+    "sourceSize": { "w": 23, "h": 17 },
+    "duration": 100
+   },
+   "storage_slot_eye 2.aseprite": {
+    "frame": { "x": 46, "y": 0, "w": 23, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 17 },
+    "sourceSize": { "w": 23, "h": 17 },
+    "duration": 100
+   },
+   "storage_slot_eye 3.aseprite": {
+    "frame": { "x": 69, "y": 0, "w": 23, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 17 },
+    "sourceSize": { "w": 23, "h": 17 },
+    "duration": 100
+   },
+   "storage_slot_eye 4.aseprite": {
+    "frame": { "x": 92, "y": 0, "w": 23, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 17 },
+    "sourceSize": { "w": 23, "h": 17 },
+    "duration": 100
+   },
+   "storage_slot_eye 5.aseprite": {
+    "frame": { "x": 115, "y": 0, "w": 23, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 17 },
+    "sourceSize": { "w": 23, "h": 17 },
+    "duration": 100
+   },
+   "storage_slot_eye 6.aseprite": {
+    "frame": { "x": 138, "y": 0, "w": 23, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 17 },
+    "sourceSize": { "w": 23, "h": 17 },
+    "duration": 100
+   },
+   "storage_slot_eye 7.aseprite": {
+    "frame": { "x": 161, "y": 0, "w": 23, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 17 },
+    "sourceSize": { "w": 23, "h": 17 },
+    "duration": 100
+   },
+   "storage_slot_eye 8.aseprite": {
+    "frame": { "x": 184, "y": 0, "w": 23, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 17 },
+    "sourceSize": { "w": 23, "h": 17 },
+    "duration": 100
+   },
+   "storage_slot_eye 9.aseprite": {
+    "frame": { "x": 207, "y": 0, "w": 23, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 17 },
+    "sourceSize": { "w": 23, "h": 17 },
+    "duration": 100
+   },
+   "storage_slot_eye 10.aseprite": {
+    "frame": { "x": 230, "y": 0, "w": 23, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 17 },
+    "sourceSize": { "w": 23, "h": 17 },
+    "duration": 500
+   },
+   "storage_slot_eye 11.aseprite": {
+    "frame": { "x": 253, "y": 0, "w": 23, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 17 },
+    "sourceSize": { "w": 23, "h": 17 },
+    "duration": 100
+   },
+   "storage_slot_eye 12.aseprite": {
+    "frame": { "x": 276, "y": 0, "w": 23, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 17 },
+    "sourceSize": { "w": 23, "h": 17 },
+    "duration": 1000
+   },
+   "storage_slot_eye 13.aseprite": {
+    "frame": { "x": 299, "y": 0, "w": 23, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 17 },
+    "sourceSize": { "w": 23, "h": 17 },
+    "duration": 100
+   },
+   "storage_slot_eye 14.aseprite": {
+    "frame": { "x": 322, "y": 0, "w": 23, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 17 },
+    "sourceSize": { "w": 23, "h": 17 },
+    "duration": 500
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.25-x64",
+  "image": "storage_slot_eye.png",
+  "format": "RGBA8888",
+  "size": { "w": 345, "h": 17 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "eye-tiles", "opacity": 255, "blendMode": "normal" },
+   { "name": "eye-socket", "opacity": 255, "blendMode": "normal" },
+   { "name": "eye", "opacity": 255, "blendMode": "normal" },
+   { "name": "eye-lids", "opacity": 255, "blendMode": "normal" },
+   { "name": "doors", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

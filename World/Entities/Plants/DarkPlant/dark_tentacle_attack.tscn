@@ -1,0 +1,740 @@
+[gd_scene load_steps=24 format=3 uid="uid://cwg841lwpsryh"]
+
+[ext_resource type="Script" path="res://World/Entities/Plants/DarkPlantTentacle.cs" id="1_pfxqv"]
+[ext_resource type="PackedScene" uid="uid://7gfmj7lcvlnf" path="res://World/Entities/Plants/DarkPlant/dark_stem.tscn" id="2_201wo"]
+[ext_resource type="Texture2D" uid="uid://crn5sqf3qrj4f" path="res://World/Entities/Plants/DarkPlant/plant-dark-tentacle.png" id="2_lca0q"]
+[ext_resource type="Script" path="res://World/Entities/Animation/PolygonCollisionSequencePlayer.cs" id="3_jm6w1"]
+[ext_resource type="Script" path="res://World/Entities/DeathZone.cs" id="4_cfcko"]
+[ext_resource type="Script" path="res://World/Entities/Properties/LightSensor.cs" id="5_il4xe"]
+[ext_resource type="Script" path="res://World/Entities/Area2DEntityReference.cs" id="6_krhqp"]
+[ext_resource type="Script" path="res://World/Entities/Properties/SimAdvanceable.cs" id="7_8gh6y"]
+[ext_resource type="Script" path="res://Core/StateMachines/StateMachine.cs" id="8_oe1kj"]
+
+[sub_resource type="Animation" id="Animation_rg15r"]
+resource_name = "Idle"
+length = 0.60001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TenticleSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SideAttackArea2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_lkioi"]
+resource_name = "Pap-East-End"
+length = 0.80001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TenticleSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [56, 55, 52, 51, 50, 49, 48, 47]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TenticleSprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TenticleSprite2D:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SideAttackArea2D:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SideAttackArea2D/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_edwnc"]
+resource_name = "Pap-East-Loop"
+length = 1.40001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TenticleSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [57, 58, 59, 60, 61, 62, 63]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TenticleSprite2D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TenticleSprite2D:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SideAttackArea2D/CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(35, -1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SideAttackArea2D:monitoring")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SideAttackArea2D/CollisionShape2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_evhmq"]
+resource_name = "Pap-Start"
+length = 1.10001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TenticleSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [47, 48, 49, 50, 51, 52, 53, 54, 55, 56]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TenticleSprite2D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TenticleSprite2D:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SideAttackArea2D:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_mhxio"]
+resource_name = "Pap-West-End"
+length = 0.80001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TenticleSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [56, 55, 52, 51, 50, 49, 48, 47]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TenticleSprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-10, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TenticleSprite2D:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SideAttackArea2D/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_q4di4"]
+resource_name = "Pap-West-Loop"
+length = 1.40001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TenticleSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [57, 58, 59, 60, 61, 62, 63]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TenticleSprite2D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TenticleSprite2D:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-10, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SideAttackArea2D/CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-32, -1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SideAttackArea2D/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_mr7f5"]
+resource_name = "Pap-West-Start"
+length = 1.10001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TenticleSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [47, 48, 49, 50, 51, 52, 53, 54, 55, 56]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TenticleSprite2D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TenticleSprite2D:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-10, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SideAttackArea2D:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SideAttackArea2D/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_ht73d"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TenticleSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PolygonCollisionSequencePlayer:Frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [-1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TenticleSprite2D:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("TenticleSprite2D:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SwipeArea2D:monitoring")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SideAttackArea2D:monitoring")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SideAttackArea2D/CollisionShape2D:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(35, -1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("SideAttackArea2D/CollisionShape2D:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_f30v6"]
+resource_name = "Swipe-End"
+length = 0.60001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TenticleSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 4, 3, 2, 1, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SwipeArea2D:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_58ood"]
+resource_name = "Swipe-Loop"
+length = 1.10001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TenticleSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PolygonCollisionSequencePlayer:Frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SwipeArea2D:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_en0q7"]
+resource_name = "Idle"
+length = 0.50001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TenticleSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SwipeArea2D:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aem2o"]
+_data = {
+"Idle": SubResource("Animation_rg15r"),
+"Pap-East-End": SubResource("Animation_lkioi"),
+"Pap-East-Loop": SubResource("Animation_edwnc"),
+"Pap-East-Start": SubResource("Animation_evhmq"),
+"Pap-West-End": SubResource("Animation_mhxio"),
+"Pap-West-Loop": SubResource("Animation_q4di4"),
+"Pap-West-Start": SubResource("Animation_mr7f5"),
+"RESET": SubResource("Animation_ht73d"),
+"Swipe-End": SubResource("Animation_f30v6"),
+"Swipe-Loop": SubResource("Animation_58ood"),
+"Swipe-Start": SubResource("Animation_en0q7")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hskls"]
+radius = 14.375
+height = 78.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oko3s"]
+size = Vector2(61, 9)
+
+[node name="Dark-Tentacle" type="Node2D" node_paths=PackedStringArray("LightSensor", "Sim", "Animation", "StateMachine", "PlantStem")]
+script = ExtResource("1_pfxqv")
+LightSensor = NodePath("LightSensor")
+Sim = NodePath("SimAdvanceable")
+Animation = NodePath("TentacleAnimationPlayer")
+StateMachine = NodePath("StateMachine")
+PlantStem = NodePath("Dark-Stem")
+
+[node name="Dark-Stem" parent="." instance=ExtResource("2_201wo")]
+
+[node name="TenticleSprite2D" type="Sprite2D" parent="."]
+position = Vector2(6, -1)
+texture = ExtResource("2_lca0q")
+hframes = 65
+
+[node name="TentacleAnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Idle"
+libraries = {
+"": SubResource("AnimationLibrary_aem2o")
+}
+
+[node name="PolygonCollisionSequencePlayer" type="Node2D" parent="." node_paths=PackedStringArray("PolygonList")]
+script = ExtResource("3_jm6w1")
+PolygonList = [NodePath("../SwipeArea2D/CollisionPolygon2D-Frame-1"), NodePath("../SwipeArea2D/CollisionPolygon2D-Frame-2"), NodePath("../SwipeArea2D/CollisionPolygon2D-Frame-3"), NodePath("../SwipeArea2D/CollisionPolygon2D-Frame-4"), NodePath("../SwipeArea2D/CollisionPolygon2D-Frame-5"), NodePath("../SwipeArea2D/CollisionPolygon2D-Frame-6"), NodePath("../SwipeArea2D/CollisionPolygon2D-Frame-7"), NodePath("../SwipeArea2D/CollisionPolygon2D-Frame-8"), NodePath("../SwipeArea2D/CollisionPolygon2D-Frame-9"), NodePath("../SwipeArea2D/CollisionPolygon2D-Frame-10"), NodePath("../SwipeArea2D/CollisionPolygon2D-Frame-11")]
+
+[node name="SwipeArea2D" type="Area2D" parent="."]
+monitoring = false
+script = ExtResource("4_cfcko")
+
+[node name="CollisionPolygon2D-Frame-1" type="CollisionPolygon2D" parent="SwipeArea2D"]
+polygon = PackedVector2Array(5, -6, -4, -5, -16, 5, -23, 17, -22, 30, -14, 39, -2, 41, 18, 36, 34, 27, 44, 26, 54, 32, 58, 32, 58, 26, 48, 20, 38, 20, 27, 24, 8, 31, -2, 30, -7, 24, -3, 15, 4, 8, 6, 2)
+
+[node name="CollisionPolygon2D-Frame-2" type="CollisionPolygon2D" parent="SwipeArea2D"]
+visible = false
+polygon = PackedVector2Array(3, -6, -7, -3, -21, 4, -35, 15, -40, 26, -40, 37, -27, 44, -2, 44, 22, 38, 30, 30, 26, 29, 12, 35, -1, 38, -7, 39, -18, 39, -25, 34, -25, 28, -18, 22, -4, 16, 3, 11, 6, 3, 6, -4)
+disabled = true
+
+[node name="CollisionPolygon2D-Frame-3" type="CollisionPolygon2D" parent="SwipeArea2D"]
+visible = false
+polygon = PackedVector2Array(3, -7, -10, -2, -22, 7, -30, 15, -49, 19, -59, 20, -66, 29, -65, 37, -59, 41, -49, 42, -40, 41, -37, 37, -45, 37, -49, 39, -57, 37, -60, 33, -57, 29, -49, 28, -29, 27, -9, 20, 4, 8, 4, 0)
+disabled = true
+
+[node name="CollisionPolygon2D-Frame-4" type="CollisionPolygon2D" parent="SwipeArea2D"]
+visible = false
+polygon = PackedVector2Array(-3, -8, -9, -2, -15, 9, -22, 14, -40, 20, -55, 21, -69, 21, -78, 21, -86, 27, -90, 37, -86, 36, -81, 30, -69, 30, -40, 27, -15, 23, 0, 14, 4, 9, 6, -3, 2, -8)
+disabled = true
+
+[node name="CollisionPolygon2D-Frame-5" type="CollisionPolygon2D" parent="SwipeArea2D"]
+visible = false
+polygon = PackedVector2Array(-2, -5, -12, -1, -12, 6, -6, 12, 0, 17, -8, 22, -24, 22, -50, 24, -66, 27, -68, 30, -39, 30, -29, 32, -20, 34, -8, 34, 2, 30, 12, 21, 11, 10, 3, -2)
+disabled = true
+
+[node name="CollisionPolygon2D-Frame-6" type="CollisionPolygon2D" parent="SwipeArea2D"]
+visible = false
+polygon = PackedVector2Array(-5, -3, 1, -4, 12, 5, 29, 18, 32, 24, 27, 30, 13, 37, 0, 39, -12, 37, -25, 35, -37, 35, -40, 33, -37, 31, -28, 30, 2, 30, 10, 27, 9, 22, 2, 17, -6, 13, -11, 7, -11, 0)
+disabled = true
+
+[node name="CollisionPolygon2D-Frame-7" type="CollisionPolygon2D" parent="SwipeArea2D"]
+visible = false
+polygon = PackedVector2Array(-7, -2, 3, -5, 13, -1, 22, 5, 30, 7, 38, 8, 49, 13, 54, 20, 54, 26, 50, 32, 40, 38, 29, 41, 17, 41, 12, 39, 24, 38, 35, 35, 43, 29, 42, 23, 35, 19, 23, 19, 13, 16, 1, 12, -7, 5)
+disabled = true
+
+[node name="CollisionPolygon2D-Frame-8" type="CollisionPolygon2D" parent="SwipeArea2D"]
+visible = false
+polygon = PackedVector2Array(-4, -3, 3, -6, 15, -1, 27, 7, 45, 9, 63, 13, 74, 18, 78, 25, 74, 34, 67, 37, 55, 37, 68, 31, 70, 24, 60, 19, 44, 17, 34, 18, 13, 13, 0, 8, -4, 1)
+disabled = true
+
+[node name="CollisionPolygon2D-Frame-9" type="CollisionPolygon2D" parent="SwipeArea2D"]
+visible = false
+polygon = PackedVector2Array(-5, 0, -3, -6, 3, -7, 12, -3, 25, 8, 41, 13, 81, 15, 94, 21, 100, 28, 102, 35, 98, 32, 88, 25, 77, 24, 46, 23, 31, 21, 15, 16, 4, 11, 2, 8, -3, 7)
+disabled = true
+
+[node name="CollisionPolygon2D-Frame-10" type="CollisionPolygon2D" parent="SwipeArea2D"]
+visible = false
+polygon = PackedVector2Array(0, -7, -6, -7, -13, 1, -16, 7, -16, 15, -9, 22, 4, 26, 15, 28, 29, 25, 43, 23, 57, 23, 67, 27, 70, 30, 71, 27, 65, 18, 58, 16, 36, 16, 17, 18, 10, 17, 6, 13, 8, 6, 11, 0, 7, -5)
+disabled = true
+
+[node name="CollisionPolygon2D-Frame-11" type="CollisionPolygon2D" parent="SwipeArea2D"]
+visible = false
+polygon = PackedVector2Array(-3, -5, -10, -2, -11, 7, -9, 15, -3, 28, 5, 34, 14, 36, 21, 36, 35, 34, 46, 31, 56, 31, 64, 31, 70, 35, 74, 34, 68, 27, 59, 22, 46, 23, 32, 26, 19, 27, 12, 26, 10, 17, 12, 4, 9, -4)
+disabled = true
+
+[node name="LightSensor" type="Node2D" parent="." node_paths=PackedStringArray("HitBox")]
+script = ExtResource("5_il4xe")
+HitBox = NodePath("LightSensorArea2D")
+
+[node name="LightSensorArea2D" type="Area2D" parent="LightSensor" node_paths=PackedStringArray("Entity") groups=["EntityProvider"]]
+script = ExtResource("6_krhqp")
+Entity = NodePath("../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LightSensor/LightSensorArea2D"]
+position = Vector2(-3, 2)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_hskls")
+debug_color = Color(0.67451, 0.541176, 0.309804, 0.419608)
+
+[node name="SimAdvanceable" type="Node" parent="."]
+script = ExtResource("7_8gh6y")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("8_oe1kj")
+Logging = true
+
+[node name="SideAttackArea2D" type="Area2D" parent="."]
+monitoring = false
+script = ExtResource("4_cfcko")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SideAttackArea2D"]
+position = Vector2(35, -1)
+shape = SubResource("RectangleShape2D_oko3s")
+disabled = true

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="PlantingMapData" load_steps=9 format=3 uid="uid://coadux14thd1m"]
+
+[ext_resource type="Resource" uid="uid://dlltwn1qhvooq" path="res://Collectable/Types/collectable_eyes.tres" id="1_6fiue"]
+[ext_resource type="Script" path="res://World/Entities/Plants/Planting/PlantingMapData.cs" id="1_ym2i0"]
+[ext_resource type="PackedScene" uid="uid://djq6xj2shs6wk" path="res://World/Entities/Plants/DarkPlant/dark_eye.tscn" id="2_rqnur"]
+[ext_resource type="Script" path="res://World/Entities/Plants/Planting/PlantingMapEntryData.cs" id="3_stwdc"]
+[ext_resource type="Resource" uid="uid://kb7irsn4b1tn" path="res://Collectable/Types/collectable_flowers.tres" id="4_5rlbb"]
+[ext_resource type="PackedScene" uid="uid://bb1sfvq8h1ymh" path="res://World/Entities/Plants/LightPlant/plant_light_flower.tscn" id="5_mnqj1"]
+
+[sub_resource type="Resource" id="Resource_2dnyn"]
+script = ExtResource("3_stwdc")
+Collectable = ExtResource("1_6fiue")
+Scene = ExtResource("2_rqnur")
+
+[sub_resource type="Resource" id="Resource_neoee"]
+script = ExtResource("3_stwdc")
+Collectable = ExtResource("4_5rlbb")
+Scene = ExtResource("5_mnqj1")
+
+[resource]
+script = ExtResource("1_ym2i0")
+Items = Array[Object]([SubResource("Resource_2dnyn"), SubResource("Resource_neoee")])
