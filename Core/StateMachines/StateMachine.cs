@@ -76,5 +76,11 @@ namespace SpookyBotanyGame.Core.StateMachines
             _updatableState?.Process(delta);
             base._Process(delta);
         }
+
+        public void Destroy()
+        {
+            _currentState = null;
+            _updatableState = null;
+        }
     }
 }

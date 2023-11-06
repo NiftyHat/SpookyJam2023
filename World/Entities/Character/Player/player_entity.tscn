@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://n8gglyvki7dw"]
+[gd_scene load_steps=24 format=3 uid="uid://n8gglyvki7dw"]
 
 [ext_resource type="Script" path="res://World/Entities/PlayerEntity.cs" id="1_8x44m"]
 [ext_resource type="Script" path="res://World/Entities/Collision/EntityCharacterBody2D.cs" id="1_mqoqk"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://World/Entities/Properties/SimController.cs" id="7_i2d21"]
 [ext_resource type="PackedScene" uid="uid://cl3cgkfn6rgh3" path="res://World/Tools/Lantern/lantern_tool.tscn" id="8_demfj"]
 [ext_resource type="Script" path="res://World/Entities/InteractionInputDirectional.cs" id="10_jpd0y"]
+[ext_resource type="AudioStream" uid="uid://b2k73m3anun1k" path="res://Audio/Effects/Footsteps/DIRT - Hard Walk Short 6.wav" id="12_x4sqx"]
+[ext_resource type="AudioStream" uid="uid://csfh78sjnulik" path="res://Audio/Effects/Footsteps/DIRT - Hard Walk Short 3.wav" id="13_lqhdn"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pcdrs"]
 radius = 8.0
@@ -29,6 +31,30 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(),
 "update": 0,
 "values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FoostepAudioRight:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FoostepAudioLeft:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_kt3kl"]
@@ -110,6 +136,30 @@ tracks/0/keys = {
 "update": 0,
 "values": [14, 15, 16, 17, 18, 19]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FoostepAudioRight:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FoostepAudioLeft:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_5qaux"]
 resource_name = "walk_south"
@@ -127,6 +177,30 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [8, 9, 10, 11, 12, 13]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FoostepAudioLeft:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.166667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FoostepAudioRight:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_n0au4"]
@@ -188,7 +262,7 @@ position = Vector2(0, -4)
 position = Vector2(0, -16)
 texture = ExtResource("6_3j257")
 hframes = 38
-frame = 29
+frame = 10
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle_south"
@@ -215,3 +289,13 @@ Sprite = NodePath("../PlayerSprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -48)
+
+[node name="FoostepAudioRight" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_x4sqx")
+volume_db = -30.0
+pitch_scale = 0.72
+
+[node name="FoostepAudioLeft" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_lqhdn")
+volume_db = -30.0
+pitch_scale = 0.6

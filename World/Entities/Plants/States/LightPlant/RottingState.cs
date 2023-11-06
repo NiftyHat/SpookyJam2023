@@ -16,14 +16,18 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
 
         protected override void Exit(State state = null)
         {
-            _plant.OnDayTick -= HandleDayAdvance;
+            if (_plant != null)
+            {
+                _plant.OnDayTick -= HandleDayAdvance;
+            }
             base.Exit(state);
         }
 
         private void HandleDayAdvance(int amount)
         {
             _plant?.Destroy();
-            //Exit(null);
+            _plant = null;
+            Exit(null);
         }
     }
 }
