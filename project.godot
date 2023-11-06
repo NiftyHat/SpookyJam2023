@@ -20,6 +20,10 @@ config/icon="res://windows-app-icon.png"
 
 SimSystem="*res://World/Systems/sim_system.tscn"
 
+[autoload]
+
+SimSystem="*res://World/Systems/sim_system.tscn"
+
 [display]
 
 window/size/viewport_width=1280
