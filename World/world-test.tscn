@@ -32,7 +32,7 @@
 [ext_resource type="Script" path="res://World/Entities/EntityDetectionZone.cs" id="23_2x3ik"]
 [ext_resource type="Script" path="res://World/SpawnPoint.cs" id="23_ky4pj"]
 [ext_resource type="AudioStream" uid="uid://do8pcslidpgqt" path="res://Audio/Music/Mysterious_Ambience_song21.mp3" id="27_o03ef"]
-[ext_resource type="AudioStream" uid="uid://dswka7trt3s27" path="res://Audio/Effects/421826__kinoton__dark-cave-drone.wav" id="31_43arb"]
+[ext_resource type="AudioStream" uid="uid://xs5ydcrapsqu" path="res://Audio/Effects/cave-drone-loop.ogg" id="33_uablb"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_nemjj"]
 
@@ -125,7 +125,7 @@ color = Color(0, 0, 0, 1)
 [node name="GameMap" parent="WorldRoot" instance=ExtResource("1_sadh0")]
 
 [node name="PlayerEntity" parent="WorldRoot" groups=["EntityProvider"] instance=ExtResource("2_3tyht")]
-position = Vector2(1985, 1153)
+position = Vector2(3441, 2015)
 
 [node name="Camera2D" type="Camera2D" parent="WorldRoot/PlayerEntity"]
 position = Vector2(-1, -1)
@@ -181,7 +181,7 @@ stream = ExtResource("8_p53t0")
 volume_db = -20.0
 pitch_scale = 0.9
 autoplay = true
-max_distance = 800.0
+max_distance = 700.0
 attenuation = 0.594603
 
 [node name="TutorialArea" type="Node2D" parent="WorldRoot"]
@@ -610,7 +610,7 @@ offset_bottom = -9.0
 stream = ExtResource("18_6q13d")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="UIRoot"]
-stream = ExtResource("31_43arb")
+stream = ExtResource("33_uablb")
 volume_db = -20.0
 autoplay = true
 
