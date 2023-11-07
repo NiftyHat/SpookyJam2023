@@ -14,7 +14,6 @@ namespace SpookyBotanyGame.World.Entities.Plants
     public partial class LightPlant : GameEntity, IPlantable
     {
         [Export] public LightSensor LightSensor { get; set; }
-        
         [Export(PropertyHint.Range, "0.05,2,0.05,or_greater")] public float LightRequired { get; set; }
         [Export] public SimAdvanceable Sim { get; set; }
         [Export] public AnimationPlayer Animation { get; set; }
@@ -26,9 +25,12 @@ namespace SpookyBotanyGame.World.Entities.Plants
         [Export] public Interactable Interactable { get; set; }
         [Export] public int InitialGrowthState { get; set; } = 1;
 
+        private bool _isMaxGrowthState;
+
         public RandomNumberGenerator _rng = new RandomNumberGenerator();
         public event SimSystem.OnDaysTicked OnDayTick;
         public event Action OnDestroyed;
+        public event Action<bool, IPlantable> OnMaxGrowthStateChanged;
 
         public override void _Ready()
         {
@@ -40,6 +42,15 @@ namespace SpookyBotanyGame.World.Entities.Plants
         private void HandleDayTick(int daycount)
         {
             OnDayTick?.Invoke(daycount);
+        }
+
+        public void SetMaxGrowthState(bool state)
+        {
+            if (_isMaxGrowthState != state)
+            {
+                _isMaxGrowthState = state;
+                OnMaxGrowthStateChanged?.Invoke(_isMaxGrowthState, this);
+            }
         }
 
         public void Destroy()

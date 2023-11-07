@@ -63,7 +63,7 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
             _plant.Animation.Play(_animationName);
             _plant.Animation.Advance(0);
             _plant.Animation.Pause();
-            
+            _plant.SetMaxGrowthState(false);
         }
 
         private void HandleAnimationFinish(StringName animName)
@@ -130,6 +130,7 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
         {
             _plant.Animation.Play(_animationName);
             _plant.Light.Energy = 0.2f;
+            _plant.SetMaxGrowthState(true);
         }
 
         public void Process(double delta)
@@ -147,7 +148,7 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
                     }
                     _lightThisFrame = 0;
                 }
-            }
+            } 
         }
         
         private void HandleLightApply(LightEmissionZone lightEmissionZone, float lightPower)

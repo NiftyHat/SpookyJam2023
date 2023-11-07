@@ -8,10 +8,10 @@ namespace SpookyBotanyGame.World.Entities.Properties
         public delegate bool InteractionTriggered(GameEntity other, GameEntity self);
         [Export] private InteractionHandler Handler { get; set; }
 
-        private bool _isTargeted;
+        private GameEntity _targetingEntity;
         public event InteractionTriggered OnInteractionTriggered;
         
-        public Func<GameEntity, bool> _canInteractFilter;
+        public Func<GameEntity, bool> CanInteractFilter;
         
         public override void _Ready()
         {
@@ -25,15 +25,15 @@ namespace SpookyBotanyGame.World.Entities.Properties
             UpdateTargeted();
         }
 
-        public void SetTargeted(bool isTargeted)
+        public void SetTargeted(GameEntity entity)
         {
-            _isTargeted = isTargeted;
+            _targetingEntity = entity;
             UpdateTargeted();
         }
 
         private void UpdateTargeted()
         {
-            if (_isTargeted && IsEnabled)
+            if (IsEnabled && _targetingEntity != null && !IsInteractionFiltered(_targetingEntity))
             {
                 Handler.OutlineShaderShow();
             }
@@ -41,6 +41,15 @@ namespace SpookyBotanyGame.World.Entities.Properties
             {
                 Handler.OutlineShaderHide();
             }
+        }
+
+        public bool IsInteractionFiltered(GameEntity gameEntity)
+        {
+            if (CanInteractFilter == null)
+            {
+                return false;
+            }
+            return !CanInteractFilter(gameEntity);
         }
 
         public bool DoInteraction(GameEntity interactingEntity)
@@ -53,7 +62,7 @@ namespace SpookyBotanyGame.World.Entities.Properties
             {
                 return false;
             }
-            if (_canInteractFilter != null && !_canInteractFilter(interactingEntity))
+            if (IsInteractionFiltered(interactingEntity))
             {
                 return false;
             }

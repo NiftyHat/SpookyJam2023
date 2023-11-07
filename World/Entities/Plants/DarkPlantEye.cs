@@ -41,6 +41,7 @@ public partial class DarkPlantEye : GameEntity, IPlantable
 
     public event SimSystem.OnDaysTicked OnDayTick;
     public event Action OnDestroyed;
+    public event Action<bool, IPlantable> OnMaxGrowthStateChanged;
 
     public override void _Ready()
     {
