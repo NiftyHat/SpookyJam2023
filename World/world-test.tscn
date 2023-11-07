@@ -120,6 +120,7 @@ texture = SubResource("CanvasTexture_nemjj")
 y_sort_enabled = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="WorldRoot"]
+visible = false
 color = Color(0, 0, 0, 1)
 
 [node name="GameMap" parent="WorldRoot" instance=ExtResource("1_sadh0")]
@@ -205,6 +206,9 @@ position = Vector2(2176, 1568)
 position = Vector2(2577, 1585)
 OutputAmount = 5
 InitialGrowthState = 4
+
+[node name="Tillable-Spot3" parent="WorldRoot/TutorialArea" instance=ExtResource("8_meodr")]
+position = Vector2(2816, 1888)
 
 [node name="Tutorial-Pictograph3-Move" type="Node2D" parent="WorldRoot/TutorialArea"]
 position = Vector2(3440, 1920)
@@ -613,9 +617,6 @@ stream = ExtResource("18_6q13d")
 stream = ExtResource("33_uablb")
 volume_db = -20.0
 autoplay = true
-
-[node name="Tillable-Spot" parent="." instance=ExtResource("8_meodr")]
-position = Vector2(2817, 1889)
 
 [node name="Dark-Tentacle" parent="." instance=ExtResource("13_tws6j")]
 position = Vector2(1745, 593)
