@@ -24,6 +24,8 @@ namespace SpookyBotanyGame.World.Entities.Plants
         [Export] public EffectsLightPlant Effects { get; set; }
         [Export] public Interactable Interactable { get; set; }
         [Export] public int InitialGrowthState { get; set; } = 1;
+        
+        [Export] public GpuParticles2D GrowParticles { get; set; }
 
         private bool _isMaxGrowthState;
 

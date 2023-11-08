@@ -73,6 +73,10 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
                 if (!TryGetProgressAnimation("Growing", _progress + 1, _plant.Animation, out string animationName))
                 {
                     Exit(new HarvestState(_plant, _plant.OutputAmount, _plant.Output));
+                    if (_plant.GrowParticles != null)
+                    {
+                        _plant.GrowParticles.Emitting = true;
+                    }
                 }
             }
         }

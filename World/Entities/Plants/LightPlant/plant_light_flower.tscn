@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bb1sfvq8h1ymh"]
+[gd_scene load_steps=26 format=3 uid="uid://bb1sfvq8h1ymh"]
 
 [ext_resource type="Script" path="res://World/Entities/Plants/LightPlant.cs" id="1_7ahoy"]
 [ext_resource type="Resource" uid="uid://kb7irsn4b1tn" path="res://Collectable/Types/collectable_flowers.tres" id="2_3wop4"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://bwk72256yuylr" path="res://World/Lights/light.png" id="6_q77r2"]
 [ext_resource type="Script" path="res://Core/StateMachines/StateMachine.cs" id="9_7ysh8"]
 [ext_resource type="Script" path="res://World/Entities/Effects/EffectsLightPlant.cs" id="10_31rgv"]
+[ext_resource type="Texture2D" uid="uid://dwxw3qlgy0gxd" path="res://Effects/Particles/particle-small-glow-orb.png" id="12_v4v3u"]
+[ext_resource type="AudioStream" uid="uid://bv8vk4qi6ammf" path="res://Audio/Effects/Plants/light-plant-grow-short.ogg" id="13_cx6br"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hlvoq"]
 size = Vector2(25, 24)
@@ -29,6 +31,42 @@ tracks/0/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GrowingSoundAudioStreamPlayer2D:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GrowingSoundAudioStreamPlayer2D:volume_db")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-16.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GrowingSoundAudioStreamPlayer2D:pitch_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.8]
+}
 
 [sub_resource type="Animation" id="Animation_h414n"]
 resource_name = "grow-2"
@@ -44,6 +82,42 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [5, 6, 7, 8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GrowingSoundAudioStreamPlayer2D:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GrowingSoundAudioStreamPlayer2D:pitch_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GrowingSoundAudioStreamPlayer2D:volume_db")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-16.0]
 }
 
 [sub_resource type="Animation" id="Animation_jlb3i"]
@@ -61,6 +135,42 @@ tracks/0/keys = {
 "update": 1,
 "values": [8, 9, 10, 11]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GrowingSoundAudioStreamPlayer2D:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GrowingSoundAudioStreamPlayer2D:volume_db")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-10.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GrowingSoundAudioStreamPlayer2D:pitch_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.4]
+}
 
 [sub_resource type="Animation" id="Animation_1hsxl"]
 resource_name = "Growing-4"
@@ -75,6 +185,42 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [11, 12, 13, 14]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GrowingSoundAudioStreamPlayer2D:pitch_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GrowingSoundAudioStreamPlayer2D:volume_db")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-8.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GrowingSoundAudioStreamPlayer2D:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_3b41a"]
@@ -106,6 +252,42 @@ tracks/0/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GrowingSoundAudioStreamPlayer2D:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GrowingSoundAudioStreamPlayer2D:pitch_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GrowingSoundAudioStreamPlayer2D:volume_db")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-16.0]
+}
 
 [sub_resource type="Animation" id="Animation_x1w2e"]
 resource_name = "dying"
@@ -133,7 +315,27 @@ _data = {
 "Rotting": SubResource("Animation_x1w2e")
 }
 
-[node name="Plant-LightFlower" type="Node2D" node_paths=PackedStringArray("LightSensor", "Sim", "Animation", "StateMachine", "Light", "Effects", "Interactable")]
+[sub_resource type="Gradient" id="Gradient_us1wm"]
+offsets = PackedFloat32Array(0, 0.0958084, 0.329341, 0.694611, 1)
+colors = PackedColorArray(0.133333, 1, 1, 0, 0.844852, 0.872945, 1, 0.4, 0.133333, 1, 1, 1, 0.113725, 0.870588, 0.870588, 0.435294, 0, 0.415686, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3y60t"]
+gradient = SubResource("Gradient_us1wm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wast2"]
+lifetime_randomness = 0.5
+emission_shape = 1
+emission_sphere_radius = 18.0
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, -1, 0)
+initial_velocity_min = -1.0
+initial_velocity_max = 1.0
+orbit_velocity_min = -0.1
+orbit_velocity_max = 0.1
+color_ramp = SubResource("GradientTexture1D_3y60t")
+
+[node name="Plant-LightFlower" type="Node2D" node_paths=PackedStringArray("LightSensor", "Sim", "Animation", "StateMachine", "Light", "Effects", "Interactable", "GrowParticles")]
 position = Vector2(332, 150)
 script = ExtResource("1_7ahoy")
 LightSensor = NodePath("LightSensor")
@@ -146,6 +348,7 @@ Output = ExtResource("2_3wop4")
 OutputAmount = 4
 Effects = NodePath("EffectsLightPlant")
 Interactable = NodePath("Interactable")
+GrowParticles = NodePath("GrowthMaxGPUParticles2D")
 
 [node name="InteractionArea2D" type="Area2D" parent="." node_paths=PackedStringArray("Entity") groups=["EntityProvider"]]
 position = Vector2(2, -6)
@@ -196,3 +399,19 @@ energy = 0.2
 range_item_cull_mask = 3
 texture = ExtResource("6_q77r2")
 texture_scale = 0.3
+
+[node name="GrowthMaxGPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(0, -10)
+emitting = false
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_wast2")
+texture = ExtResource("12_v4v3u")
+lifetime = 9.0
+one_shot = true
+explosiveness = 0.4
+
+[node name="GrowingSoundAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_cx6br")
+volume_db = -16.0
+pitch_scale = 1.5
+max_distance = 200.0
