@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://djq6xj2shs6wk"]
+[gd_scene load_steps=37 format=3 uid="uid://djq6xj2shs6wk"]
 
 [ext_resource type="Script" path="res://World/Entities/Plants/DarkPlantEye.cs" id="1_xwfs4"]
 [ext_resource type="Resource" uid="uid://dlltwn1qhvooq" path="res://Collectable/Types/collectable_eyes.tres" id="2_mbyk5"]
@@ -13,10 +13,39 @@
 [ext_resource type="Script" path="res://Core/StateMachines/StateMachine.cs" id="10_ackqy"]
 [ext_resource type="Script" path="res://World/Entities/EntityDetectionZone.cs" id="11_wcsjl"]
 [ext_resource type="Script" path="res://World/Entities/Area2DEntityReference.cs" id="12_4bvcw"]
+[ext_resource type="AudioStream" uid="uid://d2hf2no8dnlvp" path="res://Audio/Effects/Plants/plant-hurt-placeholder.ogg" id="14_sys1i"]
+[ext_resource type="AudioStream" uid="uid://cbq1gsdffb36x" path="res://Audio/Effects/Plants/eye-death-scream.ogg" id="15_0n2pk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yhx4e"]
 shader = ExtResource("3_cwcb6")
 shader_parameter/solid_color = Vector4(255, 0, 0, 0)
+
+[sub_resource type="Animation" id="Animation_jsuny"]
+resource_name = "Destroyed\\"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [32, 33, 34, 35, 36, 37, 38, 39]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DeathStreamPlayer2D:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_wilaf"]
 resource_name = "Grow"
@@ -48,6 +77,46 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19]
+}
+
+[sub_resource type="Animation" id="Animation_apk80"]
+resource_name = "Hurt"
+length = 0.80001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 11, 9, 8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/solid_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector4(255, 0, 0, 0), Vector4(1, 0, 0, 0.6), Vector4(1, 0, 0, 0), Vector4(1, 0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HurtAudioStreamPlayer2D:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_yne1h"]
@@ -229,48 +298,29 @@ tracks/1/keys = {
 "update": 1,
 "values": [Vector4(255, 0, 0, 0)]
 }
-
-[sub_resource type="Animation" id="Animation_jsuny"]
-resource_name = "Destroyed\\"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HurtAudioStreamPlayer2D:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [32, 33, 34, 35, 36, 37, 38, 39]
+"values": [false]
 }
-
-[sub_resource type="Animation" id="Animation_apk80"]
-resource_name = "Hurt"
-length = 0.80001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.3, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DeathStreamPlayer2D:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [8, 11, 9, 8]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:material:shader_parameter/solid_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [Vector4(255, 0, 0, 0), Vector4(1, 0, 0, 0.6), Vector4(1, 0, 0, 0), Vector4(1, 0, 0, 0)]
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w0abv"]
@@ -291,7 +341,7 @@ _data = {
 "RESET": SubResource("Animation_rpo80")
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ukm2l"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qvy0j"]
 resource_local_to_scene = true
 shader = ExtResource("7_ykawc")
 shader_parameter/color = Color(1, 1, 1, 1)
@@ -344,7 +394,7 @@ Handler = NodePath("InteractionHandler")
 
 [node name="InteractionHandler" parent="Interactable" node_paths=PackedStringArray("Sprite") instance=ExtResource("6_1i5c1")]
 Sprite = NodePath("../../Sprite2D")
-InteractionMaterial = SubResource("ShaderMaterial_ukm2l")
+InteractionMaterial = SubResource("ShaderMaterial_qvy0j")
 
 [node name="SimAdvanceable" type="Node" parent="."]
 script = ExtResource("8_0lvtj")
@@ -388,3 +438,12 @@ Entity = NodePath("..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea2D"]
 position = Vector2(-2, 9)
 shape = SubResource("RectangleShape2D_xb1dr")
+
+[node name="HurtAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_sys1i")
+max_distance = 150.0
+
+[node name="DeathStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_0n2pk")
+pitch_scale = 1.3
+max_distance = 150.0
