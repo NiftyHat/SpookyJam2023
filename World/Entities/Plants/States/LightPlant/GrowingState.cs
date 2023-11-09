@@ -49,6 +49,8 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
             _plant.LightSensor.OnExit -= HandleLightExit;
             _growthEnergy.OnMax -= HandleMaxEnergy;
             _plant.Sim.OnDayTick -= HandleDayAdvance;
+            _plant.LightLineEffect.SetTarget(null);
+            _plant.LightLineEffect.SetEnabled(false);
             if (_hasAnimationHandler)
             {
                 _plant.Animation.AnimationFinished -= HandleAnimationFinish;
@@ -135,22 +137,32 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
             _plant.Animation.Play(_animationName);
             _plant.Light.Energy = 0.2f;
             _plant.SetMaxGrowthState(true);
+            _plant.LightLineEffect.SetTarget(null);
+            _plant.LightLineEffect.SetEnabled(false);
         }
 
         public void Process(double delta)
         {
             if (!_growthEnergy.IsMax)
             {
-                if (_lightThisFrame > 0)
+                if (_lightThisFrame > 0.1f)
                 {
                     _growthEnergy.Value += _lightThisFrame * (float)delta;
                     if (_plant.Effects != null)
                     {
-                        
                         _plant.Effects.SetScale(Core.Range.Percentage(_growthEnergy));
                         _plant.Effects.SetIsLit(true);
                     }
                     _lightThisFrame = 0;
+                    _plant.LightLineEffect.SetEnabled(true);
+                }
+                else
+                {
+                    if (_plant.LightLineEffect.IsEnabled)
+                    {
+                        _plant.LightLineEffect.SetEnabled(false);
+                        _plant.LightLineEffect.SetTarget(null);
+                    }
                 }
             } 
         }
@@ -165,13 +177,17 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
         
         private void HandleLightEnter(LightEmissionZone lightEmissionZone, float lightPower)
         {
-            _plant.Effects?.SetIsLit(true);
+            if (!_growthEnergy.IsMax)
+            {
+                _plant.Effects?.SetIsLit(true);
+                _plant.LightLineEffect.SetTarget(lightEmissionZone);
+            }
         }
 
         private void HandleLightExit(LightEmissionZone lightEmissionZone, float lightPower)
         {
             _plant.Effects?.SetIsLit(false);
+            _plant.LightLineEffect.SetTarget(null);
         }
-
     }
 }
