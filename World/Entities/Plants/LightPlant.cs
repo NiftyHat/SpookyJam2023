@@ -27,7 +27,9 @@ namespace SpookyBotanyGame.World.Entities.Plants
         
         [Export] public GpuParticles2D GrowParticles { get; set; }
         
-        [Export] public PathLineRenderer LightLineEffect { get; set; }
+        //[Export] public PathLineRenderer LightLineEffect { get; set; }
+        
+        [Export] public SpriteShaderEffect LightGlowEffect { get; set; }
 
         private bool _isMaxGrowthState;
 

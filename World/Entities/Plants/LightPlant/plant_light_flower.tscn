@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bb1sfvq8h1ymh"]
+[gd_scene load_steps=29 format=3 uid="uid://bb1sfvq8h1ymh"]
 
 [ext_resource type="Script" path="res://World/Entities/Plants/LightPlant.cs" id="1_7ahoy"]
 [ext_resource type="Resource" uid="uid://kb7irsn4b1tn" path="res://Collectable/Types/collectable_flowers.tres" id="2_3wop4"]
@@ -13,7 +13,8 @@
 [ext_resource type="Script" path="res://World/Entities/Effects/EffectsLightPlant.cs" id="10_31rgv"]
 [ext_resource type="Texture2D" uid="uid://dwxw3qlgy0gxd" path="res://Effects/Particles/particle-small-glow-orb.png" id="12_v4v3u"]
 [ext_resource type="AudioStream" uid="uid://bv8vk4qi6ammf" path="res://Audio/Effects/Plants/light-plant-grow-short.ogg" id="13_cx6br"]
-[ext_resource type="Script" path="res://World/Entities/Effects/PathLineRenderer.cs" id="14_0bxg1"]
+[ext_resource type="Script" path="res://World/Entities/SpriteShaderEffect.cs" id="14_vd0lr"]
+[ext_resource type="Shader" path="res://Shaders/Sprite Shaders/glow.gdshader" id="15_51feb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hlvoq"]
 size = Vector2(25, 24)
@@ -336,60 +337,12 @@ orbit_velocity_min = -0.1
 orbit_velocity_max = 0.1
 color_ramp = SubResource("GradientTexture1D_3y60t")
 
-[sub_resource type="Curve2D" id="Curve2D_nenx8"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, -50, 0, 0, 0, 0, 30, 0, 129, -4)
-}
-point_count = 2
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4652f"]
+shader = ExtResource("15_51feb")
+shader_parameter/radius = 1.0
+shader_parameter/amount = 1.0
 
-[sub_resource type="Curve" id="Curve_5osv7"]
-_data = [Vector2(0, 0.273684), 0.0, 0.0, 0, 0, Vector2(0.279898, 0.515789), 0.0, 0.0, 0, 0, Vector2(0.753181, 0.621053), 0.0, 0.0, 0, 0, Vector2(1, 0.8), 0.0, 0.0, 0, 0]
-point_count = 4
-
-[sub_resource type="Gradient" id="Gradient_r75en"]
-offsets = PackedFloat32Array(0, 0.08, 0.231429, 0.42, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.823529, 0.561292, 0.879425, 0.996058, 0.814285, 0.933333, 0.964706, 1, 0.682353, 0.67354, 0.825379, 0.995486, 0.772549)
-
-[sub_resource type="Animation" id="Animation_ghjyg"]
-resource_name = "Idle"
-length = 0.5
-loop_mode = 1
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PathLine2D:gradient:offsets")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [PackedFloat32Array(0, 0.08, 0.231429, 0.42, 1), PackedFloat32Array(0, 0.914286, 0.957143, 0.994286, 1), PackedFloat32Array(0, 0.668571, 0.797143, 0.914286, 1), PackedFloat32Array(0, 0.4, 0.542857, 0.645714, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_x3e25"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PathLine2D:gradient:offsets")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [PackedFloat32Array(0, 0.08, 0.231429, 0.42, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_aj2pv"]
-_data = {
-"Idle": SubResource("Animation_ghjyg"),
-"RESET": SubResource("Animation_x3e25")
-}
-
-[node name="Plant-LightFlower" type="Node2D" node_paths=PackedStringArray("LightSensor", "Sim", "Animation", "StateMachine", "Light", "Effects", "Interactable", "GrowParticles", "LightLineEffect")]
+[node name="Plant-LightFlower" type="Node2D" node_paths=PackedStringArray("LightSensor", "Sim", "Animation", "StateMachine", "Light", "Effects", "Interactable", "GrowParticles", "LightGlowEffect")]
 position = Vector2(332, 150)
 script = ExtResource("1_7ahoy")
 LightSensor = NodePath("LightSensor")
@@ -403,7 +356,7 @@ OutputAmount = 4
 Effects = NodePath("EffectsLightPlant")
 Interactable = NodePath("Interactable")
 GrowParticles = NodePath("GrowthMaxGPUParticles2D")
-LightLineEffect = NodePath("PathLineRenderer")
+LightGlowEffect = NodePath("SpriteShaderEffect")
 
 [node name="InteractionArea2D" type="Area2D" parent="." node_paths=PackedStringArray("Entity") groups=["EntityProvider"]]
 position = Vector2(2, -6)
@@ -471,22 +424,8 @@ volume_db = -16.0
 pitch_scale = 1.5
 max_distance = 200.0
 
-[node name="PathLineRenderer" type="Path2D" parent="." node_paths=PackedStringArray("Line")]
-curve = SubResource("Curve2D_nenx8")
-script = ExtResource("14_0bxg1")
-Line = NodePath("PathLine2D")
-
-[node name="PathLine2D" type="Line2D" parent="PathLineRenderer"]
-z_index = 1
-points = PackedVector2Array(0, 0, 0.370056, -4.41058, 1.44873, -8.28467, 3.18878, -11.6483, 5.54297, -14.5273, 8.46405, -16.9479, 11.9048, -18.936, 15.8179, -20.5176, 20.1563, -21.7188, 24.8725, -22.5654, 27.3576, -22.8639, 29.9194, -23.0835, 32.5521, -23.2275, 35.2498, -23.2991, 38.0065, -23.3016, 40.8164, -23.2383, 43.6735, -23.1123, 46.572, -22.9269, 49.5058, -22.6855, 52.4692, -22.3911, 55.4563, -22.0471, 58.461, -21.6568, 61.4775, -21.2233, 64.5, -20.75, 67.5225, -20.24, 70.539, -19.6967, 73.5437, -19.1233, 76.5308, -18.5229, 79.4942, -17.899, 82.428, -17.2547, 85.3265, -16.5933, 88.1836, -15.918, 90.9935, -15.232, 93.7502, -14.5388, 96.4479, -13.8413, 99.0806, -13.1431, 101.642, -12.4472, 104.128, -11.7569, 108.844, -10.4063, 113.182, -9.11713, 117.095, -7.91553, 120.536, -6.82745, 123.457, -5.87891, 127.551, -4.50439, 129, -4)
-width_curve = SubResource("Curve_5osv7")
-gradient = SubResource("Gradient_r75en")
-
-[node name="PathTarget" type="Node2D" parent="PathLineRenderer"]
-position = Vector2(129, -4)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="PathLineRenderer"]
-autoplay = "Idle"
-libraries = {
-"": SubResource("AnimationLibrary_aj2pv")
-}
+[node name="SpriteShaderEffect" type="Node" parent="." node_paths=PackedStringArray("Sprite")]
+script = ExtResource("14_vd0lr")
+Sprite = NodePath("../Sprite2D")
+Material = SubResource("ShaderMaterial_4652f")
+IsEnabled = false

@@ -1,0 +1,77 @@
+[gd_scene load_steps=8 format=3 uid="uid://b4c2jhnb6fpe1"]
+
+[ext_resource type="Script" path="res://World/Entities/Effects/PathLineRenderer.cs" id="1_56our"]
+
+[sub_resource type="Curve2D" id="Curve2D_nenx8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, -50, 0, 0, 0, 0, 30, 0, 129, -4)
+}
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_5osv7"]
+_data = [Vector2(0, 0.273684), 0.0, 0.0, 0, 0, Vector2(0.279898, 0.515789), 0.0, 0.0, 0, 0, Vector2(0.753181, 0.621053), 0.0, 0.0, 0, 0, Vector2(1, 0.8), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_r75en"]
+offsets = PackedFloat32Array(0, 0.08, 0.231429, 0.42, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.823529, 0.561292, 0.879425, 0.996058, 0.814285, 0.933333, 0.964706, 1, 0.682353, 0.67354, 0.825379, 0.995486, 0.772549)
+
+[sub_resource type="Animation" id="Animation_ghjyg"]
+resource_name = "Idle"
+length = 0.5
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathLine2D:gradient:offsets")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [PackedFloat32Array(0, 0.08, 0.231429, 0.42, 1), PackedFloat32Array(0, 0.914286, 0.957143, 0.994286, 1), PackedFloat32Array(0, 0.668571, 0.797143, 0.914286, 1), PackedFloat32Array(0, 0.4, 0.542857, 0.645714, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_x3e25"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathLine2D:gradient:offsets")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [PackedFloat32Array(0, 0.08, 0.231429, 0.42, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aj2pv"]
+_data = {
+"Idle": SubResource("Animation_ghjyg"),
+"RESET": SubResource("Animation_x3e25")
+}
+
+[node name="PathLineRenderer" type="Path2D" node_paths=PackedStringArray("Line")]
+visible = false
+curve = SubResource("Curve2D_nenx8")
+script = ExtResource("1_56our")
+Line = NodePath("")
+
+[node name="PathLine2D" type="Line2D" parent="."]
+z_index = 1
+points = PackedVector2Array(0, 0, 0.370056, -4.41058, 1.44873, -8.28467, 3.18878, -11.6483, 5.54297, -14.5273, 8.46405, -16.9479, 11.9048, -18.936, 15.8179, -20.5176, 20.1563, -21.7188, 24.8725, -22.5654, 27.3576, -22.8639, 29.9194, -23.0835, 32.5521, -23.2275, 35.2498, -23.2991, 38.0065, -23.3016, 40.8164, -23.2383, 43.6735, -23.1123, 46.572, -22.9269, 49.5058, -22.6855, 52.4692, -22.3911, 55.4563, -22.0471, 58.461, -21.6568, 61.4775, -21.2233, 64.5, -20.75, 67.5225, -20.24, 70.539, -19.6967, 73.5437, -19.1233, 76.5308, -18.5229, 79.4942, -17.899, 82.428, -17.2547, 85.3265, -16.5933, 88.1836, -15.918, 90.9935, -15.232, 93.7502, -14.5388, 96.4479, -13.8413, 99.0806, -13.1431, 101.642, -12.4472, 104.128, -11.7569, 108.844, -10.4063, 113.182, -9.11713, 117.095, -7.91553, 120.536, -6.82745, 123.457, -5.87891, 127.551, -4.50439, 129, -4)
+width_curve = SubResource("Curve_5osv7")
+gradient = SubResource("Gradient_r75en")
+
+[node name="PathTarget" type="Node2D" parent="."]
+position = Vector2(129, -4)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Idle"
+libraries = {
+"": SubResource("AnimationLibrary_aj2pv")
+}
