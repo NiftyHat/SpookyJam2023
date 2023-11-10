@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://b78acft5a5sfy"]
+[gd_scene load_steps=41 format=3 uid="uid://b78acft5a5sfy"]
 
 [ext_resource type="PackedScene" uid="uid://c8va41g0wvmpj" path="res://World/Maps/game_map.tscn" id="1_sadh0"]
 [ext_resource type="PackedScene" uid="uid://n8gglyvki7dw" path="res://World/Entities/Character/Player/player_entity.tscn" id="2_3tyht"]
@@ -107,6 +107,9 @@ size = Vector2(96, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qdc7p"]
 size = Vector2(480, 352)
+
+[sub_resource type="Environment" id="Environment_anl3v"]
+glow_enabled = true
 
 [node name="world-test" type="Node2D"]
 
@@ -601,3 +604,6 @@ position = Vector2(1745, 593)
 
 [node name="Dark-Tentacle2" parent="." instance=ExtResource("13_tws6j")]
 position = Vector2(1937, 753)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_anl3v")

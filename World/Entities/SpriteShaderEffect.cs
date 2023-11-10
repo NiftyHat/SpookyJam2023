@@ -56,6 +56,7 @@ namespace SpookyBotanyGame.World.Entities
 
         private void ClearShader()
         {
+            GD.Print("ClearShader");
             Sprite.Material = _defaultMaterial;
         }
 
@@ -79,7 +80,7 @@ namespace SpookyBotanyGame.World.Entities
                     {
                         _tween?.Kill();
                         _tween = TweenOut(_effectMaterial);
-                        _tween.TweenCallback(Callable.From(ClearShader));
+                        _tween.TweenCallback(Callable.From(ClearShader)).SetDelay(1.0f);
                     }
                     else
                     {

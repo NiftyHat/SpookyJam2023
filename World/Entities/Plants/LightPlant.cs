@@ -38,7 +38,7 @@ namespace SpookyBotanyGame.World.Entities.Plants
         public event Action OnDestroyed;
         public event Action<bool, IPlantable> OnMaxGrowthStateChanged;
 
-        private float _lightGrowthMax = 0.4f;
+        private float _lightGrowthMax = 5f;
 
         public override void _Ready()
         {
@@ -55,8 +55,8 @@ namespace SpookyBotanyGame.World.Entities.Plants
             //tween.TweenProperty(LightGlowEffect.Material, "shader_parameter/amount", 1d, 0.3f).From(0d);
             tween.TweenMethod(Callable.From((double value) =>
             {
-                GD.Print(nameof(TweenInGlow), value);
-                material.SetShaderParameter("amount", value);
+                GD.Print(nameof(TweenInGlow), $" {value:N2}");
+                material.SetShaderParameter("intensity", value);
             }), 0f, _lightGrowthMax, 0.6f).SetEase(Tween.EaseType.In).SetTrans(Tween.TransitionType.Cubic);
             return tween;
         }
@@ -65,9 +65,9 @@ namespace SpookyBotanyGame.World.Entities.Plants
             var tween = LightGlowEffect.CreateTween();
             tween.TweenMethod(Callable.From((double value) =>
             {
-                GD.Print(nameof(TweenOutGlow), value);
-                LightGlowEffect.Material.SetShaderParameter("amount", value);
-            }), _lightGrowthMax, 0d, 0.3f).SetEase(Tween.EaseType.In).SetTrans(Tween.TransitionType.Circ);
+                GD.Print(nameof(TweenOutGlow),  $" {value:N2}");
+                LightGlowEffect.Material.SetShaderParameter("intensity", value);
+            }), _lightGrowthMax, 0d, 0.6f);
             //tween.TweenMethod(Callable.From (() => { LightGlowEffect.Material.SetShaderParameter("radius");}), 0, 1.0f, 0.5f);
             //tween.TweenProperty(LightGlowEffect.Material, "shader_parameter/amount", 0f, 0.1f);
             return tween;

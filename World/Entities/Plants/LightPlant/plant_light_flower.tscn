@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://dwxw3qlgy0gxd" path="res://Effects/Particles/particle-small-glow-orb.png" id="12_v4v3u"]
 [ext_resource type="AudioStream" uid="uid://bv8vk4qi6ammf" path="res://Audio/Effects/Plants/light-plant-grow-short.ogg" id="13_cx6br"]
 [ext_resource type="Script" path="res://World/Entities/SpriteShaderEffect.cs" id="14_vd0lr"]
-[ext_resource type="Shader" path="res://Shaders/Sprite Shaders/glow.gdshader" id="15_51feb"]
+[ext_resource type="Shader" path="res://Shaders/Sprite Shaders/glow_color.gdshader" id="15_167eb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hlvoq"]
 size = Vector2(25, 24)
@@ -338,10 +338,13 @@ orbit_velocity_max = 0.1
 color_ramp = SubResource("GradientTexture1D_3y60t")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4652f"]
-shader = ExtResource("15_51feb")
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/radius = 1.0
-shader_parameter/amount = 0.0
+shader = ExtResource("15_167eb")
+shader_parameter/color1 = Color(1, 1, 1, 1)
+shader_parameter/color2 = Color(0.65098, 0.768627, 1, 1)
+shader_parameter/threshold = 0.5
+shader_parameter/intensity = 5.0
+shader_parameter/opacity = 1.0
+shader_parameter/glow_color = Color(1, 1, 1, 0.2)
 
 [node name="Plant-LightFlower" type="Node2D" node_paths=PackedStringArray("LightSensor", "Sim", "Animation", "StateMachine", "Light", "Effects", "Interactable", "GrowParticles", "LightGlowEffect")]
 position = Vector2(332, 150)

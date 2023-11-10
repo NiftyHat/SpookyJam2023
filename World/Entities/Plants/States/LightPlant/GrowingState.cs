@@ -16,7 +16,6 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
         
         public const string GrowingAnimationName = "Growing";
         private bool _hasAnimationHandler;
-        private bool _isGrown;
 
         public GrowingState(LightPlant plant, int progress, float energyRequired = 1.0f)
         {
@@ -32,7 +31,6 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
             _growthEnergy.OnMax += HandleMaxEnergy;
             _plant.Animation.AnimationFinished += HandleAnimationFinish;
             _hasAnimationHandler = true;
-            _isGrown = false;
             _animationName = GetProgressAnimation(GrowingAnimationName, progress, _plant.Animation);
             if (_animationName != null)
             {
@@ -51,7 +49,6 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
             _plant.LightSensor.OnExit -= HandleLightExit;
             _growthEnergy.OnMax -= HandleMaxEnergy;
             _plant.Sim.OnDayTick -= HandleDayAdvance;
-            _plant.LightGlowEffect.SetEnabled(false);
             if (_hasAnimationHandler)
             {
                 _plant.Animation.AnimationFinished -= HandleAnimationFinish;
@@ -80,10 +77,6 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
                     {
                         _plant.GrowParticles.Emitting = true;
                     }
-                }
-                else
-                {
-                    _plant.LightGlowEffect.SetEnabled(false);
                 }
             }
         }
@@ -142,15 +135,13 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
             _plant.Animation.Play(_animationName);
             _plant.Light.Energy = 0.2f;
             _plant.SetMaxGrowthState(true);
-            _plant.LightGlowEffect?.SetEnabled(false);
-            _isGrown = true;
         }
 
         public void Process(double delta)
         {
-            if (!_growthEnergy.IsMax && !_isGrown)
+            if (!_growthEnergy.IsMax)
             {
-                if (_lightThisFrame > 0.1f)
+                if (_lightThisFrame >= 0.1f)
                 {
                     _growthEnergy.Value += _lightThisFrame * (float)delta;
                     if (_plant.Effects != null)
@@ -159,17 +150,17 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
                         _plant.Effects.SetIsLit(true);
                     }
 
-                    if (_plant.LightGlowEffect != null && !_plant.LightGlowEffect.IsEnabled)
-                    {
-                        GD.Print(nameof(Process), $"Set Enabled {_lightThisFrame}");
-                        _plant.LightGlowEffect.SetEnabled(true);
-                    }
+                    _plant.LightGlowEffect.Enable();
                     _lightThisFrame = 0;
                 }
                 else
                 {
-                    _plant.LightGlowEffect?.SetEnabled(false);
+                    _plant.LightGlowEffect.Disable();
                 }
+            }
+            else
+            {
+                _plant.LightGlowEffect.Disable();
             }
         }
         
@@ -192,7 +183,6 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
         private void HandleLightExit(LightEmissionZone lightEmissionZone, float lightPower)
         {
             _plant.Effects?.SetIsLit(false);
-            _plant.LightGlowEffect?.SetEnabled(false);
         }
     }
 }
