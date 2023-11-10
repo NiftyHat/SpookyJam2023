@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using SpookyBotanyGame.Core;
 
@@ -9,8 +10,15 @@ namespace SpookyBotanyGame.World.Entities
         [Export] public Sprite2D Sprite { get; set; }
         [Export] public ShaderMaterial Material { get; set; }
 
-        private Material _effectMaterial;
+        private ShaderMaterial _effectMaterial;
         private Material _defaultMaterial;
+
+        public Func<ShaderMaterial, Tween> TweenIn;
+        public Func<ShaderMaterial, Tween> TweenOut;
+        //public Func<Tween> TweenIn;
+        //public Func<Tween> TweenOut;
+
+        private Tween _tween;
 
         [Export] public bool IsEnabled { get; private set; } = true;
 
@@ -59,10 +67,24 @@ namespace SpookyBotanyGame.World.Entities
                 if (isEnabled)
                 {
                     ApplyShader();
+                    if (TweenIn != null)
+                    {
+                        _tween?.Kill();
+                        _tween = TweenIn(_effectMaterial);
+                    }
                 }
                 else
                 {
-                    ClearShader();
+                    if (TweenOut != null)
+                    {
+                        _tween?.Kill();
+                        _tween = TweenOut(_effectMaterial);
+                        _tween.TweenCallback(Callable.From(ClearShader));
+                    }
+                    else
+                    {
+                        ClearShader();
+                    }
                 }
             }
         }

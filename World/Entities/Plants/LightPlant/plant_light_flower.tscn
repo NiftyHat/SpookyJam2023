@@ -339,8 +339,9 @@ color_ramp = SubResource("GradientTexture1D_3y60t")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4652f"]
 shader = ExtResource("15_51feb")
+shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/radius = 1.0
-shader_parameter/amount = 1.0
+shader_parameter/amount = 0.0
 
 [node name="Plant-LightFlower" type="Node2D" node_paths=PackedStringArray("LightSensor", "Sim", "Animation", "StateMachine", "Light", "Effects", "Interactable", "GrowParticles", "LightGlowEffect")]
 position = Vector2(332, 150)
