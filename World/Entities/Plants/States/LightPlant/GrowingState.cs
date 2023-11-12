@@ -150,17 +150,20 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
                         _plant.Effects.SetIsLit(true);
                     }
 
-                    _plant.LightGlowEffect.Enable();
+                    _plant.LightGlowEffect?.Enable();
+                    _plant.GainEnergyParticles.Emitting = true;
                     _lightThisFrame = 0;
                 }
                 else
                 {
-                    _plant.LightGlowEffect.Disable();
+                    _plant.LightGlowEffect?.Disable();
+                    _plant.GainEnergyParticles.Emitting = false;
                 }
             }
             else
             {
-                _plant.LightGlowEffect.Disable();
+                _plant.LightGlowEffect?.Disable();
+                _plant.GainEnergyParticles.Emitting = false;
             }
         }
         

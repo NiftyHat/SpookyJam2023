@@ -49,9 +49,9 @@ namespace SpookyBotanyGame.World.Entities
         {
             if (_effectMaterial == null)
             {
-                _effectMaterial = Material.Duplicate() as ShaderMaterial;
+                _effectMaterial = Material;
             }
-            Sprite.Material = _effectMaterial;
+            Sprite.Material = Material;
         }
 
         private void ClearShader()

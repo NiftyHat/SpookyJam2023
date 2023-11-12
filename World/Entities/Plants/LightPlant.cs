@@ -27,9 +27,12 @@ namespace SpookyBotanyGame.World.Entities.Plants
         
         [Export] public GpuParticles2D GrowParticles { get; set; }
         
+        
         //[Export] public PathLineRenderer LightLineEffect { get; set; }
         
         [Export] public SpriteShaderEffect LightGlowEffect { get; set; }
+        
+        [Export] public GpuParticles2D GainEnergyParticles { get; set; }
 
         private bool _isMaxGrowthState;
 
@@ -38,15 +41,18 @@ namespace SpookyBotanyGame.World.Entities.Plants
         public event Action OnDestroyed;
         public event Action<bool, IPlantable> OnMaxGrowthStateChanged;
 
-        private float _lightGrowthMax = 5f;
+        private double _lightGrowthMax = 1f;
 
         public override void _Ready()
         {
             base._Ready();
             StateMachine.SetState(new GrowingState(this, InitialGrowthState));
             Sim.OnDayTick += HandleDayTick;
-            LightGlowEffect.TweenIn = TweenInGlow;
-            LightGlowEffect.TweenOut = TweenOutGlow;
+            if (LightGlowEffect != null)
+            {
+                LightGlowEffect.TweenIn = TweenInGlow;
+                LightGlowEffect.TweenOut = TweenOutGlow;                
+            }
         }
 
         private Tween TweenInGlow(ShaderMaterial material)
@@ -56,7 +62,7 @@ namespace SpookyBotanyGame.World.Entities.Plants
             tween.TweenMethod(Callable.From((double value) =>
             {
                 GD.Print(nameof(TweenInGlow), $" {value:N2}");
-                material.SetShaderParameter("intensity", value);
+                material.SetShaderParameter("amount", value);
             }), 0f, _lightGrowthMax, 0.6f).SetEase(Tween.EaseType.In).SetTrans(Tween.TransitionType.Cubic);
             return tween;
         }
@@ -66,7 +72,7 @@ namespace SpookyBotanyGame.World.Entities.Plants
             tween.TweenMethod(Callable.From((double value) =>
             {
                 GD.Print(nameof(TweenOutGlow),  $" {value:N2}");
-                LightGlowEffect.Material.SetShaderParameter("intensity", value);
+                LightGlowEffect.Material.SetShaderParameter("amount", value);
             }), _lightGrowthMax, 0d, 0.6f);
             //tween.TweenMethod(Callable.From (() => { LightGlowEffect.Material.SetShaderParameter("radius");}), 0, 1.0f, 0.5f);
             //tween.TweenProperty(LightGlowEffect.Material, "shader_parameter/amount", 0f, 0.1f);
