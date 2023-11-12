@@ -9,14 +9,13 @@ namespace SpookyBotanyGame.World.Entities
     {
         [Export] public Sprite2D Sprite { get; set; }
         [Export] public ShaderMaterial Material { get; set; }
+        [Export] public AnimationPlayer Animation { get; set; }
 
         private ShaderMaterial _effectMaterial;
         private Material _defaultMaterial;
 
         public Func<ShaderMaterial, Tween> TweenIn;
         public Func<ShaderMaterial, Tween> TweenOut;
-        //public Func<Tween> TweenIn;
-        //public Func<Tween> TweenOut;
 
         private Tween _tween;
 
@@ -24,6 +23,12 @@ namespace SpookyBotanyGame.World.Entities
 
         public override void _Ready()
         {
+            if (Animation != null)
+            {
+                GD.PrintErr(Name, "Can't use Tweens and Animation at the same time");
+                TweenIn = null;
+                TweenOut = null;
+            }
             if (Sprite != null)
             {
                 _defaultMaterial = Sprite.Material;
@@ -60,6 +65,48 @@ namespace SpookyBotanyGame.World.Entities
             Sprite.Material = _defaultMaterial;
         }
 
+        public void AnimateIn()
+        {
+            if (Animation.HasAnimation("In"))
+            {
+                Animation.Play("In");
+                if (Animation.HasAnimation("Loop") && Animation.GetAnimation("In").LoopMode == Godot.Animation.LoopModeEnum.None)
+                {
+                    Animation.Queue("Loop");
+                }
+            }
+            else if (Animation.HasAnimation("Loop"))
+            {
+                Animation.Queue("Loop");
+            }
+            else
+            {
+                if (this.IsInsideTree())
+                {
+                    GD.PrintErr($" {this.GetPath()} Missing animation name Loop");
+                }
+                else
+                {
+                    GD.PrintErr($" {this.Name} Missing animation name Loop");
+                }
+            }
+        }
+        
+        public void AnimateOut()
+        {
+            Animation.Play("Out");
+
+            void ClearOnAnimationFinished(StringName animationName)
+            {
+                Animation.AnimationFinished -= ClearOnAnimationFinished;
+                if (animationName == "Out")
+                {
+                    ClearShader();
+                }
+            }
+            Animation.AnimationFinished += ClearOnAnimationFinished;
+        }
+
         public void SetEnabled(bool isEnabled)
         {
             if (IsEnabled != isEnabled)
@@ -68,7 +115,11 @@ namespace SpookyBotanyGame.World.Entities
                 if (isEnabled)
                 {
                     ApplyShader();
-                    if (TweenIn != null)
+                    if (Animation != null)
+                    {
+                        AnimateIn();
+                    }
+                    else if (TweenIn != null)
                     {
                         _tween?.Kill();
                         _tween = TweenIn(_effectMaterial);
@@ -76,7 +127,11 @@ namespace SpookyBotanyGame.World.Entities
                 }
                 else
                 {
-                    if (TweenOut != null)
+                    if (Animation != null)
+                    {
+                        AnimateOut();
+                    }
+                    else if (TweenOut != null)
                     {
                         _tween?.Kill();
                         _tween = TweenOut(_effectMaterial);
