@@ -63,7 +63,7 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
             _plant.Animation.Play(_animationName);
             _plant.Animation.Advance(0);
             _plant.Animation.Pause();
-            
+            _plant.SetMaxGrowthState(false);
         }
 
         private void HandleAnimationFinish(StringName animName)
@@ -73,6 +73,10 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
                 if (!TryGetProgressAnimation("Growing", _progress + 1, _plant.Animation, out string animationName))
                 {
                     Exit(new HarvestState(_plant, _plant.OutputAmount, _plant.Output));
+                    if (_plant.GrowParticles != null)
+                    {
+                        _plant.GrowParticles.Emitting = true;
+                    }
                 }
             }
         }
@@ -130,23 +134,36 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
         {
             _plant.Animation.Play(_animationName);
             _plant.Light.Energy = 0.2f;
+            _plant.SetMaxGrowthState(true);
         }
 
         public void Process(double delta)
         {
             if (!_growthEnergy.IsMax)
             {
-                if (_lightThisFrame > 0)
+                if (_lightThisFrame >= 0.1f)
                 {
                     _growthEnergy.Value += _lightThisFrame * (float)delta;
                     if (_plant.Effects != null)
                     {
-                        
                         _plant.Effects.SetScale(Core.Range.Percentage(_growthEnergy));
                         _plant.Effects.SetIsLit(true);
                     }
+
+                    _plant.LightGlowEffect?.Enable();
+                    _plant.GainEnergyParticles.Emitting = true;
                     _lightThisFrame = 0;
                 }
+                else
+                {
+                    _plant.LightGlowEffect?.Disable();
+                    _plant.GainEnergyParticles.Emitting = false;
+                }
+            }
+            else
+            {
+                _plant.LightGlowEffect?.Disable();
+                _plant.GainEnergyParticles.Emitting = false;
             }
         }
         
@@ -160,13 +177,15 @@ namespace SpookyBotanyGame.World.Entities.Plants.States
         
         private void HandleLightEnter(LightEmissionZone lightEmissionZone, float lightPower)
         {
-            _plant.Effects?.SetIsLit(true);
+            if (!_growthEnergy.IsMax)
+            {
+                _plant.Effects?.SetIsLit(true);
+            }
         }
 
         private void HandleLightExit(LightEmissionZone lightEmissionZone, float lightPower)
         {
             _plant.Effects?.SetIsLit(false);
         }
-
     }
 }

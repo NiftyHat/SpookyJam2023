@@ -45,7 +45,7 @@ namespace SpookyBotanyGame.World.Entities
             if (GameEntity.TryGetProperty(area, out Interactable interactable, out GameEntity gameEntity))
             {
                 Add(interactable, gameEntity);
-                interactable.SetTargeted(true);
+                interactable.SetTargeted(Entity);
             }
         }
         
@@ -53,7 +53,7 @@ namespace SpookyBotanyGame.World.Entities
         {
             if (GameEntity.TryGetProperty(area, out Interactable interactable, out GameEntity gameEntity))
             {
-                interactable.SetTargeted(false);
+                interactable.SetTargeted(null);
                 Remove(gameEntity);
             }
         }
@@ -109,14 +109,14 @@ namespace SpookyBotanyGame.World.Entities
             if (GameEntity.TryGetProperty(body, out Interactable interactable, out GameEntity gameEntity))
             {
                 Add(interactable, gameEntity);
-                interactable.SetTargeted(true);
+                interactable.SetTargeted(null);
             }
         }
         private void HandleBodyEntered(Node2D body)
         {
             if (GameEntity.TryGetProperty(body, out Interactable interactable, out GameEntity gameEntity))
             {
-                interactable.SetTargeted(false);
+                interactable.SetTargeted(Entity);
                 Remove(gameEntity);
             }
         }

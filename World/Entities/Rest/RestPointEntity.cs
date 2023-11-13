@@ -23,7 +23,7 @@ namespace SpookyBotanyGame.World.Entities.Rest
             GD.Print("HandleInteractionTriggered");
             if (self == this && other is PlayerEntity playerEntity)
             {
-                Sim.PlayerSleep(playerEntity);
+                playerEntity.Rest();
                 return true;
             }
             return false;

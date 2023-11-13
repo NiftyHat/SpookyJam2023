@@ -5,6 +5,7 @@ using SpookyBotanyGame.Core.StateMachines;
 using SpookyBotanyGame.World.Entities.Plants.States.DarkStem;
 using SpookyBotanyGame.World.Entities.Properties;
 using SpookyBotanyGame.World.Systems;
+using Range = Godot.Range;
 
 namespace SpookyBotanyGame.World.Entities.Plants;
 
@@ -19,7 +20,7 @@ public partial class DarkPlantStem : GameEntity
     
     [Export] public StateMachine StateMachine { get; set; }
 
-    public Range<float> Health { get; protected set; } = new Range<float>(3, 0, 3);
+    public Range<float> Health { get; protected set; } = new Range<float>(7, 0, new Random().NextInt64(4,7));
     public bool CanTriggerAttack { get; set; } = false;
 
     public event Action<string> OnAnimationFinished;
