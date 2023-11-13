@@ -6,7 +6,7 @@ using SpookyBotanyGame.World.Entities.Animation;
 namespace SpookyBotanyGame.World.Tools.Lantern
 {
     [GlobalClass]
-    public partial class LanternTool : Node2D
+    public partial class LanternTool : Node2D, IEnabled
     {
         public delegate void OnEmptyChanged(bool isEmpty, LanternTool tool);
         
@@ -26,6 +26,7 @@ namespace SpookyBotanyGame.World.Tools.Lantern
         private bool _isEmpty;
         private bool _isDestroying;
         private LanternModeNode _lanternMode;
+        private bool _isEnabled;
 
         public event OnEmptyChanged OnEmptyChange;
 
@@ -46,7 +47,7 @@ namespace SpookyBotanyGame.World.Tools.Lantern
 
         public override void _Process(double delta)
         {
-            if (_isDestroying || _lanternMode == null)
+            if (_isDestroying || _lanternMode == null || _isEnabled == false)
             {
                 return;
             }
@@ -80,6 +81,10 @@ namespace SpookyBotanyGame.World.Tools.Lantern
 
         public void SetMode(LanternModeNode mode)
         {
+            if (_lanternMode == mode)
+            {
+                return;
+            }
             if (_lanternMode != null)
             {
                 _lanternMode.SetEnabled(false);
@@ -107,9 +112,29 @@ namespace SpookyBotanyGame.World.Tools.Lantern
 
         public void SetPointing(Vector2 direction)
         {
+            if (_isEnabled == false)
+            {
+                return;
+            }
             _pointing = direction;
         }
+
+        public void Disable()
+        {
+            SetEnabled(false);
+        }
         
+        public void Enable()
+        {
+            SetEnabled(true);
+        }
+
+        public bool IsEnabled => _isEnabled;
+
+        public void SetEnabled(bool isEnabled)
+        {
+            _isEnabled = isEnabled;
+        }
     }
 }
 

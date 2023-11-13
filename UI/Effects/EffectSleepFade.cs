@@ -1,6 +1,6 @@
 using Godot;
+using SpookyBotanyGame.Core;
 using SpookyBotanyGame.World.Entities;
-using SpookyBotanyGame.World.Entities.Properties;
 using SpookyBotanyGame.World.Systems;
 
 namespace SpookyBotanyGame.UI.Effects;
@@ -11,8 +11,9 @@ public partial class EffectSleepFade : Node
     [Export] public AudioStreamPlayer SleepJingle { get; set; }
 
     private Tween _fadeTween;
-
-    private event System.Action OnSleepFadeComplete;
+    
+    Color COLOR_TRANSPARENT = new Color(0,0,0, 0);
+    Color COLOR_SOLID_BLACK = new Color(0,0,0, 1f);
 
     public override void _Ready()
     {
@@ -23,46 +24,61 @@ public partial class EffectSleepFade : Node
             GD.PrintErr($"{nameof(EffectSleepFade)} didn't attach to SimSystem.Time");
             return;
         }
-        sim.OnPlayerSleep += HandlePlayerSleep;
+
+        sim.DayEndEvents.Started += HandleFadeOut;
+        sim.DayStartEvents.Started += HandleFadeIn;
+        //sim.OnPlayerSleep += HandlePlayerSleep;
     }
 
-    private void HandlePlayerSleep(PlayerEntity player)
+    private void HandleFadeOut()
     {
-        DoFade();
+        _fadeTween?.Kill();
+        _fadeTween = CreateTween();
+        SleepJingle.Play();
+        Rect.Visible = true;
+        Rect.Modulate = COLOR_TRANSPARENT;
+        _fadeTween.TweenProperty(Rect, "modulate",  COLOR_SOLID_BLACK, 2f)
+            .From( COLOR_TRANSPARENT)
+            .SetEase(Tween.EaseType.In)
+            .SetTrans(Tween.TransitionType.Cubic);
+        
     }
-
-    private void DoFade()
+    
+    private void HandleFadeIn()
     {
         if (_fadeTween != null)
         {
             _fadeTween.Kill();
         }
         _fadeTween = CreateTween();
-        Color colorAlpha = new Color(0,0,0, 0);
-        Color colorSolid = new Color(0,0,0, 1f);
-        Rect.Visible = true;
-        Rect.Modulate = colorAlpha;
-        _fadeTween.TweenProperty(Rect, "modulate", colorSolid, 1.5f).SetTrans(Tween.TransitionType.Cubic);
-        _fadeTween.TweenInterval(2f);
-        _fadeTween.TweenProperty(Rect, "modulate", colorAlpha, 1.5f).SetEase(Tween.EaseType.Out)
+        _fadeTween.TweenProperty(Rect, "modulate", COLOR_TRANSPARENT, 0.5f)
+            .From(COLOR_SOLID_BLACK)
+            .SetEase(Tween.EaseType.Out)
             .SetTrans(Tween.TransitionType.Cubic);
-        /*
-        _fadeTween.TweenInterval(2f);
-        _fadeTween.TweenProperty(Rect, "modulate", colorAlpha, 1.5f).SetEase(Tween.EaseType.Out)
-            .SetTrans(Tween.TransitionType.Cubic).SetDelay(2.0f);
-        //_fadeTween.TweenCallback(Callable.From(() => Rect.Visible = false));
-        /*
-        //_fadeTween.TweenCallback(Callable.From(() => OnSleepFadeComplete?.Invoke()));
-        _fadeTween.TweenProperty(Rect, "modulate", colorAlpha, 1.5f).SetEase(Tween.EaseType.Out)
-            .SetTrans(Tween.TransitionType.Cubic);
-        _fadeTween.TweenCallback(Callable.From(() => Rect.Visible = false)).SetDelay(1.5);*/
-        SleepJingle.Play();
-        //_fadeTween.TweenCallback(Callable.From(() => Rect.Modulate.A = 0 ))
-        //_fadeTween.TweenCallback(Callable.From(() => SetAnimationState(texture, frame))).SetDelay(0.1f);
+        _fadeTween.TweenCallback(Callable.From(() =>
+        {
+            Rect.Visible = false;
+        }));
     }
-
-    public override void _Process(double delta)
+    
+    private void DoFade(FadeEvents fadeInEvents, FadeEvents fadeOutEvents)
     {
-        base._Process(delta);
+        /*
+        if (_fadeTween != null)
+        {
+            _fadeTween.Kill();
+        }
+        _fadeTween = CreateTween();
+        Rect.Visible = true;
+        Rect.Modulate = COLOR_TRANSPARENT;
+        _fadeTween.TweenCallback(fadeInEvents.Start);
+        _fadeTween.TweenProperty(Rect, "modulate", COLOR_SOLID_BLACK, 1.5f).SetTrans(Tween.TransitionType.Cubic);
+        _fadeTween.TweenCallback(fadeInEvents.Complete);
+        _fadeTween.TweenInterval(2f);
+        _fadeTween.TweenCallback(fadeOutEvents.Start);
+        _fadeTween.TweenProperty(Rect, "modulate", COLOR_TRANSPARENT, 1.5f).SetEase(Tween.EaseType.Out)
+            .SetTrans(Tween.TransitionType.Cubic);
+        _fadeTween.TweenCallback(fadeOutEvents.Complete);
+        */
     }
 }

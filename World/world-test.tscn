@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://b78acft5a5sfy"]
+[gd_scene load_steps=40 format=3 uid="uid://b78acft5a5sfy"]
 
 [ext_resource type="PackedScene" uid="uid://c8va41g0wvmpj" path="res://World/Maps/game_map.tscn" id="1_sadh0"]
 [ext_resource type="PackedScene" uid="uid://n8gglyvki7dw" path="res://World/Entities/Character/Player/player_entity.tscn" id="2_3tyht"]
@@ -26,11 +26,11 @@
 [ext_resource type="Texture2D" uid="uid://dveer70m4e1ns" path="res://World/Tutorial/Tutorial-Pictograph-Lantern-High.png" id="15_cwdwf"]
 [ext_resource type="PackedScene" uid="uid://e8qj5ot0rqm2" path="res://World/Entities/tillable_spot_light_plant_1.tscn" id="16_b0v6k"]
 [ext_resource type="Texture2D" uid="uid://brjpw1at0myjw" path="res://World/Tutorial/Tutorial-Pictograph-Lantern-Low.png" id="16_k7me7"]
-[ext_resource type="AudioStream" uid="uid://bim7460esdjxd" path="res://Audio/Effects/end-turn-ticks.ogg" id="18_6q13d"]
 [ext_resource type="Texture2D" uid="uid://c7jkeb0w6d8k" path="res://World/Tutorial/Tutorial-Pictograph-Sleep.png" id="18_yx6h4"]
 [ext_resource type="Script" path="res://World/Entities/EntityDetectionZone.cs" id="23_2x3ik"]
 [ext_resource type="Script" path="res://World/SpawnPoint.cs" id="23_ky4pj"]
 [ext_resource type="AudioStream" uid="uid://do8pcslidpgqt" path="res://Audio/Music/Mysterious_Ambience_song21.mp3" id="27_o03ef"]
+[ext_resource type="AudioStream" uid="uid://ixj5pu5nsfhh" path="res://Music/sleep_jingle.ogg" id="31_sdsa1"]
 [ext_resource type="AudioStream" uid="uid://xs5ydcrapsqu" path="res://Audio/Effects/cave-drone-loop.ogg" id="33_uablb"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_nemjj"]
@@ -108,11 +108,6 @@ size = Vector2(96, 64)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qdc7p"]
 size = Vector2(480, 352)
 
-[sub_resource type="Environment" id="Environment_nekfn"]
-background_mode = 3
-glow_enabled = true
-glow_strength = 1.5
-
 [node name="world-test" type="Node2D"]
 
 [node name="WorldBackground" type="Sprite2D" parent="."]
@@ -129,7 +124,7 @@ color = Color(0, 0, 0, 1)
 [node name="GameMap" parent="WorldRoot" instance=ExtResource("1_sadh0")]
 
 [node name="PlayerEntity" parent="WorldRoot" groups=["EntityProvider"] instance=ExtResource("2_3tyht")]
-position = Vector2(3441, 2015)
+position = Vector2(2504, 1204)
 
 [node name="Camera2D" type="Camera2D" parent="WorldRoot/PlayerEntity"]
 position = Vector2(-1, -1)
@@ -422,7 +417,7 @@ position = Vector2(1745, 705)
 [node name="HubArea" type="Node2D" parent="WorldRoot"]
 
 [node name="RestPointEntity" parent="WorldRoot/HubArea" instance=ExtResource("13_4nh1i")]
-position = Vector2(2369, 1249)
+position = Vector2(2434, 1214)
 
 [node name="Tillable-Spot" parent="WorldRoot/HubArea" instance=ExtResource("16_b0v6k")]
 position = Vector2(2241, 1089)
@@ -573,9 +568,6 @@ position = Vector2(1665, 513)
 [node name="Tillable-Spot6" parent="WorldRoot/FieldNearExit" instance=ExtResource("8_meodr")]
 position = Vector2(1601, 577)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="WorldRoot"]
-environment = SubResource("Environment_nekfn")
-
 [node name="FadeWorld" type="CanvasLayer" parent="." node_paths=PackedStringArray("Rect", "SleepJingle")]
 script = ExtResource("13_e1v1h")
 Rect = NodePath("ColorRect")
@@ -597,7 +589,8 @@ offset_right = 13.0
 offset_bottom = -9.0
 
 [node name="SleepJingleMusicPlayer" type="AudioStreamPlayer" parent="UIRoot"]
-stream = ExtResource("18_6q13d")
+stream = ExtResource("31_sdsa1")
+volume_db = -20.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="UIRoot"]
 stream = ExtResource("33_uablb")

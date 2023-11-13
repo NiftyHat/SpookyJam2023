@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- New flash effect on plants during their energy absorbing stage to make the state more visible
+- New particle effect on plants during their energy absorbing stage to make the state more visible
+- Firefly particles of max grown light plants.
+
+### Changed
+- Removed manual tilling step. The tilling state on the soil is now used to indicate full grown plants
+- Added filtering to input on the soil. Soil no longer gets an interaction glow if you aren't carrying a seed.
+
 ## [0.6.2] - 2023-11-05
 
 ### Added
