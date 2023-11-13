@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using SpookyBotanyGame.Core;
 using SpookyBotanyGame.World.Entities;
 
 namespace SpookyBotanyGame.World.Systems;
@@ -7,9 +8,8 @@ namespace SpookyBotanyGame.World.Systems;
 public partial class SimSystem : Node
 {
     public delegate void OnDaysTicked(int dayCount);
-
     public delegate void OnPlayerDied(PlayerEntity player);
-    public delegate void OnPlayerSlept(PlayerEntity player);
+    
     public class SimTime : IReadOnlyTime
     {
         public int Day { get; private set; }
@@ -37,12 +37,21 @@ public partial class SimSystem : Node
     public IReadOnlyTime Time => _time;
 
     public event OnPlayerDied OnPlayerDie;
-    public event OnPlayerSlept OnPlayerSleep;
 
-    public void PlayerSleep(PlayerEntity playerEntity)
+    public readonly FadeEvents DayEndEvents = new FadeEvents();
+    public readonly FadeEvents DayStartEvents = new FadeEvents();
+    
+    public void PlayerRest(PlayerEntity playerEntity)
     {
-        _time.AdvanceDay(1);
-        OnPlayerSleep?.Invoke(playerEntity);
+        Tween restTween = CreateTween();
+        restTween.TweenCallback(DayEndEvents.Start);
+        restTween.TweenInterval(1f);
+        restTween.TweenCallback(DayEndEvents.Complete);
+        restTween.TweenCallback(Callable.From(() => { _time.AdvanceDay(1); }));
+        restTween.TweenInterval(2f);
+        restTween.TweenCallback(DayStartEvents.Start);
+        restTween.TweenInterval(1f);
+        restTween.TweenCallback(DayStartEvents.Complete);
     }
 
     public void PlayerDied(PlayerEntity playerEntity)

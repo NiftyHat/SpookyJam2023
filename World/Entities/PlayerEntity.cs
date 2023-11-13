@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using SpookyBotanyGame.Collectable;
 using SpookyBotanyGame.World.Entities.Animation;
@@ -25,6 +26,7 @@ namespace SpookyBotanyGame.World.Entities
         public CollectableStackSlot<CollectableResource> CarriedSeedSlot { get; set; } =  new CollectableStackSlot<CollectableResource>(0, 5);
 
         private SpawnPoint _spawnPoint;
+        private bool _isSleeping;
 
         public override void _Ready()
         {
@@ -70,14 +72,6 @@ namespace SpookyBotanyGame.World.Entities
             }
         }
 
-        private void HandleLanternEmptyChanged(bool isEmpty, LanternTool tool)
-        {
-            if (isEmpty)
-            {
-                
-            }
-        }
-
         private void HandleLanternDirectionChange(Vector2 direction, Vector2 distance)
         {
             LanternTool.SetPointing(direction);
@@ -85,12 +79,16 @@ namespace SpookyBotanyGame.World.Entities
 
         public override void _Process(double delta)
         {
+            if (_isSleeping)
+            {
+                return;
+            }
             if (Input.IsActionJustReleased("interact"))
             {
                 Interact?.DoInteract();
             }
 
-            if (!LanternTool.IsEmpty)
+            if (!LanternTool.IsEmpty && LanternTool.IsEnabled)
             {
                 if (Input.IsActionPressed("lantern_primary"))
                 {
@@ -143,8 +141,7 @@ namespace SpookyBotanyGame.World.Entities
         
         private void HandleRespawned(SpawnPoint spawnPoint)
         {
-            InputControlled.Enable();
-            Interact.Enable();
+            Wake();
         }
 
         private void HandleDeathAnimationComplete(StringName animName)
@@ -157,6 +154,32 @@ namespace SpookyBotanyGame.World.Entities
         public void SetSpawn(SpawnPoint spawnPoint)
         {
             _spawnPoint = spawnPoint;
+        }
+
+        public void Rest()
+        {
+            _isSleeping = true;
+            InputControlled.Disable();
+            Interact.Disable();
+            LanternTool.SetMode(LanternTool.ModeLow);
+            LanternTool.Disable();
+            Animation.Play("rest");
+            Sim.PlayerRest(this);
+            Sim.DayStartEvents.Completed += Wake;
+        }
+
+        public void Wake()
+        {
+            Sim.DayStartEvents.Completed -= Wake;
+            Animation.PlayOneShot("wake", HandleWakeComplete);
+        }
+        
+        private void HandleWakeComplete(StringName animname)
+        {
+            InputControlled.Enable();
+            Interact.Enable();
+            LanternTool.Enable();
+            _isSleeping = false;
         }
     }
 }
