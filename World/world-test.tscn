@@ -124,7 +124,7 @@ color = Color(0, 0, 0, 1)
 [node name="GameMap" parent="WorldRoot" instance=ExtResource("1_sadh0")]
 
 [node name="PlayerEntity" parent="WorldRoot" groups=["EntityProvider"] instance=ExtResource("2_3tyht")]
-position = Vector2(2504, 1204)
+position = Vector2(3441, 1963)
 
 [node name="Camera2D" type="Camera2D" parent="WorldRoot/PlayerEntity"]
 position = Vector2(-1, -1)

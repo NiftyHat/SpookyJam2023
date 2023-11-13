@@ -26,7 +26,6 @@ namespace SpookyBotanyGame.World.Tools.Lantern
         private bool _isEmpty;
         private bool _isDestroying;
         private LanternModeNode _lanternMode;
-        private bool _isEnabled;
 
         public event OnEmptyChanged OnEmptyChange;
 
@@ -47,7 +46,7 @@ namespace SpookyBotanyGame.World.Tools.Lantern
 
         public override void _Process(double delta)
         {
-            if (_isDestroying || _lanternMode == null || _isEnabled == false)
+            if (_isDestroying || _lanternMode == null || IsEnabled == false)
             {
                 return;
             }
@@ -112,7 +111,7 @@ namespace SpookyBotanyGame.World.Tools.Lantern
 
         public void SetPointing(Vector2 direction)
         {
-            if (_isEnabled == false)
+            if (IsEnabled == false)
             {
                 return;
             }
@@ -129,11 +128,11 @@ namespace SpookyBotanyGame.World.Tools.Lantern
             SetEnabled(true);
         }
 
-        public bool IsEnabled => _isEnabled;
+        public bool IsEnabled { get; private set; } = true;
 
         public void SetEnabled(bool isEnabled)
         {
-            _isEnabled = isEnabled;
+            IsEnabled = isEnabled;
         }
     }
 }
