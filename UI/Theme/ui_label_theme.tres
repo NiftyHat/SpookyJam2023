@@ -1,0 +1,8 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://covsqitfgr08m"]
+
+[ext_resource type="FontFile" uid="uid://dqpagwovs2qbq" path="res://Fonts/antiquity-print.ttf" id="1_of26x"]
+
+[resource]
+default_base_scale = 1.0
+default_font = ExtResource("1_of26x")
+default_font_size = 12
