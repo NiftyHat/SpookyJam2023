@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="UIData" load_steps=6 format=3 uid="uid://b4c06xj6i63jb"]
+
+[ext_resource type="Script" path="res://UI/UISceneData.cs" id="1_j5pro"]
+[ext_resource type="PackedScene" uid="uid://b78acft5a5sfy" path="res://World/world.tscn" id="1_sxip5"]
+[ext_resource type="Script" path="res://UI/UIData.cs" id="2_dfkhe"]
+[ext_resource type="PackedScene" uid="uid://bfyb8xswv6pc8" path="res://UI/Screens/Title/screen_title.tscn" id="2_uw263"]
+
+[sub_resource type="Resource" id="Resource_slwsm"]
+script = ExtResource("1_j5pro")
+Title = ExtResource("2_uw263")
+GameOver = ExtResource("2_uw263")
+Game = ExtResource("1_sxip5")
+
+[resource]
+script = ExtResource("2_dfkhe")
+Scenes = SubResource("Resource_slwsm")

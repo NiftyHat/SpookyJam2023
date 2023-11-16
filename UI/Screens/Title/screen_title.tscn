@@ -1,8 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://bfyb8xswv6pc8"]
+[gd_scene load_steps=13 format=3 uid="uid://bfyb8xswv6pc8"]
 
+[ext_resource type="Script" path="res://UI/Screens/Title/TitleScreen.cs" id="1_pt67i"]
 [ext_resource type="FontFile" uid="uid://dqpagwovs2qbq" path="res://Fonts/antiquity-print.ttf" id="1_te5w2"]
-[ext_resource type="Texture2D" uid="uid://btoasdq47afr" path="res://UI/Screens/Title/title_placeholder.png" id="2_aoblu"]
-[ext_resource type="Theme" uid="uid://covsqitfgr08m" path="res://UI/Theme/ui_label_theme.tres" id="3_npj81"]
+[ext_resource type="Texture2D" uid="uid://dbvuexaxts26h" path="res://UI/Screens/Title/title_text.png" id="2_ahswf"]
+[ext_resource type="Texture2D" uid="uid://7k4yb0gjoiqo" path="res://UI/Screens/Title/title_eye_01.png" id="3_8ucxk"]
+[ext_resource type="Texture2D" uid="uid://bmp2ayggqhw65" path="res://UI/Screens/Title/title_eye_02.png" id="4_57noh"]
+[ext_resource type="StyleBox" uid="uid://crwuqutoiepq7" path="res://UI/Theme/Textures/button_title_style_box.tres" id="4_e2ugb"]
+[ext_resource type="Texture2D" uid="uid://c24o3rb11cbww" path="res://UI/Screens/Title/title_eye_03.png" id="5_005ht"]
+[ext_resource type="Texture2D" uid="uid://tnlwjuakwiyb" path="res://UI/Screens/Title/title_eye_04.png" id="6_3qrk6"]
+[ext_resource type="Texture2D" uid="uid://b76kli1t10820" path="res://UI/Screens/Title/title_character.png" id="7_cq58y"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_15ydr"]
 bg_color = Color(0.0390625, 0.140625, 0.253906, 1)
@@ -14,14 +20,38 @@ Panel/styles/panel = SubResource("StyleBoxFlat_15ydr")
 [sub_resource type="Theme" id="Theme_evunr"]
 default_font = ExtResource("1_te5w2")
 default_font_size = 24
+Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(1, 1, 1, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
+Button/colors/icon_focus_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_normal_color = Color(1, 1, 1, 1)
+Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
+Button/constants/h_separation = 2
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/styles/disabled = ExtResource("4_e2ugb")
+Button/styles/focus = ExtResource("4_e2ugb")
+Button/styles/hover = ExtResource("4_e2ugb")
+Button/styles/normal = ExtResource("4_e2ugb")
+Button/styles/pressed = ExtResource("4_e2ugb")
 
-[node name="Control" type="Control"]
+[node name="TitleScreen" type="Control" node_paths=PackedStringArray("ButtonPlay", "ButtonQuit")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_pt67i")
+ButtonPlay = NodePath("MarginContainer/VBoxContainerButtons/PlayButton")
+ButtonQuit = NodePath("MarginContainer/QuitButton")
 
 [node name="Background" type="Panel" parent="."]
 layout_mode = 1
@@ -32,16 +62,61 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_7yc20")
 
-[node name="TextureRect" type="TextureRect" parent="Background"]
+[node name="TitleTextureRect" type="TextureRect" parent="Background"]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 49.0
+offset_right = 1242.0
+offset_bottom = 207.0
+texture = ExtResource("2_ahswf")
+
+[node name="Control" type="Control" parent="Background"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = -180.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_aoblu")
-expand_mode = 2
+
+[node name="Eye1TextureRect" type="TextureRect" parent="Background/Control"]
+layout_mode = 2
+offset_left = 984.0
+offset_top = 240.0
+offset_right = 1253.0
+offset_bottom = 435.0
+texture = ExtResource("3_8ucxk")
+
+[node name="Eye2TextureRect" type="TextureRect" parent="Background/Control"]
+layout_mode = 2
+offset_left = 1082.0
+offset_top = 513.0
+offset_right = 1237.0
+offset_bottom = 668.0
+texture = ExtResource("4_57noh")
+
+[node name="Eye3TextureRect" type="TextureRect" parent="Background/Control"]
+layout_mode = 2
+offset_left = 29.0
+offset_top = 510.0
+offset_right = 292.0
+offset_bottom = 699.0
+texture = ExtResource("5_005ht")
+
+[node name="Eye4TextureRect" type="TextureRect" parent="Background/Control"]
+layout_mode = 2
+offset_left = 32.0
+offset_top = 296.0
+offset_right = 233.0
+offset_bottom = 427.0
+texture = ExtResource("6_3qrk6")
+
+[node name="CharacterTextureRect" type="TextureRect" parent="Background/Control"]
+layout_mode = 2
+offset_left = 354.0
+offset_top = 317.0
+offset_right = 923.0
+offset_bottom = 718.0
+texture = ExtResource("7_cq58y")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -55,46 +130,33 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_constants/separation = 20
-
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-theme = ExtResource("3_npj81")
-theme_override_font_sizes/font_size = 64
-text = "Spooky Botany"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="VBoxContainerButtons" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
-custom_minimum_size = Vector2(0, 160)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
 theme_override_constants/separation = 10
 
-[node name="OptionsButton" type="Button" parent="MarginContainer/HBoxContainer"]
+[node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainerButtons"]
+custom_minimum_size = Vector2(300, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_evunr")
+theme_override_font_sizes/font_size = 64
+text = "Descend"
+
+[node name="OptionsButton" type="Button" parent="MarginContainer/VBoxContainerButtons"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme = SubResource("Theme_evunr")
 text = "Options"
 
-[node name="PlayButton" type="Button" parent="MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(400, 0)
-layout_mode = 2
-theme = SubResource("Theme_evunr")
-text = "Play"
-
-[node name="QuitButton" type="Button" parent="MarginContainer/HBoxContainer"]
+[node name="QuitButton" type="Button" parent="MarginContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
 theme = SubResource("Theme_evunr")
 text = "Quit"

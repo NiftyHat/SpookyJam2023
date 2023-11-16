@@ -10,6 +10,16 @@ namespace SpookyBotanyGame.Core.StateMachines
         public State CurrentState => _currentState;
         private IUpdatableState _updatableState;
         private string _loggingName;
+
+        public StateMachine()
+        {
+            Logging = false;
+        }
+        public StateMachine(string name, bool isLogging)
+        {
+            Logging = isLogging;
+            Name = name;
+        }
         
         public override void _Ready()
         {

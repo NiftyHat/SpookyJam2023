@@ -21,9 +21,7 @@ public partial class EntityDetectionZone : Area2D
         public Action<TEntity> OnEnter;
         public Action<TEntity> OnExit;
         public Action<TEntity> OnOverlap;
-        
-        private Func<TEntity, bool> _filter;
-        
+
         public override void Add(GameEntity gameEntity)
         {
             OnEnter?.Invoke(gameEntity as TEntity);
