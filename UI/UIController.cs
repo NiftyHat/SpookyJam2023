@@ -30,13 +30,23 @@ public partial class UIController : Node
     
     public void GotoScene(string path)
     {
-        GetTree().ProcessFrame += () => { SwitchScene(path); };
+        void DoSwitch()
+        {
+            SwitchScene(path);
+            GetTree().ProcessFrame -= DoSwitch;
+        }
+        GetTree().ProcessFrame += DoSwitch;
         
     }
 
-    private void GoToScene(PackedScene scene)
+    private void GoToScene(PackedScene packedScene)
     {
-        
+        void DoSwitch()
+        {
+            SwitchScene(packedScene);
+            GetTree().ProcessFrame -= DoSwitch;
+        }
+        GetTree().ProcessFrame += DoSwitch;
     }
 
     private void SwitchScene(PackedScene packedScene)
@@ -76,6 +86,13 @@ public partial class UIController : Node
         }
     }
 
+    public void ApplicationHome()
+    {
+        if (_sceneData.Title != null)
+        {
+            SwitchScene(_sceneData.Title);
+        }
+    }
 
     public void ApplicationPlay()
     {

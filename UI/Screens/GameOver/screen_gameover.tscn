@@ -1,0 +1,154 @@
+[gd_scene load_steps=12 format=3 uid="uid://dgs2ux7wybxdt"]
+
+[ext_resource type="Script" path="res://UI/Screens/GameOver/GameOverScreen.cs" id="1_dgxso"]
+[ext_resource type="Texture2D" uid="uid://chgvg7d6xwj06" path="res://UI/Screens/GameOver/gameover_eye_1.png" id="1_mpa6h"]
+[ext_resource type="Theme" uid="uid://covsqitfgr08m" path="res://UI/Theme/ui_menu_theme.tres" id="2_01wpm"]
+[ext_resource type="Texture2D" uid="uid://cm6ikcl5crsks" path="res://UI/Screens/GameOver/gameover_eye_2.png" id="2_hsg51"]
+[ext_resource type="Texture2D" uid="uid://bc3ostptda8o7" path="res://UI/Screens/GameOver/gameover_eye_3.png" id="3_ka1l1"]
+[ext_resource type="Texture2D" uid="uid://c63btao45fnj3" path="res://UI/Screens/GameOver/gameover_eye_4.png" id="4_ofsyq"]
+[ext_resource type="Texture2D" uid="uid://dq3oktskgidqb" path="res://UI/Screens/GameOver/gameover_eye_5.png" id="5_fscix"]
+[ext_resource type="Texture2D" uid="uid://wj8c4e4t2fv0" path="res://UI/Screens/GameOver/gameover_art.png" id="6_igt43"]
+[ext_resource type="StyleBox" uid="uid://crwuqutoiepq7" path="res://UI/Theme/Textures/button_title_style_box.tres" id="9_o62j2"]
+[ext_resource type="FontFile" uid="uid://dqpagwovs2qbq" path="res://Fonts/antiquity-print.ttf" id="10_vu8u3"]
+
+[sub_resource type="Theme" id="Theme_rfaw8"]
+default_font = ExtResource("10_vu8u3")
+default_font_size = 24
+Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(1, 1, 1, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
+Button/colors/icon_focus_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_normal_color = Color(1, 1, 1, 1)
+Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
+Button/constants/h_separation = 2
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/styles/disabled = ExtResource("9_o62j2")
+Button/styles/focus = ExtResource("9_o62j2")
+Button/styles/hover = ExtResource("9_o62j2")
+Button/styles/normal = ExtResource("9_o62j2")
+Button/styles/pressed = ExtResource("9_o62j2")
+
+[node name="ScreenGameOver" type="Control" node_paths=PackedStringArray("ButtonRestart", "ButtonHome", "ButtonQuit")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dgxso")
+ButtonRestart = NodePath("MarginContainer/VBoxContainerButtons/PlayButton")
+ButtonHome = NodePath("MarginContainer/VBoxContainerButtons/HomeButton")
+ButtonQuit = NodePath("MarginContainer/QuitButton")
+
+[node name="BackgroundPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_01wpm")
+
+[node name="CardArt" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Eye1TextureRect" type="TextureRect" parent="CardArt"]
+layout_mode = 0
+offset_left = 68.0
+offset_top = 217.0
+offset_right = 321.0
+offset_bottom = 435.0
+texture = ExtResource("1_mpa6h")
+
+[node name="Eye2TextureRect" type="TextureRect" parent="CardArt"]
+layout_mode = 0
+offset_left = 232.0
+offset_top = 395.0
+offset_right = 372.0
+offset_bottom = 510.0
+texture = ExtResource("2_hsg51")
+
+[node name="Eye3TextureRect" type="TextureRect" parent="CardArt"]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 48.0
+offset_right = 882.0
+offset_bottom = 364.0
+texture = ExtResource("3_ka1l1")
+
+[node name="Eye4TextureRect" type="TextureRect" parent="CardArt"]
+layout_mode = 0
+offset_left = 936.0
+offset_top = 166.0
+offset_right = 1123.0
+offset_bottom = 331.0
+texture = ExtResource("4_ofsyq")
+
+[node name="Eye5TextureRect" type="TextureRect" parent="CardArt"]
+layout_mode = 0
+offset_left = 1044.0
+offset_top = 375.0
+offset_right = 1221.0
+offset_bottom = 518.0
+texture = ExtResource("5_fscix")
+
+[node name="CharTextureRect" type="TextureRect" parent="CardArt"]
+layout_mode = 0
+offset_left = 433.0
+offset_top = 373.0
+offset_right = 944.0
+offset_bottom = 712.0
+texture = ExtResource("6_igt43")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainerButtons" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainerButtons"]
+custom_minimum_size = Vector2(300, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_rfaw8")
+theme_override_font_sizes/font_size = 64
+text = "Restart"
+
+[node name="HomeButton" type="Button" parent="MarginContainer/VBoxContainerButtons"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_rfaw8")
+text = "Home"
+
+[node name="QuitButton" type="Button" parent="MarginContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme = SubResource("Theme_rfaw8")
+text = "Quit"
