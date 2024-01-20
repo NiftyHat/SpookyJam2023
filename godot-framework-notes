@@ -1,0 +1,5 @@
+Things you need to be able to ref from boot
+- UI Stuff (scenes with UI screens in)
+- Game World/Scene
+- Application State
+- Settings Data (should probably prioritize this).

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bfyb8xswv6pc8"]
+[gd_scene load_steps=14 format=3 uid="uid://bfyb8xswv6pc8"]
 
 [ext_resource type="Script" path="res://UI/Screens/Title/TitleScreen.cs" id="1_pt67i"]
 [ext_resource type="FontFile" uid="uid://dqpagwovs2qbq" path="res://Fonts/antiquity-print.ttf" id="1_te5w2"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://c24o3rb11cbww" path="res://UI/Screens/Title/title_eye_03.png" id="5_005ht"]
 [ext_resource type="Texture2D" uid="uid://tnlwjuakwiyb" path="res://UI/Screens/Title/title_eye_04.png" id="6_3qrk6"]
 [ext_resource type="Texture2D" uid="uid://b76kli1t10820" path="res://UI/Screens/Title/title_character.png" id="7_cq58y"]
+[ext_resource type="Theme" uid="uid://covsqitfgr08m" path="res://UI/Theme/ui_menu_theme.tres" id="10_u6sae"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_15ydr"]
 bg_color = Color(0.0390625, 0.140625, 0.253906, 1)
@@ -42,7 +43,7 @@ Button/styles/hover = ExtResource("4_e2ugb")
 Button/styles/normal = ExtResource("4_e2ugb")
 Button/styles/pressed = ExtResource("4_e2ugb")
 
-[node name="ScreenTitle" type="Control" node_paths=PackedStringArray("ButtonPlay", "ButtonQuit")]
+[node name="ScreenTitle" type="Control" node_paths=PackedStringArray("ButtonPlay", "ButtonQuit", "ButtonSettings")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -52,6 +53,7 @@ grow_vertical = 2
 script = ExtResource("1_pt67i")
 ButtonPlay = NodePath("MarginContainer/VBoxContainerButtons/PlayButton")
 ButtonQuit = NodePath("MarginContainer/QuitButton")
+ButtonSettings = NodePath("MarginContainer/VBoxContainerButtons/SettingsButton")
 
 [node name="Background" type="Panel" parent="."]
 layout_mode = 1
@@ -145,13 +147,14 @@ theme = SubResource("Theme_evunr")
 theme_override_font_sizes/font_size = 64
 text = "Descend"
 
-[node name="OptionsButton" type="Button" parent="MarginContainer/VBoxContainerButtons"]
-custom_minimum_size = Vector2(200, 0)
+[node name="SettingsButton" type="Button" parent="MarginContainer/VBoxContainerButtons"]
+custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme = SubResource("Theme_evunr")
-text = "Options"
+theme = ExtResource("10_u6sae")
+theme_override_font_sizes/font_size = 32
+text = "Settings"
 
 [node name="QuitButton" type="Button" parent="MarginContainer"]
 custom_minimum_size = Vector2(200, 0)

@@ -1,0 +1,139 @@
+[gd_scene load_steps=6 format=3 uid="uid://coctqr0vi7fll"]
+
+[ext_resource type="Script" path="res://UI/Screens/Settings/SettingsScreen.cs" id="1_dhduc"]
+[ext_resource type="Theme" uid="uid://covsqitfgr08m" path="res://UI/Theme/ui_menu_theme.tres" id="1_ek2ml"]
+[ext_resource type="Script" path="res://UI/Screens/Settings/WidgetControlToggleButtons.cs" id="3_tatvf"]
+[ext_resource type="PackedScene" uid="uid://bw0ycd7rtf4e" path="res://UI/Screens/Settings/Video/screen_settings_video.tscn" id="4_enefi"]
+[ext_resource type="PackedScene" uid="uid://67hhomxauyh8" path="res://UI/Screens/Settings/Audio/audio_settings_screen.tscn" id="4_n1r0o"]
+
+[node name="SettingsScene" type="Control" node_paths=PackedStringArray("ButtonConfirm", "ButtonCancel")]
+z_index = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dhduc")
+ButtonConfirm = NodePath("MarginContainer/Panel/MarginContainer/VBoxContainer/CloseButtonsSelector/ConfirmButton")
+ButtonCancel = NodePath("MarginContainer/Panel/MarginContainer/VBoxContainer/CloseButtonsSelector/CancelButton")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 40
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+layout_mode = 2
+theme = ExtResource("1_ek2ml")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_ek2ml")
+theme_type_variation = &"MenuLabel"
+text = "Options"
+horizontal_alignment = 1
+
+[node name="OptionsMenuSelector" type="BoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer" node_paths=PackedStringArray("Controls", "ButtonContainer")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("3_tatvf")
+Controls = [NodePath("../BoxContainer/Panel/MarginContainer/AudioSettingsScreen"), NodePath("../BoxContainer/Panel/MarginContainer/Video Settings Screen")]
+ButtonContainer = NodePath("HBoxContainer")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/OptionsMenuSelector"]
+layout_mode = 2
+alignment = 1
+
+[node name="AudioButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/OptionsMenuSelector/HBoxContainer"]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_ek2ml")
+theme_override_font_sizes/font_size = 32
+text = "Audio"
+
+[node name="VideoButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/OptionsMenuSelector/HBoxContainer"]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_ek2ml")
+theme_override_font_sizes/font_size = 32
+text = "Video"
+
+[node name="BoxContainer" type="BoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_ek2ml")
+theme_type_variation = &"PanelMini"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/BoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="AudioSettingsScreen" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/BoxContainer/Panel/MarginContainer" instance=ExtResource("4_n1r0o")]
+layout_mode = 2
+
+[node name="Video Settings Screen" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/BoxContainer/Panel/MarginContainer" instance=ExtResource("4_enefi")]
+visible = false
+layout_mode = 2
+
+[node name="CloseButtonsSelector" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CancelButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/CloseButtonsSelector"]
+visible = false
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme = ExtResource("1_ek2ml")
+theme_override_font_sizes/font_size = 32
+text = "Cancel "
+
+[node name="ConfirmButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/CloseButtonsSelector"]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme = ExtResource("1_ek2ml")
+theme_override_font_sizes/font_size = 32
+text = "Confirm "

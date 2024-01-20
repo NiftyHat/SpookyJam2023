@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2hmxodr8qpjm"]
+
+[ext_resource type="Theme" uid="uid://covsqitfgr08m" path="res://UI/Theme/ui_menu_theme.tres" id="1_tlk48"]
+[ext_resource type="Script" path="res://UI/Screens/Settings/Video/WidgetGraphicsModeSelect.cs" id="1_w2vds"]
+[ext_resource type="Resource" uid="uid://ch60wheqimc2b" path="res://UI/Screens/Settings/SettingsData.tres" id="2_xjh58"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_okc53"]
+allow_unpress = true
+
+[node name="BoxContainer" type="BoxContainer" node_paths=PackedStringArray("ButtonWindowed", "ButtonFullScreen", "ButtonExclusiveFullscreen")]
+script = ExtResource("1_w2vds")
+ButtonWindowed = NodePath("GraphicsModeSelector/ButtonWindow")
+ButtonFullScreen = NodePath("GraphicsModeSelector/ButtonFullScreen")
+ButtonExclusiveFullscreen = NodePath("GraphicsModeSelector/ButtonBorderlessWindow")
+Settings = ExtResource("2_xjh58")
+
+[node name="GraphicsModeSelector" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="ButtonWindow" type="Button" parent="GraphicsModeSelector"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme = ExtResource("1_tlk48")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_okc53")
+text = "Window"
+
+[node name="ButtonBorderlessWindow" type="Button" parent="GraphicsModeSelector"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme = ExtResource("1_tlk48")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_okc53")
+text = "Borderless Window"
+
+[node name="ButtonFullScreen" type="Button" parent="GraphicsModeSelector"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme = ExtResource("1_tlk48")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_okc53")
+text = "Fullscreen"

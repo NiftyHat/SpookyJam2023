@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://c25e3kjrq5ia4"]
+
+[ext_resource type="Script" path="res://UI/Screens/Settings/Video/WidgetBrightnessSlider.cs" id="1_os8n6"]
+[ext_resource type="Theme" uid="uid://covsqitfgr08m" path="res://UI/Theme/ui_menu_theme.tres" id="1_rxb4n"]
+
+[node name="BrightnessSlider" type="HBoxContainer" node_paths=PackedStringArray("Slider", "ValueLabel", "ButtonReset")]
+size_flags_vertical = 2
+script = ExtResource("1_os8n6")
+Slider = NodePath("HSlider")
+ValueLabel = NodePath("Label")
+ButtonReset = NodePath("Button")
+
+[node name="HSlider" type="HSlider" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 3.0
+step = 0.1
+value = 1.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_stretch_ratio = 0.2
+text = "1.00"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+theme = ExtResource("1_rxb4n")
+text = "Reset"

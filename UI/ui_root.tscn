@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsfx7piimyq6x"]
+
+[ext_resource type="Script" path="res://UI/UIRoot.cs" id="1_qivp0"]
+
+[node name="UIRoot" type="CanvasLayer"]
+layer = 2
+script = ExtResource("1_qivp0")

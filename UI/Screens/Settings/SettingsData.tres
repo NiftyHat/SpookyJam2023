@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SettingsData" load_steps=6 format=3 uid="uid://ch60wheqimc2b"]
+
+[ext_resource type="Resource" uid="uid://dppnkgocv8kbg" path="res://UI/Screens/Settings/Audio/audio_bus_ambience.tres" id="1_y2aqu"]
+[ext_resource type="Resource" uid="uid://cxurol1r2xypj" path="res://UI/Screens/Settings/Audio/audio_bus_master.tres" id="2_na0hw"]
+[ext_resource type="Resource" uid="uid://c20m6gtw0ewkr" path="res://UI/Screens/Settings/Audio/audio_bus_music.tres" id="3_kpe3b"]
+[ext_resource type="Resource" uid="uid://bxvutsfixkpl6" path="res://UI/Screens/Settings/Audio/audio_bus_sounds.tres" id="4_my5ik"]
+[ext_resource type="Script" path="res://UI/Screens/Settings/SettingsData.cs" id="5_jj06i"]
+
+[resource]
+script = ExtResource("5_jj06i")
+AudioBusList = Array[Object]([ExtResource("1_y2aqu"), ExtResource("2_na0hw"), ExtResource("3_kpe3b"), ExtResource("4_my5ik")])

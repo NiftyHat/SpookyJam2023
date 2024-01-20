@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://b78acft5a5sfy"]
+[gd_scene load_steps=42 format=3 uid="uid://b78acft5a5sfy"]
 
 [ext_resource type="PackedScene" uid="uid://c8va41g0wvmpj" path="res://World/Maps/game_map.tscn" id="1_yp8j7"]
 [ext_resource type="PackedScene" uid="uid://n8gglyvki7dw" path="res://World/Entities/Character/Player/player_entity.tscn" id="2_aqjfm"]
@@ -32,6 +32,7 @@
 [ext_resource type="PackedScene" uid="uid://c610weevdtphv" path="res://UI/ui_game_hud.tscn" id="30_lqsd7"]
 [ext_resource type="AudioStream" uid="uid://ixj5pu5nsfhh" path="res://Music/sleep_jingle.ogg" id="31_mxy5q"]
 [ext_resource type="AudioStream" uid="uid://xs5ydcrapsqu" path="res://Audio/Effects/cave-drone-loop.ogg" id="32_biynh"]
+[ext_resource type="Script" path="res://Core/GameWorldEnvironment.cs" id="33_ir286"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_nemjj"]
 
@@ -107,6 +108,10 @@ size = Vector2(96, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qdc7p"]
 size = Vector2(480, 352)
+
+[sub_resource type="Environment" id="Environment_r514e"]
+background_mode = 3
+adjustment_enabled = true
 
 [node name="world-test" type="Node2D"]
 
@@ -602,3 +607,7 @@ position = Vector2(1745, 593)
 
 [node name="Dark-Tentacle2" parent="." instance=ExtResource("25_k66o1")]
 position = Vector2(1937, 753)
+
+[node name="GameWorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_r514e")
+script = ExtResource("33_ir286")

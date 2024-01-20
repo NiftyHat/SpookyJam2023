@@ -1,6 +1,8 @@
 using System;
 using Godot;
 using SpookyBotanyGame.Core;
+using SpookyBotanyGame.UI;
+using SpookyBotanyGame.UI.Screens.Pause;
 using SpookyBotanyGame.World.Entities;
 
 namespace SpookyBotanyGame.World.Systems;
@@ -41,6 +43,16 @@ public partial class SimSystem : Node
     public readonly FadeEvents DayEndEvents = new FadeEvents();
     public readonly FadeEvents DayStartEvents = new FadeEvents();
     
+    private UIController _ui;
+    private bool _isPaused;
+    public bool IsPaused => _isPaused;
+
+    public override void _Ready()
+    {
+        _ui = GetNode<UIController>("/root/UIController");
+        base._Ready();
+    }
+
     public void PlayerRest(PlayerEntity playerEntity)
     {
         Tween restTween = CreateTween();
@@ -62,5 +74,28 @@ public partial class SimSystem : Node
     public void PlayerRespawn(PlayerEntity playerEntity)
     {
         _time.AdvanceDay(1);
+    }
+
+    public void Pause()
+    {
+        if (_isPaused)
+        {
+            return;
+        }
+        _ui.Open<PauseScreen>();
+        GetTree().Paused = true;
+        _isPaused = true;
+        
+    }
+
+    public void Resume()
+    {
+        if (!_isPaused)
+        {
+            return;
+        }
+        GetTree().Paused = false;
+        _isPaused = false;
+        _ui.Close<PauseScreen>();
     }
 }

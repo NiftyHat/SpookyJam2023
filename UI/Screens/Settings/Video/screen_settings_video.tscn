@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://bw0ycd7rtf4e"]
+
+[ext_resource type="Theme" uid="uid://covsqitfgr08m" path="res://UI/Theme/ui_menu_theme.tres" id="1_b4km7"]
+[ext_resource type="PackedScene" uid="uid://c25e3kjrq5ia4" path="res://UI/Screens/Settings/Video/ui_widget_brightness_slider.tscn" id="2_2ke45"]
+[ext_resource type="PackedScene" uid="uid://d2hmxodr8qpjm" path="res://UI/Screens/Settings/Video/ui_widget_window_mode.tscn" id="2_5mqtg"]
+
+[node name="Video Settings Screen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="LabelTitleGraphics" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_b4km7")
+theme_type_variation = &"MenuLabel"
+text = "Graphics Mode"
+horizontal_alignment = 1
+
+[node name="WindowModeSettings" parent="VBoxContainer" instance=ExtResource("2_5mqtg")]
+layout_mode = 2
+
+[node name="LabelTitleBrightness" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_b4km7")
+theme_type_variation = &"MenuLabel"
+text = "Brightness"
+horizontal_alignment = 1
+
+[node name="BrightnessSlider" parent="VBoxContainer" instance=ExtResource("2_2ke45")]
+layout_mode = 2

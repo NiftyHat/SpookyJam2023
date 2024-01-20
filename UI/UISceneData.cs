@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using Godot;
+using SpookyBotanyGame.UI.Screens.Settings;
 
 namespace SpookyBotanyGame.UI
 {
@@ -8,11 +11,8 @@ namespace SpookyBotanyGame.UI
         [Export] public PackedScene Title { get; set; }
         [Export] public PackedScene GameOver { get; set; }
         [Export] public PackedScene Game { get; set; }
-        [Export] public PackedScene Options { get; set; }
-
-        public UISceneData()
-        {
-
-        }
+        [Export] public PackedScene Settings { get; set; }
+        [Export] public PackedScene Pause { get; set; }
+        
     }
 }

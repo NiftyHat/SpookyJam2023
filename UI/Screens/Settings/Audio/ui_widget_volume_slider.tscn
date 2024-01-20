@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://csjaclut1y23n"]
+
+[ext_resource type="Script" path="res://UI/Screens/Settings/Audio/WidgetVolumeSlider.cs" id="1_47dr3"]
+[ext_resource type="Theme" uid="uid://covsqitfgr08m" path="res://UI/Theme/ui_menu_theme.tres" id="1_v2bfl"]
+[ext_resource type="FontFile" uid="uid://c75gtcrbp2mjd" path="res://Fonts/m5x7.ttf" id="2_a3w2l"]
+
+[node name="VolumeSlider" type="VBoxContainer" node_paths=PackedStringArray("Slider", "LabelName", "ValueLabel", "AudioPlayer")]
+custom_minimum_size = Vector2(300, 0)
+theme_override_constants/separation = 0
+script = ExtResource("1_47dr3")
+Slider = NodePath("HBoxValueSlider/HSlider")
+LabelName = NodePath("LabelBusName")
+ValueLabel = NodePath("HBoxValueSlider/LabelValue")
+AudioPlayer = NodePath("AudioStreamPlayer")
+
+[node name="LabelBusName" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_stretch_ratio = 0.2
+theme = ExtResource("1_v2bfl")
+theme_type_variation = &"MenuSubtitle"
+text = "Master
+"
+
+[node name="HBoxValueSlider" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="HSlider" type="HSlider" parent="HBoxValueSlider"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.1
+value = 1.0
+scrollable = false
+tick_count = 11
+ticks_on_borders = true
+
+[node name="LabelValue" type="Label" parent="HBoxValueSlider"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_stretch_ratio = 0.05
+theme = ExtResource("1_v2bfl")
+theme_override_fonts/font = ExtResource("2_a3w2l")
+theme_override_font_sizes/font_size = 36
+text = "10
+"
+horizontal_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

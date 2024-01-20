@@ -1,0 +1,45 @@
+[gd_scene load_steps=10 format=3 uid="uid://67hhomxauyh8"]
+
+[ext_resource type="PackedScene" uid="uid://csjaclut1y23n" path="res://UI/Screens/Settings/Audio/ui_widget_volume_slider.tscn" id="1_fggtm"]
+[ext_resource type="Resource" uid="uid://cxurol1r2xypj" path="res://UI/Screens/Settings/Audio/audio_bus_master.tres" id="2_fn2kf"]
+[ext_resource type="Resource" uid="uid://c20m6gtw0ewkr" path="res://UI/Screens/Settings/Audio/audio_bus_music.tres" id="3_rv78a"]
+[ext_resource type="AudioStream" uid="uid://do8pcslidpgqt" path="res://Audio/Music/Mysterious_Ambience_song21.mp3" id="4_2ipn3"]
+[ext_resource type="Resource" uid="uid://bxvutsfixkpl6" path="res://UI/Screens/Settings/Audio/audio_bus_sounds.tres" id="5_b7hdd"]
+[ext_resource type="AudioStream" uid="uid://clukgyakgm5w4" path="res://Audio/Effects/Footsteps/DIRT - Hard Walk Short 5.ogg" id="6_wylj4"]
+[ext_resource type="Resource" uid="uid://dppnkgocv8kbg" path="res://UI/Screens/Settings/Audio/audio_bus_ambience.tres" id="7_uolxc"]
+[ext_resource type="AudioStream" uid="uid://bwt7w7e1gwvn2" path="res://Audio/Effects/Pyre/Pyre-Ambient-Loop.mp3" id="8_m3fsu"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2tfm1"]
+streams_count = 1
+stream_0/stream = ExtResource("6_wylj4")
+stream_0/weight = 1.0
+
+[node name="AudioSettingsScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 341.0
+grow_horizontal = 2
+
+[node name="VolumeMaster" parent="VBoxContainer" instance=ExtResource("1_fggtm")]
+layout_mode = 2
+BusSettings = ExtResource("2_fn2kf")
+
+[node name="VolumeMusic" parent="VBoxContainer" instance=ExtResource("1_fggtm")]
+layout_mode = 2
+BusSettings = ExtResource("3_rv78a")
+Stream = ExtResource("4_2ipn3")
+
+[node name="VolumeSound" parent="VBoxContainer" instance=ExtResource("1_fggtm")]
+layout_mode = 2
+BusSettings = ExtResource("5_b7hdd")
+Stream = SubResource("AudioStreamRandomizer_2tfm1")
+
+[node name="VolumeAmbience" parent="VBoxContainer" instance=ExtResource("1_fggtm")]
+layout_mode = 2
+BusSettings = ExtResource("7_uolxc")
+Stream = ExtResource("8_m3fsu")

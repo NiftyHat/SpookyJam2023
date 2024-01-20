@@ -11,8 +11,8 @@
 [ext_resource type="Script" path="res://World/Entities/Properties/SimController.cs" id="7_i2d21"]
 [ext_resource type="PackedScene" uid="uid://cl3cgkfn6rgh3" path="res://World/Tools/Lantern/lantern_tool.tscn" id="8_demfj"]
 [ext_resource type="Script" path="res://World/Entities/InteractionInputDirectional.cs" id="10_jpd0y"]
-[ext_resource type="AudioStream" uid="uid://b2k73m3anun1k" path="res://Audio/Effects/Footsteps/DIRT - Hard Walk Short 6.wav" id="12_x4sqx"]
-[ext_resource type="AudioStream" uid="uid://csfh78sjnulik" path="res://Audio/Effects/Footsteps/DIRT - Hard Walk Short 3.wav" id="13_lqhdn"]
+[ext_resource type="AudioStream" uid="uid://lfel15ufvngs" path="res://Audio/Effects/Footsteps/DIRT - Hard Walk Short 6.ogg" id="12_xichn"]
+[ext_resource type="AudioStream" uid="uid://clukgyakgm5w4" path="res://Audio/Effects/Footsteps/DIRT - Hard Walk Short 5.ogg" id="13_gilon"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pcdrs"]
 radius = 8.0
@@ -362,11 +362,11 @@ position = Vector2(0, -48)
 current = true
 
 [node name="FoostepAudioRight" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("12_x4sqx")
+stream = ExtResource("12_xichn")
 volume_db = -30.0
 pitch_scale = 0.72
 
 [node name="FoostepAudioLeft" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("13_lqhdn")
+stream = ExtResource("13_gilon")
 volume_db = -30.0
 pitch_scale = 0.6

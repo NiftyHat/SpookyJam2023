@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://biais3ppteyb0"
+path="res://.godot/imported/DIRT - Hard Walk Short 7.ogg-88e3374deb7801ed58b5d8596f13348e.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/Effects/Footsteps/DIRT - Hard Walk Short 7.ogg"
+dest_files=["res://.godot/imported/DIRT - Hard Walk Short 7.ogg-88e3374deb7801ed58b5d8596f13348e.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

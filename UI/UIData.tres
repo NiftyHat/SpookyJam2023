@@ -1,16 +1,23 @@
-[gd_resource type="Resource" script_class="UIData" load_steps=6 format=3 uid="uid://b4c06xj6i63jb"]
+[gd_resource type="Resource" script_class="UIData" load_steps=10 format=3 uid="uid://b4c06xj6i63jb"]
 
 [ext_resource type="Script" path="res://UI/UISceneData.cs" id="1_j5pro"]
 [ext_resource type="PackedScene" uid="uid://b78acft5a5sfy" path="res://World/world.tscn" id="1_sxip5"]
+[ext_resource type="PackedScene" uid="uid://dgs2ux7wybxdt" path="res://UI/Screens/GameOver/screen_gameover.tscn" id="2_6egjp"]
 [ext_resource type="Script" path="res://UI/UIData.cs" id="2_dfkhe"]
 [ext_resource type="PackedScene" uid="uid://bfyb8xswv6pc8" path="res://UI/Screens/Title/screen_title.tscn" id="2_uw263"]
+[ext_resource type="PackedScene" uid="uid://coctqr0vi7fll" path="res://UI/Screens/Settings/screen_settings.tscn" id="3_jclav"]
+[ext_resource type="PackedScene" uid="uid://bvfwxxqmuqqt0" path="res://UI/Screens/Pause/screen_pause.tscn" id="3_pwrce"]
+[ext_resource type="PackedScene" uid="uid://dsfx7piimyq6x" path="res://UI/ui_root.tscn" id="7_ws3wg"]
 
 [sub_resource type="Resource" id="Resource_slwsm"]
 script = ExtResource("1_j5pro")
 Title = ExtResource("2_uw263")
-GameOver = ExtResource("2_uw263")
+GameOver = ExtResource("2_6egjp")
 Game = ExtResource("1_sxip5")
+Settings = ExtResource("3_jclav")
+Pause = ExtResource("3_pwrce")
 
 [resource]
 script = ExtResource("2_dfkhe")
+UIRoot = ExtResource("7_ws3wg")
 Scenes = SubResource("Resource_slwsm")

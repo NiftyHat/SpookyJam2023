@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="AudioBusSettingsData" load_steps=2 format=3 uid="uid://dppnkgocv8kbg"]
+
+[ext_resource type="Script" path="res://UI/Widgets/Volume/AudioBusSettingsData.cs" id="1_43nd3"]
+
+[resource]
+script = ExtResource("1_43nd3")
+FriendlyName = "Ambient"
+BusName = "Ambient"
