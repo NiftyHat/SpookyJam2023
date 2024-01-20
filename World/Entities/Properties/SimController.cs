@@ -1,5 +1,6 @@
 using Godot;
 using SpookyBotanyGame.Core;
+using SpookyBotanyGame.UI;
 using SpookyBotanyGame.World.Systems;
 
 namespace SpookyBotanyGame.World.Entities.Properties
@@ -8,7 +9,7 @@ namespace SpookyBotanyGame.World.Entities.Properties
     public partial class SimController : Node
     {
         protected SimSystem _sim;
-
+        
         public FadeEvents DayEndEvents => _sim.DayEndEvents;
         public FadeEvents DayStartEvents => _sim.DayStartEvents;
 
@@ -30,6 +31,16 @@ namespace SpookyBotanyGame.World.Entities.Properties
         public void PlayerRespawn(PlayerEntity playerEntity)
         {
             _sim.PlayerRespawn(playerEntity);
+        }
+
+        public void Resume()
+        {
+            _sim.Resume();
+        }
+
+        public void Pause()
+        {
+            _sim.Pause();
         }
     }
 }

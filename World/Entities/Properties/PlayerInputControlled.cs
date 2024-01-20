@@ -1,5 +1,6 @@
+using System;
 using Godot;
-using SpookyBotanyGame.World.Entities.Character;
+using SpookyBotanyGame.UI;
 using DiagonalAnimationPlayer = SpookyBotanyGame.World.Entities.Animation.DiagonalAnimationPlayer;
 
 namespace SpookyBotanyGame.World.Entities.Properties
@@ -10,6 +11,8 @@ namespace SpookyBotanyGame.World.Entities.Properties
         [Export] public float Speed { get; set; } = 100;
         [Export] private DiagonalAnimationPlayer Animation { get; set; }
         [Export] private CharacterBody2D Body2D { get; set; }
+
+        public event Action OnPauseInput; 
 
 
         public static Vector2 GetMoveStickAxis()
@@ -23,6 +26,11 @@ namespace SpookyBotanyGame.World.Entities.Properties
         }
         public void GetInput()
         {
+            if (Input.IsActionJustReleased("pause_menu"))
+            {
+                OnPauseInput?.Invoke();
+                return;
+            }
             var inputDirection = GetMoveStickAxis();
             Body2D.Velocity = inputDirection * Speed;
         
@@ -34,6 +42,8 @@ namespace SpookyBotanyGame.World.Entities.Properties
             {
                 Animation.Play(inputDirection, "walk");
             }
+
+            
         }
 
         public void Enable()

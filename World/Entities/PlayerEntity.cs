@@ -35,8 +35,14 @@ namespace SpookyBotanyGame.World.Entities
             Killable.OnRespawned += HandleRespawned;
             CarriedEyeSlot.OnChanged += HandleCarriedChanged;
             CarriedSeedSlot.OnChanged += HandleCarriedChanged;
+            InputControlled.OnPauseInput += HandlePauseInput;
             _properties.Add(Killable);
             CallDeferred("AddSpawnPointToParent");
+        }
+
+        private void HandlePauseInput()
+        {
+            Sim.Pause();
         }
 
         public CollectableStackSlot<CollectableResource> GetFirstActiveSeedSlot()
